@@ -57,6 +57,18 @@ sudo apt-get install docker-ce
 sudo usermod -a -G docker myuser
 ```
 
+### Git ssh keys
+
+In your build machine you can create a key by doing this:
+
+```
+ssh-keygen -t rsa -b 4096 -C "zimbra-builder@domain.com"
+```
+
+the email address needs to be the one used for your GitHub account.
+
+Then upload the `id_rsa.pub` key to your GitHub profile: [https://github.com/settings/keys](https://github.com/settings/keys).
+
 ## Similar projects
 
 - [ianw1974's zimbra-build-scripts](https://github.com/ianw1974/zimbra-build-scripts)
