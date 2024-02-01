@@ -51,6 +51,12 @@ sudo apt-get update
 sudo apt-get install docker-ce
 ```
 
+### Docker user
+
+```
+sudo usermod -a -G docker myuser
+```
+
 ## Similar projects
 
 - [ianw1974's zimbra-build-scripts](https://github.com/ianw1974/zimbra-build-scripts)
