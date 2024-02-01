@@ -20,13 +20,16 @@ RUN apt-get -qq install -y build-essential
 RUN apt-get -qq install -y openjdk-8-jdk ant ant-optional maven rsync
 RUN curl https://rclone.org/install.sh | sudo bash
 
-# USERS
-RUN groupadd -g 503 build
-RUN echo "build:!!:16619:0:99999:7:::" >> /etc/shadow
-RUN echo "build:x:503:503::/home/build:/bin/bash" >> /etc/passwd
-RUN echo "build   ALL=(ALL)      NOPASSWD:ALL" >> /etc/sudoers
+ENV LC_ALL en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
 
-# REDUCE PRIVILEGE
+# USER
+RUN groupadd --gid 1000 build \
+    && useradd --uid 1000 --gid 1000 -m build \
+    && echo build ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/build \
+    && chmod 0440 /etc/sudoers.d/build \
+    && chown -R 1000:1000 /home/build
+
 USER build
 WORKDIR /home/build
-RUN sudo chown -R build:build /home/build/
