@@ -109,6 +109,18 @@ cd zm-build
 ENV_CACHE_CLEAR_FLAG=true ./build.pl --ant-options -DskipTests=true --git-default-tag=10.0.0-GA,10.0.0 --build-release-no=10.0.0 --build-type=FOSS --build-release=LIBERTY --build-release-candidate=GA --build-thirdparty-server=files.zimbra.com --no-interactive
 ```
 
+* Result
+
+```
+find BUILDS
+BUILDS
+BUILDS/UBUNTU20_64-LIBERTY-1000-20240202105200-FOSS-1000
+BUILDS/UBUNTU20_64-LIBERTY-1000-20240202105200-FOSS-1000/zcs-10.0.0_GA_1000.UBUNTU20_64.20240202105200.tgz
+BUILDS/UBUNTU20_64-LIBERTY-1000-20240202105200-FOSS-1000/archives
+BUILDS/UBUNTU20_64-LIBERTY-1000-20240202105200-FOSS-1000/archive-access-u20.txt
+BUILDS/.gitignore
+```
+
 ## Similar projects
 
 - [ianw1974's zimbra-build-scripts](https://github.com/ianw1974/zimbra-build-scripts)
