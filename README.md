@@ -106,7 +106,7 @@ cd installer-build
 ln -s $(pwd)/BUILDS
 git clone --depth 1 --branch 10.0.0-GA git@github.com:Zimbra/zm-build.git
 cd zm-build
-LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8 LANGUAGE=en_US.UTF-8 ENV_CACHE_CLEAR_FLAG=true ./build.pl --ant-options -DskipTests=true --git-default-tag=10.0.0-GA,10.0.0 --build-release-no=10.0.0 --build-type=FOSS --build-release=LIBERTY --build-release-candidate=GA --build-thirdparty-server=files.zimbra.com --no-interactive
+ENV_CACHE_CLEAR_FLAG=true ./build.pl --ant-options -DskipTests=true --git-default-tag=10.0.0-GA,10.0.0 --build-release-no=10.0.0 --build-type=FOSS --build-release=LIBERTY --build-release-candidate=GA --build-thirdparty-server=files.zimbra.com --no-interactive
 ```
 
 ## Similar projects
