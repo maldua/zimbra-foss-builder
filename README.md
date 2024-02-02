@@ -69,6 +69,8 @@ the email address needs to be the one used for your GitHub account.
 
 Then upload the `id_rsa.pub` key to your GitHub profile: [https://github.com/settings/keys](https://github.com/settings/keys).
 
+Note: I personally only use an additional Github account because you cannot set this SSH key as a read-only one. You are supposed to use a deploy key but those are attached to a single repo or organisation.
+
 ### Manual build example
 
 * Builder setup
