@@ -94,7 +94,7 @@ docker run \
   --env ZIMBRA_BUILDER_UID=$(id -u) \
   --env ZIMBRA_BUILDER_GID=$(id -g) \
   -v ~/.ssh:/home/build/.ssh:ro \
-  -v $(pwd)/installer-build:/home/build/installer-build:rw \
+  -v $(pwd)/BUILDS:/home/build/installer-build/BUILDS:rw \
   zimbra-manual-ubuntu-20.04-builder:latest
 ```
 
