@@ -149,11 +149,18 @@ docker build \
 
 * Semi automatic build
 
+- Release no: 10.0.7
+- zm-build branch: 10.0.6
+- Git default branch: '10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0'
+
 ```
 docker run \
   -it \
   --env ZIMBRA_BUILDER_UID=$(id -u) \
   --env ZIMBRA_BUILDER_GID=$(id -g) \
+  --env ARG ZM_BUILD_RELEASE_NO='10.0.7' \
+  --env ARG ZM_BUILD_BRANCH='10.0.6' \
+  --env ARG ZM_BUILD_GIT_DEFAULT_TAG='10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0' \
   -v ~/.ssh:/home/build/.ssh:ro \
   -v $(pwd):/usr/local/zimbra-foss-builder:ro \
   -v $(pwd)/BUILDS:/home/build/installer-build/BUILDS:rw \
