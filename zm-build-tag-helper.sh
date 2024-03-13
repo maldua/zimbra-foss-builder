@@ -7,14 +7,15 @@ git clone https://github.com/Zimbra/zm-build zm-build-find-branch
 cd zm-build-find-branch
 
 found_version=""
-IFS="," for ntag in ${ZM_BUILD_GIT_DEFAULT_TAG} ; do
-
-    if [ $(git tag -l "$version") ]; then
+OLD_IFS="$IFS"
+IFS=","
+for ntag in ${ZM_BUILD_GIT_DEFAULT_TAG} ; do
+    if [ $(git tag -l "$ntag") ]; then
         found_version="$ntag"
         break
     fi
-
 done
+IFS="${OLD_IFS}"
 
 echo "${found_version}" > ../${ZM_BUILD_BRANCH_FILE}
 
