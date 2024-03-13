@@ -23,9 +23,13 @@ RUN apt-get -qq install -y locales
 RUN curl https://rclone.org/install.sh | sudo bash
 RUN locale-gen en_US.UTF-8
 
+RUN mkdir -p /home/build/installer-build
+
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
-ENTRYPOINT ["./zimbra-smart-builder.sh"]
+WORKDIR /home/build
+
+ENTRYPOINT ["/usr/local/zimbra-foss-builder/zimbra-smart-builder.sh"]
 CMD ["10.0.7"]
