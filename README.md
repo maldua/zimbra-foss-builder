@@ -179,6 +179,53 @@ BUILDS/UBUNTU20_64-LIBERTY-1007-20240312142857-FOSS-1000/archives
 BUILDS/UBUNTU20_64-LIBERTY-1007-20240312142857-FOSS-1000/archive-access-u20.txt
 ```
 
+### Automatic build example
+
+* Builder setup
+
+```
+git clone https://github.com/maldua/zimbra-foss-builder
+cd zimbra-foss-builder
+```
+
+```
+docker build \
+  --build-arg ZIMBRA_BUILDER_UID=$(id -u) \
+  --build-arg ZIMBRA_BUILDER_GID=$(id -g) \
+  --tag zimbra-smart-ubuntu-20.04-builder . \
+  -f Dockerfile-smart-ubuntu-20.04
+```
+
+* Automatic build
+
+- Release no: 10.0.7
+- zm-build branch: 10.0.6 (Infered)
+- Git default branch: '10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0' (Infered)
+
+```
+docker run \
+  -it \
+  --env ZIMBRA_BUILDER_UID=$(id -u) \
+  --env ZIMBRA_BUILDER_GID=$(id -g) \
+  --env ZM_BUILD_RELEASE_NO='10.0.7' \
+  -v ~/.ssh:/home/build/.ssh:ro \
+  -v $(pwd):/usr/local/zimbra-foss-builder:ro \
+  -v $(pwd)/BUILDS:/home/build/installer-build/BUILDS:rw \
+  zimbra-smart-ubuntu-20.04-builder:latest
+```
+
+* Result
+
+```
+find BUILDS
+BUILDS
+BUILDS/.gitignore
+BUILDS/UBUNTU20_64-LIBERTY-1007-20240312142857-FOSS-1000
+BUILDS/UBUNTU20_64-LIBERTY-1007-20240312142857-FOSS-1000/zcs-10.0.7_GA_1000.UBUNTU20_64.20240312142857.tgz
+BUILDS/UBUNTU20_64-LIBERTY-1007-20240312142857-FOSS-1000/archives
+BUILDS/UBUNTU20_64-LIBERTY-1007-20240312142857-FOSS-1000/archive-access-u20.txt
+```
+
 ## Similar projects
 
 - [ianw1974's zimbra-build-scripts](https://github.com/ianw1974/zimbra-build-scripts)
