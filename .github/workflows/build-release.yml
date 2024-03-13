@@ -22,10 +22,7 @@ jobs:
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
         with:
-            username: ${{ secrets.DOCKER_USERNAME }}
-            password: ${{ secrets.DOCKER_PASSWORD }}
-            registry: gcr.io
-            image: maldua/zimbra-foss-builder:latest
+            image: ghcr.io/maldua/zimbra-foss-builder:latest
             options: -v ${{ github.workspace }}:/usr/local/zimbra-foss-builder:ro -v ${{ github.workspace }}/BUILDS:/home/build/installer-build/BUILDS:rw
             run: /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split.outputs.version }}
       - run: ls -la ${{ github.workspace }}/BUILDS/
