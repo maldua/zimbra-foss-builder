@@ -103,7 +103,7 @@ docker build \
 In this example you ask for 10.0.7 version to be built. The smart build will autofill for you:
 
   * zm-build branch: 10.0.6
-  * Git default branch: '10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0' (Infered)
+  * Git default branch: '10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0'
 
 ```
 docker run \
