@@ -22,7 +22,7 @@ getGitDefaultTag ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_GIT_DEFAULT_TAG_FILE}
 ZM_BUILD_GIT_DEFAULT_TAG="$(cat ${ZM_BUILD_GIT_DEFAULT_TAG_FILE})"
 
 ZM_BUILD_BRANCH_FILE="zm-build-branch.txt"
-/usr/local/zimbra-foss-builder/zm-build-tag-helper.sh ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_BRANCH_FILE}
+/usr/local/zimbra-foss-builder/zm-build-tag-helper.sh ${ZM_BUILD_GIT_DEFAULT_TAG} ${ZM_BUILD_BRANCH_FILE}
 ZM_BUILD_BRANCH="$(cat ${ZM_BUILD_BRANCH_FILE})"
 
 if [ "x" == "x${ZM_BUILD_BRANCH}" ] ; then
