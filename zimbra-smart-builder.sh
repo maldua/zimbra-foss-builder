@@ -11,16 +11,19 @@ function getGitDefaultTag {
 }
 
 ZM_BUILD_RELEASE_NO="$1" # E.g. 10.0.7
-ZM_BUILD_BRANCH="10.0.6"
-
-ZM_BUILD_GIT_DEFAULT_TAG_FILE="git-default-tag.txt"
-getGitDefaultTag ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_GIT_DEFAULT_TAG_FILE}
-ZM_BUILD_GIT_DEFAULT_TAG="$(cat ${ZM_BUILD_GIT_DEFAULT_TAG_FILE})"
 
 if [ "x" == "x${ZM_BUILD_RELEASE_NO}" ] ; then
   echo "ZM_BUILD_RELEASE_NO is not defined."
   exit 1
 fi
+
+ZM_BUILD_GIT_DEFAULT_TAG_FILE="git-default-tag.txt"
+getGitDefaultTag ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_GIT_DEFAULT_TAG_FILE}
+ZM_BUILD_GIT_DEFAULT_TAG="$(cat ${ZM_BUILD_GIT_DEFAULT_TAG_FILE})"
+
+ZM_BUILD_BRANCH_FILE="zm-build-branch.txt"
+/usr/local/zimbra-foss-builder/zm-build-tag-helper.sh ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_BRANCH_FILE}
+ZM_BUILD_BRANCH="$(cat ${ZM_BUILD_BRANCH_FILE})"
 
 if [ "x" == "x${ZM_BUILD_BRANCH}" ] ; then
   echo "ZM_BUILD_BRANCH is not defined."
