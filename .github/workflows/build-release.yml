@@ -19,7 +19,6 @@ jobs:
           BRANCH: ${{ github.ref_name }}
         id: split
         run: echo "version=${BRANCH##*/}" >> $GITHUB_OUTPUT
-      - run: find /
       - run: env
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
