@@ -1,8 +1,21 @@
 #!/bin/bash
 
+function getGitDefaultTag {
+  _VERSION="$1"
+  _FILE="$2"
+  git clone https://github.com/maldua/zimbra-tag-helper
+  cd zimbra-tag-helper
+  ./zm-build-tags-arguments.sh ${_VERSION} > ../${_FILE}
+  cd ..
+
+}
+
 ZM_BUILD_RELEASE_NO="$1" # E.g. 10.0.7
 ZM_BUILD_BRANCH="10.0.6"
-ZM_BUILD_GIT_DEFAULT_TAG="10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0"
+
+ZM_BUILD_GIT_DEFAULT_TAG_FILE="git-default-tag.txt"
+getGitDefaultTag ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_GIT_DEFAULT_TAG_FILE}
+ZM_BUILD_GIT_DEFAULT_TAG="$(cat ${ZM_BUILD_GIT_DEFAULT_TAG_FILE})"
 
 if [ "x" == "x${ZM_BUILD_RELEASE_NO}" ] ; then
   echo "ZM_BUILD_RELEASE_NO is not defined."
