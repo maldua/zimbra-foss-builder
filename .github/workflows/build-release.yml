@@ -11,6 +11,7 @@ jobs:
       matrix:
         TARGET_DISTRO: [ "ubuntu-20.04" ]
     runs-on: ubuntu-latest
+    environment: git_clone
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
@@ -18,10 +19,12 @@ jobs:
         env:
           BRANCH: ${{ github.ref_name }}
         id: split
+      - name: Prepare .ssh directory
         run: echo "version=${BRANCH##*/}" >> $GITHUB_OUTPUT
-      - run: env
-      - run: git clone git@github.com:Zimbra/zm-build.git zm-build-just-testing
-      - run: find /home/runner
+        run: mkdir ${{ github.workspace }}/.ssh
+        run: chmod 700 ${{ github.workspace }}/.ssh
+        run: echo "${{ secrets.read_only_ssh_key }}" > ${{ github.workspace }}/.ssh/id_rsa
+        run: chmod 600 ${{ github.workspace }}/.ssh/id_rsa
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
         with:
@@ -29,7 +32,7 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
             image: ghcr.io/maldua/zimbra-foss-builder:latest
-            options: -v ${{ github.workspace }}:/usr/local/zimbra-foss-builder:ro -v ${{ github.workspace }}/BUILDS:/home/build/installer-build/BUILDS:rw
+            options: -v ${{ github.workspace }}:/usr/local/zimbra-foss-builder:ro -v ${{ github.workspace }}/BUILDS:/home/build/installer-build/BUILDS:rw -v ${{ github.workspace }}/.ssh:/root/.ssh:ro \
             run: /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split.outputs.version }}
       - run: ls -la ${{ github.workspace }}/BUILDS/
       - run: mv ${{ github.workspace }}/BUILDS/UBUNTU20_64*/zcs-*.tgz ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
