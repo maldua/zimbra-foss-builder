@@ -51,7 +51,7 @@ jobs:
         with:
           repo_token: ${{ github.token }}
           prerelease: false
-          automatic_release_tag: ${{ steps.split.outputs.version }}
+          automatic_release_tag: zimbra-foss-build/${{ steps.split.outputs.version }}
           title: Zimbra ${{ steps.split.outputs.version }} OSE / FOSS Builds
           files: |
             ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
