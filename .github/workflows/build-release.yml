@@ -39,8 +39,9 @@ jobs:
             run: |
               chown root:root /root/.ssh/
               chown root:root /root/.ssh/id_rsa
-              cd /home/build
-              /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split.outputs.version }}
+              touch /root/.ssh/known_hosts
+              ssh-keyscan github.com >> /root/.ssh/known_hosts
+              git clone git@github.com:Zimbra/zm-build.git zm-build-find-branch
 
       - run: ls -la ${{ github.workspace }}/BUILDS/
       - run: mv ${{ github.workspace }}/BUILDS/UBUNTU20_64*/zcs-*.tgz ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
