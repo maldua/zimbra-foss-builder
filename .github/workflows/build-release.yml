@@ -18,7 +18,7 @@ jobs:
       - name: Split branch name
         env:
           BRANCH: ${{ github.ref_name }}
-        id: split
+        id: split-tag
         run: echo "version=${BRANCH##*/}" >> $GITHUB_OUTPUT
       - name: Prepare .ssh directory
         run: |
@@ -47,7 +47,7 @@ jobs:
               touch /root/.ssh/known_hosts
               ssh-keyscan github.com >> /root/.ssh/known_hosts
               cd /home/build
-              /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split.outputs.version }}
+              /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split-tag.outputs.version }}
               chown -R ${{ steps.runner.outputs.uid }}:${{ steps.runner.outputs.gid }} /home/build/installer-build/BUILDS/*
 
       - run: ls -la ${{ github.workspace }}/BUILDS/
@@ -71,11 +71,11 @@ jobs:
           repo_token: ${{ github.token }}
           prerelease: false
           generate_notes: false
-          automatic_release_tag: zimbra-foss-build-${{ steps.split.outputs.version }}
-          title: Zimbra ${{ steps.split.outputs.version }} OSE / FOSS Builds
+          automatic_release_tag: zimbra-foss-build-${{ steps.split-tag.outputs.version }}
+          title: Zimbra ${{ steps.split-tag.outputs.version }} OSE / FOSS Builds
           body: |
             **MALDUA'S Zimbra FOSS Builds** brought to you by [BTACTIC, open source & cloud solutions](https://www.btactic.com).
-            Version being built: ${{ steps.split.outputs.version }}
+            Version being built: ${{ steps.split-tag.outputs.version }}
           files: |
             ${{ steps.tgz-release.outputs.filename }}
             ${{ steps.tgz-release.outputs.filename }}.md5
