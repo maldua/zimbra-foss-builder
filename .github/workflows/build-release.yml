@@ -51,7 +51,7 @@ jobs:
         id: tgz-release
         run: |
           RELEASE_DIR=$(find ${{ github.workspace }}/BUILDS -name 'UBUNTU20_64*' -type d)
-          RELEASE_TGZ=$(find "$RELEASE_DIR" -name "zcs-*.tgz" -type f)
+          RELEASE_TGZ=$(find "${RELEASE_DIR}" -name "zcs-*.tgz" -type f)
           RELEASE_SHORT_TGZ=$(basename RELEASE_TGZ)
           echo "directory=${RELEASE_DIR}" >> $GITHUB_OUTPUT
           echo "filename=${RELEASE_TGZ}" >> $GITHUB_OUTPUT
