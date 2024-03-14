@@ -34,7 +34,7 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
             image: ghcr.io/maldua/zimbra-foss-builder:latest
-            options: -v ${{ github.workspace }}:/usr/local/zimbra-foss-builder:ro -v ${{ github.workspace }}/BUILDS:/home/build/installer-build/BUILDS:rw
+            options: -v ${{ github.workspace }}:/usr/local/zimbra-foss-builder:ro -v ${{ github.workspace }}/BUILDS:/home/build/installer-build/BUILDS:rw -v ${{ github.workspace }}/.ssh:/root/.ssh:ro
             run: /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split.outputs.version }}
       - run: ls -la ${{ github.workspace }}/BUILDS/
       - run: mv ${{ github.workspace }}/BUILDS/UBUNTU20_64*/zcs-*.tgz ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
