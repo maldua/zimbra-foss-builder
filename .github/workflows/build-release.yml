@@ -52,8 +52,8 @@ jobs:
           RELEASE_TGZ=$(find "$RELEASE_DIR" -name "zcs-*.tgz" -type f)
           RELEASE_SHORT_TGZ=$(basename RELEASE_TGZ)
           echo "directory=${RELEASE_DIR}" >> $GITHUB_OUTPUT
-          echo "filename=${RELEASE_DIR}" >> $GITHUB_OUTPUT
-          echo "shortfilename=${RELEASE_DIR}" >> $GITHUB_OUTPUT
+          echo "filename=${RELEASE_TGZ}" >> $GITHUB_OUTPUT
+          echo "shortfilename=${RELEASE_SHORT_TGZ}" >> $GITHUB_OUTPUT
       - name: Generate checksums
         run: |
           cd ${{ steps.tgz-release.outputs.directory }}
