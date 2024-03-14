@@ -51,8 +51,12 @@ jobs:
         with:
           repo_token: ${{ github.token }}
           prerelease: false
+          generate_notes: false
           automatic_release_tag: zimbra-foss-build/${{ steps.split.outputs.version }}
           title: Zimbra ${{ steps.split.outputs.version }} OSE / FOSS Builds
+          body: |
+            **MALDUA'S Zimbra FOSS Builds** brought to you by [BTACTIC, open source & cloud solutions](https://www.btactic.com).
+            Version being built: ${{ steps.split.outputs.version }}
           files: |
             ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
 
