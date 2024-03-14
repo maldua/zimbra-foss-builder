@@ -14,7 +14,7 @@ jobs:
     environment: git_clone
     steps:
       - name: Check out the repo
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Split branch name
         env:
           BRANCH: ${{ github.ref_name }}
