@@ -6,7 +6,7 @@ on:
       - builds-dev/*
 
 jobs:
-  docker:
+  zimbra-release:
     strategy:
       matrix:
         TARGET_DISTRO: [ "ubuntu-20.04" ]
