@@ -27,6 +27,11 @@ jobs:
              chmod 700 ${{ github.workspace }}/.ssh
              echo "${{ secrets.read_only_ssh_key }}" > ${{ github.workspace }}/.ssh/id_rsa
              chmod 600 ${{ github.workspace }}/.ssh/id_rsa
+      - name: Get runner uid
+        id: runner
+        run: |
+             echo "uid=$(id -u)" >> $GITHUB_OUTPUT
+             echo "gid=$(id -g)" >> $GITHUB_OUTPUT
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
         with:
@@ -45,6 +50,7 @@ jobs:
               cd installer-build/BUILDS
               mkdir UBUNTU20_64-LIBERTY-1007-20240228104338-FOSS-1000
               echo "Test" > UBUNTU20_64-LIBERTY-1007-20240228104338-FOSS-1000/zcs-10.0.7_GA_1000.UBUNTU20_64.20240228104338.tgz
+              chown -R ${{ steps.runner.outputs.uid }}:${{ steps.runner.outputs.gid }} /home/build/installer-build/BUILDS/*
 
       - run: ls -la ${{ github.workspace }}/BUILDS/
       - name: Get tgz release filename
