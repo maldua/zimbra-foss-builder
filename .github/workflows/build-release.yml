@@ -27,8 +27,6 @@ jobs:
              chmod 700 ${{ github.workspace }}/.ssh
              echo "${{ secrets.read_only_ssh_key }}" > ${{ github.workspace }}/.ssh/id_rsa
              chmod 600 ${{ github.workspace }}/.ssh/id_rsa
-             chown root:root ${{ github.workspace }}/.ssh/
-             chown root:root ${{ github.workspace }}/.ssh/id_rsa
       - name: Run the build process with Docker
         uses: addnab/docker-run-action@v3
         with:
@@ -37,7 +35,14 @@ jobs:
             password: ${{ secrets.GITHUB_TOKEN }}
             image: ghcr.io/maldua/zimbra-foss-builder:latest
             options: -v ${{ github.workspace }}:/usr/local/zimbra-foss-builder:ro -v ${{ github.workspace }}/BUILDS:/home/build/installer-build/BUILDS:rw -v ${{ github.workspace }}/.ssh:/root/.ssh:ro
-            run: ls -la /root/.ssh
+            shell: bash
+            run: |
+              ls -la /root/.ssh
+              chown root:root /root/.ssh/
+              chown root:root /root/.ssh/id_rsa
+              ls -la /root/.ssh
+              id
+
       - run: ls -la ${{ github.workspace }}/BUILDS/
       - run: mv ${{ github.workspace }}/BUILDS/UBUNTU20_64*/zcs-*.tgz ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
       - name: Release
