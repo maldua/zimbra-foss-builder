@@ -43,6 +43,7 @@ jobs:
               ssh-keyscan github.com >> /root/.ssh/known_hosts
               cd /home/build
               /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split.outputs.version }}
+              chown -R ${{ GITHUB_REPOSITORY_OWNER_ID }}:${{ GITHUB_REPOSITORY_OWNER_ID }} /home/build/installer-build/BUILDS/*
 
       - run: ls -la ${{ github.workspace }}/BUILDS/
       - run: mv ${{ github.workspace }}/BUILDS/UBUNTU20_64*/zcs-*.tgz ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
