@@ -62,7 +62,6 @@ jobs:
           echo "directory=${RELEASE_DIR}" >> $GITHUB_OUTPUT
           echo "filename=${RELEASE_TGZ}" >> $GITHUB_OUTPUT
           echo "shortfilename=${RELEASE_SHORT_TGZ}" >> $GITHUB_OUTPUT
-          cat $GITHUB_OUTPUT
       - name: Generate checksums
         run: |
           cd ${{ steps.tgz-release.outputs.directory }}
