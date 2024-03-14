@@ -1,0 +1,57 @@
+name: release-zimbra
+
+on:
+  push:
+    tags:
+      - builds-dev/*
+
+jobs:
+  docker:
+    strategy:
+      matrix:
+        TARGET_DISTRO: [ "ubuntu-20.04" ]
+    runs-on: ubuntu-latest
+    environment: git_clone
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Split branch name
+        env:
+          BRANCH: ${{ github.ref_name }}
+        id: split
+        run: echo "version=${BRANCH##*/}" >> $GITHUB_OUTPUT
+      - name: Prepare .ssh directory
+        run: |
+             echo "version=${BRANCH##*/}" >> $GITHUB_OUTPUT
+             mkdir ${{ github.workspace }}/.ssh
+             chmod 700 ${{ github.workspace }}/.ssh
+             echo "${{ secrets.read_only_ssh_key }}" > ${{ github.workspace }}/.ssh/id_rsa
+             chmod 600 ${{ github.workspace }}/.ssh/id_rsa
+      - name: Run the build process with Docker
+        uses: addnab/docker-run-action@v3
+        with:
+            registry: ghcr.io
+            username: ${{ github.actor }}
+            password: ${{ secrets.GITHUB_TOKEN }}
+            image: ghcr.io/maldua/zimbra-foss-builder:latest
+            options: -v ${{ github.workspace }}:/usr/local/zimbra-foss-builder:ro -v ${{ github.workspace }}/BUILDS:/home/build/installer-build/BUILDS:rw -v ${{ github.workspace }}/.ssh:/root/.ssh:rw
+            shell: bash
+            run: |
+              chown root:root /root/.ssh/
+              chown root:root /root/.ssh/id_rsa
+              touch /root/.ssh/known_hosts
+              ssh-keyscan github.com >> /root/.ssh/known_hosts
+              cd /home/build
+              /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split.outputs.version }}
+
+      - run: ls -la ${{ github.workspace }}/BUILDS/
+      - run: sudo mv ${{ github.workspace }}/BUILDS/UBUNTU20_64*/zcs-*.tgz ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
+      - name: Release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: ${{ github.token }}
+          prerelease: false
+          automatic_release_tag: ${{ steps.split.outputs.version }}
+          files: |
+            ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
+
