@@ -54,7 +54,6 @@ jobs:
           echo "directory=${RELEASE_DIR}" >> $GITHUB_OUTPUT
           echo "filename=${RELEASE_DIR}" >> $GITHUB_OUTPUT
           echo "shortfilename=${RELEASE_DIR}" >> $GITHUB_OUTPUT
-      - run: sudo mv ${{ github.workspace }}/BUILDS/UBUNTU20_64*/zcs-*.tgz ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
       - name: Generate checksums
         run: |
           cd ${{ steps.tgz-release.outputs.directory }}
