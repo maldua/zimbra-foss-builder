@@ -20,7 +20,7 @@ jobs:
           BRANCH: ${{ github.ref_name }}
         id: split
       - name: Prepare .ssh directory
-        run:  |
+        run: |
               echo "version=${BRANCH##*/}" >> $GITHUB_OUTPUT
               mkdir ${{ github.workspace }}/.ssh
               chmod 700 ${{ github.workspace }}/.ssh
