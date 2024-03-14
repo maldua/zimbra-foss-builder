@@ -47,7 +47,7 @@ jobs:
       - run: ls -la ${{ github.workspace }}/BUILDS/
       - run: sudo mv ${{ github.workspace }}/BUILDS/UBUNTU20_64*/zcs-*.tgz ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
       - name: Release
-        uses: "marvinpinto/action-automatic-releases@latest"
+        uses: "crowbarmaster/GH-Automatic-Releases@latest"
         with:
           repo_token: ${{ github.token }}
           prerelease: false
