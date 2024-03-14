@@ -52,7 +52,7 @@ jobs:
           md5sum zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz > zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz.md5
           sha256sum zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz > zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz.sha256
       - name: Release
-        uses: "crowbarmaster/GH-Automatic-Releases@latest"
+        uses: crowbarmaster/GH-Automatic-Releases@v1.6.0
         with:
           repo_token: ${{ github.token }}
           prerelease: false
