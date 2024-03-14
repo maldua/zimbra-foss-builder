@@ -45,12 +45,21 @@ jobs:
               /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split.outputs.version }}
 
       - run: ls -la ${{ github.workspace }}/BUILDS/
+      - name: Get tgz release filename
+        id: tgz-release
+        run: |
+          RELEASE_DIR=$(find ${{ github.workspace }}/BUILDS -name 'UBUNTU20_64*' -type d)
+          RELEASE_TGZ=$(find "$RELEASE_DIR" -name "zcs-*.tgz" -type f)
+          RELEASE_SHORT_TGZ=$(basename RELEASE_TGZ)
+          echo "directory=${RELEASE_DIR}" >> $GITHUB_OUTPUT
+          echo "filename=${RELEASE_DIR}" >> $GITHUB_OUTPUT
+          echo "shortfilename=${RELEASE_DIR}" >> $GITHUB_OUTPUT
       - run: sudo mv ${{ github.workspace }}/BUILDS/UBUNTU20_64*/zcs-*.tgz ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
       - name: Generate checksums
         run: |
-          cd ${{ github.workspace }}/BUILDS/
-          md5sum zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz > zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz.md5
-          sha256sum zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz > zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz.sha256
+          cd ${{ steps.tgz-release.outputs.directory }}
+          md5sum ${{ steps.tgz-release.outputs.shortfilename }} > ${{ steps.tgz-release.outputs.shortfilename }}.md5
+          sha256sum ${{ steps.tgz-release.outputs.shortfilename }} > ${{ steps.tgz-release.outputs.shortfilename }}.sha256
       - name: Release
         uses: crowbarmaster/GH-Automatic-Releases@v1.6.0
         with:
@@ -63,7 +72,7 @@ jobs:
             **MALDUA'S Zimbra FOSS Builds** brought to you by [BTACTIC, open source & cloud solutions](https://www.btactic.com).
             Version being built: ${{ steps.split.outputs.version }}
           files: |
-            ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
-            ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz.md5
-            ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz.sha256
+            ${{ steps.tgz-release.outputs.filename }}
+            ${{ steps.tgz-release.outputs.filename }}.md5
+            ${{ steps.tgz-release.outputs.filename }}.sha256
 
