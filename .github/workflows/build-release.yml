@@ -34,7 +34,7 @@ jobs:
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
             image: ghcr.io/maldua/zimbra-foss-builder:latest
-            options: -v ${{ github.workspace }}:/usr/local/zimbra-foss-builder:ro -v ${{ github.workspace }}/BUILDS:/home/build/installer-build/BUILDS:rw -v ${{ github.workspace }}/.ssh:/root/.ssh:ro
+            options: -v ${{ github.workspace }}:/usr/local/zimbra-foss-builder:ro -v ${{ github.workspace }}/BUILDS:/home/build/installer-build/BUILDS:rw -v ${{ github.workspace }}/.ssh:/root/.ssh:rw
             shell: bash
             run: |
               ls -la /root/.ssh
