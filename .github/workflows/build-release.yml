@@ -46,6 +46,11 @@ jobs:
 
       - run: ls -la ${{ github.workspace }}/BUILDS/
       - run: sudo mv ${{ github.workspace }}/BUILDS/UBUNTU20_64*/zcs-*.tgz ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
+      - name: Generate checksums
+        run: |
+          cd ${{ github.workspace }}/BUILDS/
+          md5sum zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz > zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz.md5
+          sha256sum zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz > zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz.sha256
       - name: Release
         uses: "crowbarmaster/GH-Automatic-Releases@latest"
         with:
@@ -59,4 +64,6 @@ jobs:
             Version being built: ${{ steps.split.outputs.version }}
           files: |
             ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz
+            ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz.md5
+            ${{ github.workspace }}/BUILDS/zimbra-${{ steps.split.outputs.version }}-${{ matrix.TARGET_DISTRO }}.tgz.sha256
 
