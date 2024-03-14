@@ -47,9 +47,7 @@ jobs:
               touch /root/.ssh/known_hosts
               ssh-keyscan github.com >> /root/.ssh/known_hosts
               cd /home/build
-              cd installer-build/BUILDS
-              mkdir UBUNTU20_64-LIBERTY-1007-20240228104338-FOSS-1000
-              echo "Test" > UBUNTU20_64-LIBERTY-1007-20240228104338-FOSS-1000/zcs-10.0.7_GA_1000.UBUNTU20_64.20240228104338.tgz
+              /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split.outputs.version }}
               chown -R ${{ steps.runner.outputs.uid }}:${{ steps.runner.outputs.gid }} /home/build/installer-build/BUILDS/*
 
       - run: ls -la ${{ github.workspace }}/BUILDS/
