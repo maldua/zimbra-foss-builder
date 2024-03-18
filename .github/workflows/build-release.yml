@@ -22,7 +22,6 @@ jobs:
         run: echo "version=${BRANCH##*/}" >> $GITHUB_OUTPUT
       - name: Prepare .ssh directory
         run: |
-             echo "version=${BRANCH##*/}" >> $GITHUB_OUTPUT
              mkdir ${{ github.workspace }}/.ssh
              chmod 700 ${{ github.workspace }}/.ssh
              echo "${{ secrets.read_only_ssh_key }}" > ${{ github.workspace }}/.ssh/id_rsa
