@@ -3,7 +3,7 @@ name: release-zimbra
 on:
   push:
     tags:
-      - builds-dev/*
+      - builds/*
 
 jobs:
   zimbra-release:
