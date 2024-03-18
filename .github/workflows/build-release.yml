@@ -80,7 +80,7 @@ jobs:
           body: |
             **MALDUA'S Zimbra FOSS Builds** brought to you by [BTACTIC, open source & cloud solutions](https://www.btactic.com).
 
-            How this was build:
+            Main instructions that were used in order to make this build possible:
             ```
             ${{ steps.zimbra-builder.outputs.commands }}
             ```
