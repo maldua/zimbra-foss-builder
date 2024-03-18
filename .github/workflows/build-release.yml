@@ -63,7 +63,7 @@ jobs:
       - name: Get zimbra-builder.sh commands
         id: zimbra-builder
         run: |
-          echo "commands=$(cat ${{ github.workspace }}/BUILDS/zimbra-builder-commands.txt)" >> $GITHUB_OUTPUT
+          echo "commands<<EOF"$'\n'"$(cat ${{ github.workspace }}/BUILDS/zimbra-builder-commands.txt)"$'\n'EOF >> $GITHUB_OUTPUT
       - name: Generate checksums
         run: |
           cd ${{ steps.tgz-release.outputs.directory }}
