@@ -80,6 +80,12 @@ jobs:
           body: |
             **MALDUA'S Zimbra FOSS Builds** brought to you by [BTACTIC, open source & cloud solutions](https://www.btactic.com).
 
+            **WARNING:** This is currently a **pre-release** so that anyone can test this release and give us feedback either on the [issues page](https://github.com/maldua/zimbra-foss-builder/issues) or in the [Zimbra forums thread](https://forums.zimbra.org/viewtopic.php?t=72655).
+
+            Please use *Maldua's Zimbra ${{ steps.split-tag.outputs.version }} FOSS Builds Feedback* as your subject/title if possible.
+
+            This pre-release will become a release if 15 days after being public there has not been any negative feedback.
+
             Main instructions that were used in order to make this build possible:
             ```
             ${{ steps.zimbra-builder.outputs.commands }}
