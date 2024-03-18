@@ -37,7 +37,7 @@ jobs:
             registry: ghcr.io
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
-            image: ghcr.io/maldua/zimbra-foss-builder:latest
+            image: ghcr.io/maldua/zimbra-foss-builder:docker-v0.0.1
             options: -v ${{ github.workspace }}:/usr/local/zimbra-foss-builder:ro -v ${{ github.workspace }}/BUILDS:/home/build/installer-build/BUILDS:rw -v ${{ github.workspace }}/.ssh:/root/.ssh:rw
             shell: bash
             run: |
