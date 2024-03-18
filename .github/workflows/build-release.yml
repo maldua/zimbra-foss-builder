@@ -60,6 +60,10 @@ jobs:
           echo "directory=${RELEASE_DIR}" >> $GITHUB_OUTPUT
           echo "filename=${RELEASE_TGZ}" >> $GITHUB_OUTPUT
           echo "shortfilename=${RELEASE_SHORT_TGZ}" >> $GITHUB_OUTPUT
+      - name: Get zimbra-builder.sh commands
+        id: zimbra-builder
+        run: |
+          echo "commands=$(cat ${{ github.workspace }}/BUILDS/zimbra-builder-commands.txt)" >> $GITHUB_OUTPUT
       - name: Generate checksums
         run: |
           cd ${{ steps.tgz-release.outputs.directory }}
@@ -75,7 +79,11 @@ jobs:
           title: Zimbra ${{ steps.split-tag.outputs.version }} OSE / FOSS Builds
           body: |
             **MALDUA'S Zimbra FOSS Builds** brought to you by [BTACTIC, open source & cloud solutions](https://www.btactic.com).
-            Version being built: ${{ steps.split-tag.outputs.version }}
+
+            How this was build:
+            ```
+            ${{ steps.zimbra-builder.outputs.commands }}
+            ```
           files: |
             ${{ steps.tgz-release.outputs.filename }}
             ${{ steps.tgz-release.outputs.filename }}.md5
