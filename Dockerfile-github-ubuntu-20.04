@@ -4,6 +4,8 @@ ARG ZM_BUILD_RELEASE_NO
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Some ideas were taken from: https://github.com/Zimbra/zm-base-os
+
 # SYSTEM
 RUN apt-get -qq update
 RUN apt-get -qq dist-upgrade -y
@@ -16,7 +18,8 @@ RUN apt-get -qq install -y apt-transport-https
 RUN apt-get -qq install -y sudo
 
 # ENVIRONMENT
-RUN apt-get -qq install -y git perl ruby pkg-config libidn11-dev libwww-perl libz-dev libaio-dev libncurses-dev libexpat-dev libpcre3-dev libperl-dev libpopt-dev libbz2-dev libtest-simple-perl libsocket6-perl libtest-inter-perl libtest-warn-perl libtest-deep-perl debhelper
+RUN apt-get -qq install -y git perl ruby
+RUN apt-get -qq install -y pkg-config libidn11-dev libwww-perl libz-dev libaio-dev libncurses-dev libexpat-dev libpcre3-dev libperl-dev libpopt-dev libbz2-dev libtest-simple-perl libsocket6-perl libtest-inter-perl libtest-warn-perl libtest-deep-perl debhelper
 RUN apt-get -qq install -y build-essential
 RUN apt-get -qq install -y openjdk-8-jdk ant ant-optional maven rsync
 RUN apt-get -qq install -y locales
