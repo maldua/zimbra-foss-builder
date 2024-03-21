@@ -10,6 +10,7 @@ env:
   DISTRO_FULLNAME: Ubuntu 18.04
   DISTRO_BUILD_DIR_PREFIX: UBUNTU18_64
   DISTRO_TAG_PREFIX: ubuntu-18.04
+  ZIMBRA_BUILDER_ID: maldua
 
 jobs:
   zimbra-release:
@@ -52,7 +53,7 @@ jobs:
               touch /root/.ssh/known_hosts
               ssh-keyscan github.com >> /root/.ssh/known_hosts
               cd /home/build
-              /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split-tag.outputs.version }}
+              /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split-tag.outputs.version }} ${{ env.ZIMBRA_BUILDER_ID }}
               chown -R ${{ steps.runner.outputs.uid }}:${{ steps.runner.outputs.gid }} /home/build/installer-build/BUILDS/*
 
       - run: ls -la ${{ github.workspace }}/BUILDS/
