@@ -1,0 +1,28 @@
+name: generate-downloads-page
+
+on:
+  push:
+    tags:
+      - generate-downloads/*
+
+jobs:
+  downloads-page:
+    runs-on: ubuntu-latest
+    environment: git_clone
+    steps:
+      - name: Simple Date
+        id: simple-date
+        run: echo "date=$(date '+%Y-%m-%d %H:%M')" >> $GITHUB_OUTPUT
+      - name: Check out the repo
+        uses: actions/checkout@v4
+        with:
+          ref: publish-downloads-dev
+      - name: Update downloads page
+        run: echo "${{ steps.simple-date.outputs.date }}" > ${{ github.workspace }}/docs/downloads.md
+      - name: Add, commit and push
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: docs/downloads.md
+          cwd: ${{ github.workspace }}
+          message: downloads.md automatically regenerated at ${{ steps.simple-date.outputs.date }}
+          push: true
