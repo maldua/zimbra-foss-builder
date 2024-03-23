@@ -33,7 +33,7 @@ These are releases that were made public in [Maldua's Zimbra FOSS Builds - Share
 |![RedHat icon](images/redhat.png) | RHEL 6 | 64bit x86 (MD5) (SHA 256) | 2024-02-01 | Build/Release details |
 |![RedHat icon](images/redhat.png) | RHEL 7 | 64bit x86 (MD5) (SHA 256) | 2024-02-01 | Build/Release details |
 |![Ubuntu icon](images/ubuntu.png) | Ubuntu 18.04 | 64bit x86 (MD5) (SHA 256) | 2024-02-01 | Build/Release details |
-|![Ubuntu icon](images/ubuntu.png) | Ubuntu 20.04 | 64bit x86 (MD5) (SHA 256) | 2024-02-01 | Build/Release details |
+|![Ubuntu icon](images/ubuntu.png) | Ubuntu 20.04 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04%2F10.0.7/zcs-10.0.7_GA-10.0.7-maldua_1000.UBUNTU20_64.20240322145629.tgz) [(MD5)](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04%2F10.0.7/zcs-10.0.7_GA-10.0.7-maldua_1000.UBUNTU20_64.20240322145629.tgz.md5) [(SHA 256)](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04%2F10.0.7/zcs-10.0.7_GA-10.0.7-maldua_1000.UBUNTU20_64.20240322145629.tgz.sha256) | 2024-02-01 | [Build/Release details](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-ubuntu-20.04%2F10.0.7) |
 |![Ubuntu icon](images/ubuntu.png) | Ubuntu 22.04 | 64bit x86 (MD5) (SHA 256) | 2024-02-01 | Build/Release details |
 
 ### 9.0.0.p39 (Stable)
