@@ -23,6 +23,5 @@ jobs:
         uses: EndBug/add-and-commit@v9
         with:
           add: docs/downloads.md
-          cwd: ${{ github.workspace }}
           message: "downloads.md automatically regenerated at ${{ steps.simple-date.outputs.date }}"
           push: true
