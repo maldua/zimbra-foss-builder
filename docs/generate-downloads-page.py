@@ -66,30 +66,44 @@ wantedTagRegex = re.compile('^zimbra-foss-build-.*$')
 prefixTagRegex = re.compile('(.*)/.*')
 versionTagRegex = re.compile('.*/(.*)')
 distroLongNameRegex =re.compile('.* \( (.*) \)')
+tgzRegex = re.compile('^zcs-.*tgz$')
 
 releasesMatrix = []
 
-for njson in responseJson:
-  tag = njson["tag_name"]
-  print (njson)
-  print ("")
+for nJson in responseJson:
+  tag = nJson["tag_name"]
+  # print (nJson)
+  # print ("")
   if re.match(wantedTagRegex, tag):
 
     prefixTag = re.findall(prefixTagRegex, tag)[0]
     versionTag = re.findall(versionTagRegex, tag)[0]
-    distroLongName = re.findall(distroLongNameRegex, njson["name"])[0]
-    print (njson["name"])
+    distroLongName = re.findall(distroLongNameRegex, nJson["name"])[0]
 
     tagsItem = {}
     tagsItem["tag"] = tag
-    tagsItem["buildDate"] = njson["created_at"]
+    tagsItem["buildDate"] = nJson["created_at"]
     tagsItem["prefixTag"] = prefixTag
     tagsItem["versionTag"] = versionTag
     tagsItem["distroLongName"] = distroLongName
 
+    if ( (nJson["prerelease"] == False) and (nJson["draft"] == False) ):
+      tagsItem["category"] = "stable"
+    elif ( (nJson["prerelease"] == True) and (nJson["draft"] == False) ):
+      tagsItem["category"] = "beta"
+    elif ( (nJson["prerelease"] == True) and (nJson["draft"] == True) ):
+      tagsItem["category"] = "experimental"
+    else:
+      tagsItem["category"] = "other"
+
+    for nAsset in nJson["assets"]:
+      if re.match(tgzRegex, nAsset["name"]):
+        tagsItem["tgzDownloadUrl"] = nAsset["browser_download_url"]
+        break
+
     releasesMatrix.append(tagsItem)
 
-# print(releasesMatrix)
+print(releasesMatrix)
 
 # for line in pGitTag.stdout:
 #   dateFound = re.findall(dateRegex, line)[0]
