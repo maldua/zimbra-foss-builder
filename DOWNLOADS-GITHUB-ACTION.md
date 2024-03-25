@@ -67,6 +67,8 @@ git push origin 'generate-downloads/v0.0.1'
 
 This will add a commit to the `publish-downloads-dev` branch which, in turn, will generate the **maldua.github.io/zimbra-foss-builder** page as we have setup earlier in Settings. Page. section of the repo.
 
+If everything went you should be able to visit: [https://maldua.github.io/zimbra-foss-builder/downloads.html](https://maldua.github.io/zimbra-foss-builder/downloads.html) with your own organisation, of course.
+
 ## Similar projects
 
 - [ianw1974's zimbra-build-scripts](https://github.com/ianw1974/zimbra-build-scripts)
