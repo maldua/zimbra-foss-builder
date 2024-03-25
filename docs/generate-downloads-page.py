@@ -82,33 +82,33 @@ def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, bui
 # - 1st: Based on versioning based on versionTag (Higher on the top)
 # - 2nd: Based on distroLongName (Higher on the bottom)
 
-os.remove(downloads_md)
-
-append_files(templatesDir/downloads-top.md, downloads_md)
-
-append_files(templatesDir/stable-releases-top.md, downloads_md)
-append_files(templatesDir/section-top-disclaimers.md, downloads_md)
-# getVersionTags from stableReleases
-stableVersionTags = getVersionTags(stableReleases)
-for nVersionTag in stableVersionTags:
-  get_download_table_top (versionTag=nVersionTag, shortName='Stable')
-  for nRelease in stableReleases:
-    if (nRelease['versionTag'] == nVersionTag): # TODO: Maybe use a filtered matrix to avoid so many loops
-      get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'])
-
-# Loop stableReleasesMatrix and print different distros with 'Stable' addition
-
-append_files(templatesDir/beta-releases-top.md, downloads_md)
-append_files(templatesDir/section-top-disclaimers, downloads_md)
-# Loop betaReleasesMatrix and print different distros with 'Beta' addition
-
-append_files(templatesDir/experimental-releases-top.md, downloads_md)
-append_files(templatesDir/section-top-disclaimers, downloads_md)
-# Loop experimentalReleasesMatrix and print different distros with 'Experimental' addition
-
-append_files(templatesDir/other-releases-top.md, downloads_md)
-append_files(templatesDir/section-top-disclaimers, downloads_md)
-# Loop otherReleasesMatrix and print different distros with 'Other' addition
-
-append_files(templatesDir/downloads-top.md, downloads_md)
-
+# os.remove(downloads_md)
+# 
+# append_files(templatesDir/downloads-top.md, downloads_md)
+# 
+# append_files(templatesDir/stable-releases-top.md, downloads_md)
+# append_files(templatesDir/section-top-disclaimers.md, downloads_md)
+# # getVersionTags from stableReleases
+# stableVersionTags = getVersionTags(stableReleases)
+# for nVersionTag in stableVersionTags:
+#   get_download_table_top (versionTag=nVersionTag, shortName='Stable')
+#   for nRelease in stableReleases:
+#     if (nRelease['versionTag'] == nVersionTag): # TODO: Maybe use a filtered matrix to avoid so many loops
+#       get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'])
+# 
+# # Loop stableReleasesMatrix and print different distros with 'Stable' addition
+# 
+# append_files(templatesDir/beta-releases-top.md, downloads_md)
+# append_files(templatesDir/section-top-disclaimers, downloads_md)
+# # Loop betaReleasesMatrix and print different distros with 'Beta' addition
+# 
+# append_files(templatesDir/experimental-releases-top.md, downloads_md)
+# append_files(templatesDir/section-top-disclaimers, downloads_md)
+# # Loop experimentalReleasesMatrix and print different distros with 'Experimental' addition
+# 
+# append_files(templatesDir/other-releases-top.md, downloads_md)
+# append_files(templatesDir/section-top-disclaimers, downloads_md)
+# # Loop otherReleasesMatrix and print different distros with 'Other' addition
+# 
+# append_files(templatesDir/downloads-top.md, downloads_md)
+# 
