@@ -1,7 +1,9 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import shutil
+import subprocess
+import re
 
 # Please run from docs folder
 
@@ -15,20 +17,19 @@ def append_files(file1_path, file2_path):
         with open(file2_path, 'a') as file2:
             shutil.copyfileobj(file1, file2)
 
-getIconField(prefixTag):
-  prefixTag=$1
-  if ("ubuntu" in $prefixTag):
+def getIconField(prefixTag):
+  if ("ubuntu" in prefixTag):
     iconField = f"![Ubuntu icon]({imagesDir}/ubuntu.png)"
-  elif ("rhel" in $prefixTag):
+  elif ("rhel" in prefixTag):
     iconField = f"![RedHat icon]({imagesDir}/redhat.png)"
-  else
+  else:
     iconField = ""
   fi
   return (iconField)
 
 def get_download_table_top (versionTag, shortName):
   return (
-    f"### {versionTag} ({shortName})'
+    f"### {versionTag} ({shortName})"
     '| | Platform | Download 64-BIT | Build Date | More details |'
     '| | --- | --- | --- | --- |"'
   )
@@ -51,6 +52,24 @@ def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, bui
 # Save into a matrix:
 # - tag: zimbra-foss-build-ubuntu-20.04/9.0.0.p39
 # - buildDate
+
+pGitTag = subprocess.Popen(['git', 'tag', '--format=%(creatordate:unix)%09%(refname:strip=2)', '--sort=-taggerdate'], stdout=subprocess.PIPE,text=True)
+
+dateRegex = re.compile('(.*)\t.*')
+tagRegex = re.compile('.*\t(.*)')
+
+
+tagsMatrix = []
+
+for line in pGitTag.stdout:
+    dateFound = re.findall(dateRegex, line)[0]
+    tagFound = re.findall(tagRegex, line)[0]
+    tagsItem = {}
+    tagsItem["tag"] = tagFound
+    tagsItem["date"] = dateFound
+    tagsMatrix.append(tagsItem)
+
+print(tagsMatrix)
 
 # Get info from releases based on previous tag matrix (releasesMatrix)
 # - tag: zimbra-foss-build-ubuntu-20.04/9.0.0.p39
