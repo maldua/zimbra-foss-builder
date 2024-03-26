@@ -37,6 +37,7 @@ def getIconField(prefixTag):
 def get_download_table_top (versionTag, shortName):
   return (
     f"### {versionTag} ({shortName})\n"
+    '\n'
     '| | Platform | Download 64-BIT | Build Date | Size | More details |\n'
     '| --- | --- | --- | --- | --- | --- |'
   )
