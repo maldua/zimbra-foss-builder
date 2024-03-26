@@ -8,12 +8,20 @@ from subprocess import run, PIPE
 
 # Please run from docs folder
 
-downloads_md='downloads-PRUEBA-DE-CONCEPTO.md'
+downloads_md='downloads.md'
 templatesDir='templates'
 imagesDir="images"
-repoReleasesTagUrl="https://github.com/maldua/zimbra-foss-builder/releases/tag"
+repoReleasesApiUrl="https://api.github.com/repos/maldua/zimbra-foss-builder/releases"
 
 GITHUB_TOKEN = os.getenv('GITHUB_TOKEN')
+
+# Other functions
+def sizeof_fmt(num, suffix="B"):
+    for unit in ("", "Ki", "Mi", "Gi", "Ti", "Pi", "Ei", "Zi"):
+        if abs(num) < 1024.0:
+            return f"{num:3.0f} {unit}{suffix}"
+        num /= 1024.0
+    return f"{num:f} Yi{suffix}"
 
 # Download markdown functions
 def getIconField(prefixTag):
@@ -29,16 +37,17 @@ def getIconField(prefixTag):
 def get_download_table_top (versionTag, shortName):
   return (
     f"### {versionTag} ({shortName})\n"
-    '| | Platform | Download 64-BIT | Build Date | More details |\n'
-    '| | --- | --- | --- | --- |'
+    '| | Platform | Download 64-BIT | Build Date | Size | More details |\n'
+    '| | --- | --- | --- | --- | --- |'
   )
 
-def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, buildDate, moreInformationUrl):
+def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, buildDate, size, moreInformationUrl):
   icon = getIconField(prefixTag)
   md5DownloadUrl = tgzDownloadUrl + ".md5"
   sha256DownloadUrl = tgzDownloadUrl + ".sha256"
+  humanSize = sizeof_fmt(size)
   # TODO: Use the release url directly instead of crafting it ourselves.
-  download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) [(MD5)]({md5DownloadUrl}) [(SHA 256)]({sha256DownloadUrl}) | {buildDate} | [Build/Release details]({moreInformationUrl}) |"
+  download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) [(MD5)]({md5DownloadUrl}) [(SHA 256)]({sha256DownloadUrl}) | {buildDate} | {humanSize} | [Build/Release details]({moreInformationUrl}) |"
   return (download_row)
 
 # Releases Matrix functions
@@ -53,7 +62,7 @@ def getReleasesMatrix():
   # - tgzDownloadUrl: https://...tgz based on assets which start with 'zcs-' and end in 'tgz'
   # - category: 'stable, beta, experimental, other' based on draft, pre-release values (use a helper function)
 
-  response = requests.get("https://api.github.com/repos/maldua/zimbra-foss-builder/releases", headers={"Accept":"application/vnd.github+json", "Authorization":f"Bearer {GITHUB_TOKEN}", "X-GitHub-Api-Version":"2022-11-28"})
+  response = requests.get(repoReleasesApiUrl, headers={"Accept":"application/vnd.github+json", "Authorization":f"Bearer {GITHUB_TOKEN}", "X-GitHub-Api-Version":"2022-11-28"})
   responseJson = response.json()
 
   wantedTagRegex = re.compile('^zimbra-foss-build-.*$')
@@ -66,8 +75,8 @@ def getReleasesMatrix():
 
   for nJson in responseJson:
     tag = nJson["tag_name"]
-    print (nJson)
-    print ("")
+    # print (nJson)
+    # print ("")
     if re.match(wantedTagRegex, tag):
 
       prefixTag = re.findall(prefixTagRegex, tag)[0]
@@ -94,6 +103,7 @@ def getReleasesMatrix():
       for nAsset in nJson["assets"]:
         if re.match(tgzRegex, nAsset["name"]):
           tagsItem["tgzDownloadUrl"] = nAsset["browser_download_url"]
+          tagsItem["size"] = nAsset["size"]
           break
 
       releasesMatrix.append(tagsItem)
@@ -152,7 +162,7 @@ def outputSection(downloads_md, versionTags, releasesMatrix, shortName):
       outfile.write('\n' + download_table_top + '\n')
 
     for nRelease in orderedFilteredMatrix:
-      download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'], moreInformationUrl=nRelease['html_url'])
+      download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'], size=nRelease['size'] , moreInformationUrl=nRelease['html_url'])
       with open(downloads_md, 'a') as outfile:
         outfile.write(download_row + '\n')
 
