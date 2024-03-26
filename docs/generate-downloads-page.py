@@ -33,11 +33,10 @@ def get_download_table_top (versionTag, shortName):
     '| | --- | --- | --- | --- |'
   )
 
-def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, buildDate):
+def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, buildDate, moreInformationUrl):
   icon = getIconField(prefixTag)
   md5DownloadUrl = tgzDownloadUrl + ".md5"
   sha256DownloadUrl = tgzDownloadUrl + ".sha256"
-  moreInformationUrl = repoReleasesTagUrl + "/" + prefixTag + "%2F" + versionTag
   # TODO: Use the release url directly instead of crafting it ourselves.
   download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) [(MD5)]({md5DownloadUrl}) [(SHA 256)]({sha256DownloadUrl}) | {buildDate} | [Build/Release details]({moreInformationUrl}) |"
   return (download_row)
@@ -67,8 +66,8 @@ def getReleasesMatrix():
 
   for nJson in responseJson:
     tag = nJson["tag_name"]
-    # print (nJson)
-    # print ("")
+    print (nJson)
+    print ("")
     if re.match(wantedTagRegex, tag):
 
       prefixTag = re.findall(prefixTagRegex, tag)[0]
@@ -81,6 +80,7 @@ def getReleasesMatrix():
       tagsItem["prefixTag"] = prefixTag
       tagsItem["versionTag"] = versionTag
       tagsItem["distroLongName"] = distroLongName
+      tagsItem["html_url"] = nJson["html_url"]
 
       if ( (nJson["prerelease"] == False) and (nJson["draft"] == False) ):
         tagsItem["category"] = "stable"
@@ -152,7 +152,7 @@ def outputSection(downloads_md, versionTags, releasesMatrix, shortName):
       outfile.write('\n' + download_table_top + '\n')
 
     for nRelease in orderedFilteredMatrix:
-      download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'])
+      download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'], moreInformationUrl=nRelease['html_url'])
       with open(downloads_md, 'a') as outfile:
         outfile.write(download_row + '\n')
 
