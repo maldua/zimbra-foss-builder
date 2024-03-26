@@ -197,11 +197,13 @@ for nTagVersion in betaVersionTags:
   orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
 
   download_table_top = get_download_table_top (versionTag=nTagVersion, shortName='Beta')
-  # print (download_table_top)
+  with open(downloads_md, 'a') as outfile:
+    outfile.write(download_table_top + '\n')
 
   for nRelease in orderedFilteredMatrix:
     download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'])
-    print(download_row)
+    with open(downloads_md, 'a') as outfile:
+      outfile.write(download_row + '\n')
 
 # TODO: Use the release url directly instead of crafting it ourselves.
 
