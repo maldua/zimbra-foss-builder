@@ -4,6 +4,7 @@ import os
 import shutil
 import re
 import requests
+from subprocess import run, PIPE
 
 # Please run from docs folder
 
@@ -103,26 +104,60 @@ for nJson in responseJson:
 
     releasesMatrix.append(tagsItem)
 
-print(releasesMatrix)
+# print(releasesMatrix)
 
-# for line in pGitTag.stdout:
-#   dateFound = re.findall(dateRegex, line)[0]
-#   tagFound = re.findall(tagRegex, line)[0]
-#   # if re.match(wantedTagRegex, tagFound):
-#   if True:
-#     tagsItem = {}
-#     tagsItem["tag"] = tagFound
-#     tagsItem["buildDate"] = dateFound
-#     releasesMatrix.append(tagsItem)
-# 
-# for nTagsItem in releasesMatrix:
-#   print (nTagsItem["tag"])
-#   print (nTagsItem["buildDate"])
+def filterByCategory(matrix, category):
+  newMatrix = []
+  for nRow in matrix:
+    if (nRow["category"] == category):
+      newMatrix.append(nRow)
+  return (newMatrix)
 
-# Create stableReleasesMatrix based on releasesMatrix
-# Create betaReleasesMatrix based on releasesMatrix
-# Create experimentalReleasesMatrix based on releasesMatrix
-# Create otherReleasesMatrix based on releasesMatrix
+stableReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="stable")
+betaReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="beta")
+experimentalReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="experimental")
+otherReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="other")
+
+# print(betaReleasesMatrix)
+
+def getVersionTags(matrix):
+  versionTags = []
+  for nRow in matrix:
+    versionTags.append(nRow["versionTag"])
+  return (versionTags)
+
+def getUniqueList(nonUniqueList):
+  uniqueList = []
+  for nItem in nonUniqueList:
+    if nItem not in uniqueList:
+      uniqueList.append(nItem)
+  return (uniqueList)
+
+def orderedAndUniqueVersionTags (versionTags):
+  versionTags = getUniqueList (versionTags)
+  versionTagsInput = '\n'.join([str(item) for item in versionTags])
+  sortVersionProcess = run(['sort', '-V', '-r'], stdout=PIPE, input=versionTagsInput, encoding='ascii')
+  versionTagsOrdered=(sortVersionProcess.stdout).rstrip().split('\n')
+  return (versionTagsOrdered)
+
+stableVersionTags = getVersionTags (stableReleasesMatrix)
+stableVersionTags = orderedAndUniqueVersionTags (stableVersionTags)
+
+betaVersionTags = getVersionTags (betaReleasesMatrix)
+betaVersionTags = orderedAndUniqueVersionTags (betaVersionTags)
+
+experimentalVersionTags = getVersionTags (experimentalReleasesMatrix)
+experimentalVersionTags = orderedAndUniqueVersionTags (experimentalVersionTags)
+
+otherVersionTags = getVersionTags (otherReleasesMatrix)
+otherVersionTags = orderedAndUniqueVersionTags (otherVersionTags)
+
+print (betaVersionTags)
+
+# StrictVersion and package.version.parse does not seem to like this tag versions
+# So let's use 'sort -V -r' from the command line instead
+
+# print (betaVersionTags)
 
 # Order stableReleasesMatrix
 # - 1st: Based on versioning based on versionTag (Higher on the top)
