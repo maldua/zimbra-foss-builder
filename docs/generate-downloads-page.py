@@ -161,30 +161,6 @@ def filterByVersionTag(matrix, versionTag):
       newMatrix.append(nRow)
   return (newMatrix)
 
-for nTagVersion in stableVersionTags:
-  filteredMatrix = filterByVersionTag(stableReleasesMatrix, nTagVersion)
-  orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
-  print(orderedFilteredMatrix)
-  print ("")
-
-for nTagVersion in betaVersionTags:
-  filteredMatrix = filterByVersionTag(betaReleasesMatrix, nTagVersion)
-  orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
-  print(orderedFilteredMatrix)
-  print ("")
-
-for nTagVersion in experimentalVersionTags:
-  filteredMatrix = filterByVersionTag(experimentalReleasesMatrix, nTagVersion)
-  orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
-  print(orderedFilteredMatrix)
-  print ("")
-
-for nTagVersion in otherVersionTags:
-  filteredMatrix = filterByVersionTag(otherReleasesMatrix, nTagVersion)
-  orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
-  print(orderedFilteredMatrix)
-  print ("")
-
 def outputSection(downloads_md, versionTags, releasesMatrix, shortName):
   for nTagVersion in versionTags:
     filteredMatrix = filterByVersionTag(releasesMatrix, nTagVersion)
