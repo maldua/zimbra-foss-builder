@@ -27,18 +27,18 @@ def getIconField(prefixTag):
     iconField = f"![RedHat icon]({imagesDir}/redhat.png)"
   else:
     iconField = ""
-  fi
+
   return (iconField)
 
 def get_download_table_top (versionTag, shortName):
   return (
-    f"### {versionTag} ({shortName})"
-    '| | Platform | Download 64-BIT | Build Date | More details |'
-    '| | --- | --- | --- | --- |"'
+    f"### {versionTag} ({shortName})\n"
+    '| | Platform | Download 64-BIT | Build Date | More details |\n'
+    '| | --- | --- | --- | --- |'
   )
 
 def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, buildDate):
-  icon = "$(getIconField ${prefixTag})"
+  icon = getIconField(prefixTag)
   md5DownloadUrl = tgzDownloadUrl + ".md5"
   sha256DownloadUrl = tgzDownloadUrl + ".sha256"
   moreInformationUrl = repoReleasesTagUrl + "/" + prefixTag + "%2F" + versionTag
@@ -198,7 +198,7 @@ for nTagVersion in betaVersionTags:
 
   download_table_top = get_download_table_top (versionTag=nTagVersion, shortName='Beta')
   with open(downloads_md, 'a') as outfile:
-    outfile.write(download_table_top + '\n')
+    outfile.write('\n' + download_table_top + '\n')
 
   for nRelease in orderedFilteredMatrix:
     download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'])
