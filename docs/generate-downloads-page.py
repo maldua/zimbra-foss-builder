@@ -39,11 +39,8 @@ def get_download_table_top (versionTag, shortName):
 
 def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, buildDate):
   icon = "$(getIconField ${prefixTag})"
-  distroLongName = getDistroLongName (prefixTag + "/" + versionTag) # Ubuntu 18.04
-  tgzDownloadUrl = getTgzDownloadUrl (prefixTag + "/" + versionTag)
   md5DownloadUrl = tgzDownloadUrl + ".md5"
   sha256DownloadUrl = tgzDownloadUrl + ".sha256"
-  buildDate = getbuildDate (prefixTag + "/" + versionTag)
   moreInformationUrl = repoReleasesTagUrl + "/" + prefixTag + "%2F" + versionTag
   download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) [(MD5)]({md5DownloadUrl}) [(SHA 256)]({sha256DownloadUrl}) | {buildDate} | [Build/Release details]({moreInformationUrl}) |"
   return (download_row)
@@ -187,12 +184,27 @@ for nTagVersion in otherVersionTags:
   print(orderedFilteredMatrix)
   print ("")
 
-# os.remove(downloads_md)
+if (os.path.isfile(downloads_md)):
+  os.remove(downloads_md)
 # 
-# append_files(templatesDir/downloads-top.md, downloads_md)
-# 
-# append_files(templatesDir/stable-releases-top.md, downloads_md)
-# append_files(templatesDir/section-top-disclaimers.md, downloads_md)
+append_files(templatesDir + "/" + "downloads-top.md", downloads_md)
+append_files(templatesDir + "/" + "stable-releases-top.md", downloads_md)
+append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
+
+
+for nTagVersion in betaVersionTags:
+  filteredMatrix = filterByVersionTag(betaReleasesMatrix, nTagVersion)
+  orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
+
+  download_table_top = get_download_table_top (versionTag=nTagVersion, shortName='Beta')
+  # print (download_table_top)
+
+  for nRelease in orderedFilteredMatrix:
+    download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'])
+    print(download_row)
+
+# TODO: Use the release url directly instead of crafting it ourselves.
+
 # # getVersionTags from stableReleases
 # stableVersionTags = getVersionTags(stableReleases)
 # for nVersionTag in stableVersionTags:
