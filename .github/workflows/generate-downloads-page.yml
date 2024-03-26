@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install Python dependencies
-        run: python -m pip install --upgrade pip os shutil re requests subprocess
+        run: python -m pip install --upgrade pip shutil re requests subprocess
       - name: Check out the repo
         uses: actions/checkout@v4
         with:
