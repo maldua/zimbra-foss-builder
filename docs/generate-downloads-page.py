@@ -42,6 +42,7 @@ def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, bui
   md5DownloadUrl = tgzDownloadUrl + ".md5"
   sha256DownloadUrl = tgzDownloadUrl + ".sha256"
   moreInformationUrl = repoReleasesTagUrl + "/" + prefixTag + "%2F" + versionTag
+  # TODO: Use the release url directly instead of crafting it ourselves.
   download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) [(MD5)]({md5DownloadUrl}) [(SHA 256)]({sha256DownloadUrl}) | {buildDate} | [Build/Release details]({moreInformationUrl}) |"
   return (download_row)
 
@@ -184,50 +185,49 @@ for nTagVersion in otherVersionTags:
   print(orderedFilteredMatrix)
   print ("")
 
+def outputSection(downloads_md, versionTags, releasesMatrix, shortName):
+  for nTagVersion in versionTags:
+    filteredMatrix = filterByVersionTag(releasesMatrix, nTagVersion)
+    orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
+
+    download_table_top = get_download_table_top (versionTag=nTagVersion, shortName=shortName)
+    with open(downloads_md, 'a') as outfile:
+      outfile.write('\n' + download_table_top + '\n')
+
+    for nRelease in orderedFilteredMatrix:
+      download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'])
+      with open(downloads_md, 'a') as outfile:
+        outfile.write(download_row + '\n')
+
+def outputNewLine(downloads_md):
+  with open(downloads_md, 'a') as outfile:
+    outfile.write('\n')
+
 if (os.path.isfile(downloads_md)):
   os.remove(downloads_md)
-# 
+#
 append_files(templatesDir + "/" + "downloads-top.md", downloads_md)
+append_files(templatesDir + "/" + "downloads-index.md", downloads_md)
+
+outputNewLine(downloads_md)
 append_files(templatesDir + "/" + "stable-releases-top.md", downloads_md)
 append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
+outputSection(downloads_md=downloads_md, versionTags=stableVersionTags, releasesMatrix=stableReleasesMatrix, shortName='Stable')
 
+outputNewLine(downloads_md)
+append_files(templatesDir + "/" + "beta-releases-top.md", downloads_md)
+append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
+outputSection(downloads_md=downloads_md, versionTags=betaVersionTags, releasesMatrix=betaReleasesMatrix, shortName='Beta')
 
-for nTagVersion in betaVersionTags:
-  filteredMatrix = filterByVersionTag(betaReleasesMatrix, nTagVersion)
-  orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
+outputNewLine(downloads_md)
+append_files(templatesDir + "/" + "experimental-releases-top.md", downloads_md)
+append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
+outputSection(downloads_md=downloads_md, versionTags=experimentalVersionTags, releasesMatrix=experimentalReleasesMatrix, shortName='Experimental')
 
-  download_table_top = get_download_table_top (versionTag=nTagVersion, shortName='Beta')
-  with open(downloads_md, 'a') as outfile:
-    outfile.write('\n' + download_table_top + '\n')
+outputNewLine(downloads_md)
+append_files(templatesDir + "/" + "other-releases-top.md", downloads_md)
+append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
+outputSection(downloads_md=downloads_md, versionTags=otherVersionTags, releasesMatrix=otherReleasesMatrix, shortName='Other')
 
-  for nRelease in orderedFilteredMatrix:
-    download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'])
-    with open(downloads_md, 'a') as outfile:
-      outfile.write(download_row + '\n')
-
-# TODO: Use the release url directly instead of crafting it ourselves.
-
-# # getVersionTags from stableReleases
-# stableVersionTags = getVersionTags(stableReleases)
-# for nVersionTag in stableVersionTags:
-#   get_download_table_top (versionTag=nVersionTag, shortName='Stable')
-#   for nRelease in stableReleases:
-#     if (nRelease['versionTag'] == nVersionTag): # TODO: Maybe use a filtered matrix to avoid so many loops
-#       get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'])
-# 
-# # Loop stableReleasesMatrix and print different distros with 'Stable' addition
-# 
-# append_files(templatesDir/beta-releases-top.md, downloads_md)
-# append_files(templatesDir/section-top-disclaimers, downloads_md)
-# # Loop betaReleasesMatrix and print different distros with 'Beta' addition
-# 
-# append_files(templatesDir/experimental-releases-top.md, downloads_md)
-# append_files(templatesDir/section-top-disclaimers, downloads_md)
-# # Loop experimentalReleasesMatrix and print different distros with 'Experimental' addition
-# 
-# append_files(templatesDir/other-releases-top.md, downloads_md)
-# append_files(templatesDir/section-top-disclaimers, downloads_md)
-# # Loop otherReleasesMatrix and print different distros with 'Other' addition
-# 
-# append_files(templatesDir/downloads-top.md, downloads_md)
-# 
+outputNewLine(downloads_md)
+append_files(templatesDir + "/" + "downloads-index.md", downloads_md)
