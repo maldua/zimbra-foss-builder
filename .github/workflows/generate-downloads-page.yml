@@ -23,9 +23,8 @@ jobs:
           ref: publish-downloads-dev
       - name: Update downloads page
         run: |
-          cd docs
+          cd ${{ github.workspace }}/docs
           ./generate-downloads-page.py
-          cd ..
       - name: Add, commit and push
         uses: EndBug/add-and-commit@v9
         with:
