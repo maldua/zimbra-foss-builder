@@ -134,6 +134,8 @@ def getUniqueList(nonUniqueList):
   return (uniqueList)
 
 def orderedAndUniqueVersionTags (versionTags):
+  # StrictVersion and package.version.parse does not seem to like this tag versions
+  # So let's use 'sort -V -r' from the command line instead
   versionTags = getUniqueList (versionTags)
   versionTagsInput = '\n'.join([str(item) for item in versionTags])
   sortVersionProcess = run(['sort', '-V', '-r'], stdout=PIPE, input=versionTagsInput, encoding='ascii')
@@ -152,28 +154,38 @@ experimentalVersionTags = orderedAndUniqueVersionTags (experimentalVersionTags)
 otherVersionTags = getVersionTags (otherReleasesMatrix)
 otherVersionTags = orderedAndUniqueVersionTags (otherVersionTags)
 
-print (betaVersionTags)
-
-# StrictVersion and package.version.parse does not seem to like this tag versions
-# So let's use 'sort -V -r' from the command line instead
-
 # print (betaVersionTags)
 
-# Order stableReleasesMatrix
-# - 1st: Based on versioning based on versionTag (Higher on the top)
-# - 2nd: Based on distroLongName (Higher on the bottom)
+def filterByVersionTag(matrix, versionTag):
+  newMatrix = []
+  for nRow in matrix:
+    if (nRow["versionTag"] == versionTag):
+      newMatrix.append(nRow)
+  return (newMatrix)
 
-# Order betaReleasesMatrix
-# - 1st: Based on versioning based on versionTag (Higher on the top)
-# - 2nd: Based on distroLongName (Higher on the bottom)
+for nTagVersion in stableVersionTags:
+  filteredMatrix = filterByVersionTag(stableReleasesMatrix, nTagVersion)
+  orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
+  print(orderedFilteredMatrix)
+  print ("")
 
-# Order experimentalReleasesMatrix
-# - 1st: Based on versioning based on versionTag (Higher on the top)
-# - 2nd: Based on distroLongName (Higher on the bottom)
+for nTagVersion in betaVersionTags:
+  filteredMatrix = filterByVersionTag(betaReleasesMatrix, nTagVersion)
+  orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
+  print(orderedFilteredMatrix)
+  print ("")
 
-# Order otherReleasesMatrix
-# - 1st: Based on versioning based on versionTag (Higher on the top)
-# - 2nd: Based on distroLongName (Higher on the bottom)
+for nTagVersion in experimentalVersionTags:
+  filteredMatrix = filterByVersionTag(experimentalReleasesMatrix, nTagVersion)
+  orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
+  print(orderedFilteredMatrix)
+  print ("")
+
+for nTagVersion in otherVersionTags:
+  filteredMatrix = filterByVersionTag(otherReleasesMatrix, nTagVersion)
+  orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
+  print(orderedFilteredMatrix)
+  print ("")
 
 # os.remove(downloads_md)
 # 
