@@ -26,7 +26,7 @@ jobs:
       - name: Update downloads page
         run: |
           cd ${{ github.workspace }}/docs
-          ./generate-downloads-page.py
+          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} ./generate-downloads-page.py
       - name: Add, commit and push
         uses: EndBug/add-and-commit@v9
         with:
