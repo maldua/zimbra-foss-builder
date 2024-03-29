@@ -51,7 +51,7 @@ def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, bui
   download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) [(MD5)]({md5DownloadUrl}) [(SHA 256)]({sha256DownloadUrl}) | {buildDate} | {humanSize} | [Build/Release details]({moreInformationUrl}) |"
   return (download_row)
 
-def get_category_from_body (body):
+def getCategoryFromBody (body):
   categoryRegex = re.compile('^category: (.*)$')
   allowedCategories = [ "stable", "beta", "experimental" ]
 
@@ -108,7 +108,7 @@ def getReleasesMatrix():
       tagsItem["distroLongName"] = distroLongName
       tagsItem["html_url"] = nJson["html_url"]
 
-      tagsItem["category"] = get_category_from_body (nJson["body"])
+      tagsItem["category"] = getCategoryFromBody (nJson["body"])
 
       for nAsset in nJson["assets"]:
         if re.match(tgzRegex, nAsset["name"]):
