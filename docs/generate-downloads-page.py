@@ -38,17 +38,17 @@ def get_download_table_top (versionTag, shortName):
   return (
     f"### {versionTag} ({shortName})\n"
     '\n'
-    '| | Platform | Download 64-BIT | Build Date | Size | More details |\n'
-    '| --- | --- | --- | --- | --- | --- |'
+    '| | Platform | Download 64-BIT | Build Date | Size | More details | Comment |\n'
+    '| --- | --- | --- | --- | --- | --- | --- |'
   )
 
-def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, buildDate, size, moreInformationUrl):
+def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, buildDate, size, moreInformationUrl, comment):
   icon = getIconField(prefixTag)
   md5DownloadUrl = tgzDownloadUrl + ".md5"
   sha256DownloadUrl = tgzDownloadUrl + ".sha256"
   humanSize = sizeof_fmt(size)
   # TODO: Use the release url directly instead of crafting it ourselves.
-  download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) [(MD5)]({md5DownloadUrl}) [(SHA 256)]({sha256DownloadUrl}) | {buildDate} | {humanSize} | [Build/Release details]({moreInformationUrl}) |"
+  download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) [(MD5)]({md5DownloadUrl}) [(SHA 256)]({sha256DownloadUrl}) | {buildDate} | {humanSize} | [Build/Release details]({moreInformationUrl}) | {comment} |"
   return (download_row)
 
 def getCategoryFromBody (body):
@@ -66,6 +66,18 @@ def getCategoryFromBody (body):
         category = categoryCandidate
         break
   return (category)
+
+def getCommentFromBody (body):
+  downloadCommentRegex = re.compile('^download_comment: (.*)$')
+
+  defaultDownloadComment = ""
+  downloadComment = defaultDownloadComment
+
+  bodyLines = body.splitlines()
+  for nBodyLine in bodyLines:
+    if re.match(downloadCommentRegex, nBodyLine):
+      downloadComment = re.findall(downloadCommentRegex, nBodyLine)[0]
+  return (downloadComment)
 
 # Releases Matrix functions
 def getReleasesMatrix():
@@ -109,6 +121,7 @@ def getReleasesMatrix():
       tagsItem["html_url"] = nJson["html_url"]
 
       tagsItem["category"] = getCategoryFromBody (nJson["body"])
+      tagsItem["comment"] = getCommentFromBody (nJson["body"])
 
       for nAsset in nJson["assets"]:
         if re.match(tgzRegex, nAsset["name"]):
@@ -172,7 +185,7 @@ def outputSection(downloads_md, versionTags, releasesMatrix, shortName):
       outfile.write('\n' + download_table_top + '\n')
 
     for nRelease in orderedFilteredMatrix:
-      download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'], size=nRelease['size'] , moreInformationUrl=nRelease['html_url'])
+      download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'], size=nRelease['size'] , moreInformationUrl=nRelease['html_url'], comment=nRelease['comment'])
       with open(downloads_md, 'a') as outfile:
         outfile.write(download_row + '\n')
 
