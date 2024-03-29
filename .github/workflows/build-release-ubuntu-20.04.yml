@@ -79,7 +79,7 @@ jobs:
         uses: crowbarmaster/GH-Automatic-Releases@v1.6.0
         with:
           repo_token: ${{ github.token }}
-          prerelease: true
+          prerelease: false
           generate_notes: false
           automatic_release_tag: zimbra-foss-build-${{ env.DISTRO_TAG_PREFIX }}/${{ steps.split-tag.outputs.version }}
           title: Zimbra ${{ steps.split-tag.outputs.version }} FOSS Builds ( ${{ env.DISTRO_FULLNAME }} )
