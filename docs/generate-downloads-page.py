@@ -145,6 +145,27 @@ def filterByCategory(matrix, category):
       newMatrix.append(nRow)
   return (newMatrix)
 
+def expandByRhel7(matrix):
+  rhel7Regex = re.compile('^.*-rhel-7$')
+  newMatrix = []
+  for nRow in matrix:
+    if re.match(rhel7Regex, nRow['prefixTag']):
+      rhelRow = nRow.copy()
+      rhelRow['distroLongName'] = "Red Hat Enterprise Linux 7"
+      newMatrix.append(rhelRow)
+
+      oracleRow = nRow.copy()
+      oracleRow['prefixTag'] = nRow['prefixTag'].replace("rhel","oracle")
+      oracleRow['distroLongName'] = "Oracle Linux 7"
+      newMatrix.append(oracleRow)
+
+      centosRow = nRow.copy()
+      centosRow['prefixTag'] = nRow['prefixTag'].replace("rhel","centos")
+      centosRow['distroLongName'] = "CentOS 7"
+      newMatrix.append(centosRow)
+    newMatrix.append(nRow)
+  return (newMatrix)
+
 def expandByRhel8(matrix):
   rhel8Regex = re.compile('^.*-rhel-8$')
   newMatrix = []
@@ -223,6 +244,7 @@ def outputNewLine(downloads_md):
 # Get the main releasesMatrix with all of the releases information
 releasesMatrix = getReleasesMatrix()
 
+releasesMatrix = expandByRhel7(releasesMatrix)
 releasesMatrix = expandByRhel8(releasesMatrix)
 
 # Get our four main matrices
