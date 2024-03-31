@@ -31,14 +31,6 @@ You are supposed to test and setup [BUILD-GITHUB-ACTION](BUILD-GITHUB-ACTION.md)
         - `/docs` (Directory)
         - Save
 
-### PAT Creation
-
-**TODO**
-
-### PAT Use in repo
-
-**TODO**
-
 ## Rename your organisation in yml files
 
 Find the workflow yml files such as:
