@@ -71,9 +71,9 @@ Then upload the `id_rsa.pub` key to your GitHub profile: [https://github.com/set
 
 Note: I personally only use an additional Github account because you cannot set this SSH key as a read-only one. You are supposed to use a deploy key but those are attached to a single repo or organisation.
 
-## About Ubuntu 20.04 builds
+## About current builds
 
-The current builds are based on Ubuntu 20.04. Adding new builds based on other distributions should not be very difficult. It's just about adding new Dockerfiles based on [https://github.com/Zimbra/zm-base-os](https://github.com/Zimbra/zm-base-os).
+The current builds are based on Ubuntu and RHEL families Adding new builds based on other distributions should not be very difficult. It's just about adding new Dockerfiles based on [https://github.com/Zimbra/zm-base-os](https://github.com/Zimbra/zm-base-os).
 
 If you don't figure out how to do it please open an issue at: [https://github.com/maldua/zimbra-foss-builder/issues](https://github.com/maldua/zimbra-foss-builder/issues).
 
