@@ -265,6 +265,14 @@ ENV_CACHE_CLEAR_FLAG=true ./build.pl \
   --no-interactive
 ```
 
+## Additional documentation
+
+If you want to take over this project these are the documentation files that you should be reading:
+
+- [Build Zimbra tgz installers thanks to Github Actions](BUILD-GITHUB-ACTION.md)
+- [Generate downloads page from Releases data thanks to Github Actions](DOWNLOADS-GITHUB-ACTION.md)
+- [Release instructions for the project maintainer](MAINTAINER-RELEASE.md)
+
 ## Similar projects
 
 - [ianw1974's zimbra-build-scripts](https://github.com/ianw1974/zimbra-build-scripts)
