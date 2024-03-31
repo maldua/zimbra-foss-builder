@@ -184,6 +184,11 @@ def expandByRhel8(matrix):
       rockyRow['prefixTag'] = nRow['prefixTag'].replace("rhel","rocky")
       rockyRow['distroLongName'] = "Rocky Linux 8"
       newMatrix.append(rockyRow)
+
+      centosRow = nRow.copy()
+      centosRow['prefixTag'] = nRow['prefixTag'].replace("rhel","centos")
+      centosRow['distroLongName'] = "CentOS 8"
+      newMatrix.append(centosRow)
     newMatrix.append(nRow)
   return (newMatrix)
 
