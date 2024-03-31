@@ -4,6 +4,10 @@
 
 **MALDUA'S Zimbra FOSS Builder** brought to you by [BTACTIC, open source & cloud solutions](https://www.btactic.com).
 
+## Download
+
+Check our [Zimbra FOSS Downloads / Zimbra OSE Downloads page](https://maldua.github.io/zimbra-foss-builder/downloads.html) if you are just interested for the generated binaries (tgz installers for Zimbra) from this project.
+
 ## Introduction
 
 This project aims to ease the build of Zimbra FOSS.
