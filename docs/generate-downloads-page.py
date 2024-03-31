@@ -29,6 +29,12 @@ def getIconField(prefixTag):
     iconField = f"![Ubuntu icon]({imagesDir}/ubuntu.png)"
   elif ("rhel" in prefixTag):
     iconField = f"![RedHat icon]({imagesDir}/redhat.png)"
+  elif ("oracle" in prefixTag):
+    iconField = f"![Oracle icon]({imagesDir}/oracle.png)"
+  elif ("rocky" in prefixTag):
+    iconField = f"![Rocky icon]({imagesDir}/rocky.png)"
+  elif ("centos" in prefixTag):
+    iconField = f"![Centos icon]({imagesDir}/centos.png)"
   else:
     iconField = ""
 
@@ -139,6 +145,27 @@ def filterByCategory(matrix, category):
       newMatrix.append(nRow)
   return (newMatrix)
 
+def expandByRhel8(matrix):
+  rhel8Regex = re.compile('^.*-rhel-8$')
+  newMatrix = []
+  for nRow in matrix:
+    if re.match(rhel8Regex, nRow['prefixTag']):
+      rhelRow = nRow.copy()
+      rhelRow['distroLongName'] = "Red Hat Enterprise Linux 8"
+      newMatrix.append(rhelRow)
+
+      oracleRow = nRow.copy()
+      oracleRow['prefixTag'] = nRow['prefixTag'].replace("rhel","oracle")
+      oracleRow['distroLongName'] = "Oracle Linux 8"
+      newMatrix.append(oracleRow)
+
+      rockyRow = nRow.copy()
+      rockyRow['prefixTag'] = nRow['prefixTag'].replace("rhel","rocky")
+      rockyRow['distroLongName'] = "Rocky Linux 8"
+      newMatrix.append(rockyRow)
+    newMatrix.append(nRow)
+  return (newMatrix)
+
 # Tag functions
 def getVersionTags(matrix):
   versionTags = []
@@ -195,6 +222,8 @@ def outputNewLine(downloads_md):
 
 # Get the main releasesMatrix with all of the releases information
 releasesMatrix = getReleasesMatrix()
+
+releasesMatrix = expandByRhel8(releasesMatrix)
 
 # Get our four main matrices
 stableReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="stable")
