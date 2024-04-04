@@ -64,11 +64,22 @@ sudo apt-get update
 sudo apt-get install docker-ce
 ```
 
-### Docker user
+### Docker user - Creation
 
 ```
 sudo usermod -a -G docker zbuilder
 ```
+
+### Docker user - Re-login
+
+In order to be able to use Docker properly from `zbuilder` user you might need to logout and then login to your user.
+You might find how to enforce the user Docker group rights without logging out if you search enough but most of the times it's easier to just logout and login.
+
+### Docker user - Hello world
+
+Also make sure to run the usual 'Hello world' docker examples under the `zbuilder` user.
+These 'Hello world' docker examples are usually explained in most of the docker installation manuals.
+If 'Hello world' docker example does not work as expected then building thanks to our Dockerfiles will definitely not work.
 
 ### Git ssh keys
 
