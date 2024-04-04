@@ -27,7 +27,16 @@ Roadmap:
 
 In order to ease the Zimbra build this build method uses Docker under the hood. You will find instructions on how to setup your build user to use Docker. This only needs to be done once. These Docker instructions are meant for Ubuntu 20.04 but any other generic Docker setup instructions for your OS should be ok.
 
+### Choose a build user
+
+These builds are done not thanks to the `root` user but thanks to a regular user from your distro which will be part of the `docker` group.
+This documentation will be using: `zbuilder` for such an user.
+
+*Note for advanced users only: If you really need to use root user in order to use Docker reading github Dockerfiles can give you a hint on how to rewrite the current smart Dockerfiles.*
+
 ### Docker setup
+
+*Note: The commands for this Docker setup need to be run as either root user or a user that it's part of the sudo group, usually the admin user.*
 
 #### Install docker prerequisites
 
@@ -58,12 +67,14 @@ sudo apt-get install docker-ce
 ### Docker user
 
 ```
-sudo usermod -a -G docker myuser
+sudo usermod -a -G docker zbuilder
 ```
 
 ### Git ssh keys
 
-In your build machine you can create a key by doing this:
+*Note: The commands below need to be run as the `zbuilder` user.*
+
+You need to run the command below in order to create a key.
 
 ```
 ssh-keygen -t rsa -b 4096 -C "zimbra-builder@domain.com"
@@ -89,6 +100,8 @@ This is the recommended build method for newbies.
 
 ### Builder setup
 
+*Note: The commands below need to be run as the `zbuilder` user.*
+
 ```
 git clone https://github.com/maldua/zimbra-foss-builder
 cd zimbra-foss-builder
@@ -109,6 +122,8 @@ In this example you ask for 10.0.7 version to be built. The smart build will aut
   * zm-build branch: 10.0.6
   * Git default branch: '10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0'
 
+*Note: The commands below need to be run as the `zbuilder` user.*
+
 ```
 docker run \
   -it \
@@ -122,6 +137,8 @@ docker run \
 ```
 
 ### Result
+
+*Note: The commands below need to be run as the `zbuilder` user.*
 
 ```
 find BUILDS
@@ -140,6 +157,8 @@ Now you could use `zcs-10.0.7_GA_1000.UBUNTU20_64.20240312142857.tgz` in order t
 Once you have more experience you will figure out yourself that 10.0.x tags are always almost the same ones and that you can write them on your own. This will save you the initial 5 or 10 minutes that the zimbra-tag-helper will try to figure out the different tags.
 
 ### Builder setup
+
+*Note: The commands below need to be run as the `zbuilder` user.*
 
 ```
 git clone https://github.com/maldua/zimbra-foss-builder
@@ -160,6 +179,8 @@ docker build \
     - zm-build branch: 10.0.6
     - Git default branch: '10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0'
 
+*Note: The commands below need to be run as the `zbuilder` user.*
+
 ```
 docker run \
   -it \
@@ -175,6 +196,8 @@ docker run \
 ```
 
 ### Result
+
+*Note: The commands below need to be run as the `zbuilder` user.*
 
 ```
 find BUILDS
@@ -192,6 +215,8 @@ This build let's you fine tune the actual command that builds everything just in
 
 ### Builder setup
 
+*Note: The commands below need to be run as the `zbuilder` user.*
+
 ```
 git clone https://github.com/maldua/zimbra-foss-builder
 cd zimbra-foss-builder
@@ -207,6 +232,8 @@ docker build \
 
 ### Enter onto the zimbra builder
 
+*Note: The commands below need to be run as the `zbuilder` user.*
+
 ```
 docker run \
   -it \
@@ -218,6 +245,8 @@ docker run \
 ```
 
 ### Actual build inside of the docker
+
+*Note: Inside of the Docker you are running these commands as the `build` user which has their uid/gid mapped to your `zbuilder` user.*
 
 ```
 cd installer-build
@@ -237,6 +266,8 @@ ENV_CACHE_CLEAR_FLAG=true ./build.pl \
 
 ### Result
 
+*Note: The commands below need to be run as the `zbuilder` user.*
+
 ```
 find BUILDS
 BUILDS
@@ -248,6 +279,8 @@ BUILDS/.gitignore
 ```
 
 ### 10.0.6 build example
+
+*Note: Inside of the Docker you are running these commands as the `build` user which has their uid/gid mapped to your `zbuilder` user.*
 
 ```
 cd installer-build
