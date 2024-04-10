@@ -15,11 +15,9 @@ This project aims to ease the build of Zimbra FOSS.
 Main features:
 
 - Ubuntu support
+- Rhel support
 - Specific tag support
-
-Roadmap:
-
-- Automate Zimbra FOSS builds thanks to Github Actions.
+- Zimbra FOSS builds can be automated thanks to Github Actions.
 
 ## Requisites
 
