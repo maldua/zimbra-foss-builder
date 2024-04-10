@@ -149,6 +149,31 @@ docker run \
   zimbra-smart-ubuntu-20.04-builder:latest
 ```
 
+### Smart build (Alternative with acme brand)
+
+This is an example on how you can brand your smart builds with, e.g. 'acme'.
+**Be warned**: Do not use dots(.), plus signs (+), spaces or anything fancy in your brand name.
+
+In this example you ask for 10.0.7 version to be built. The smart build will autofill for you:
+
+  * zm-build branch: 10.0.6
+  * Git default branch: '10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0'
+
+*Note: The commands below need to be run as the `zbuilder` user.*
+
+```
+docker run \
+  -it \
+  --env ZIMBRA_BUILDER_UID=$(id -u) \
+  --env ZIMBRA_BUILDER_GID=$(id -g) \
+  --env ZM_BUILD_RELEASE_NO='10.0.7' \
+  --env ZM_BUILDER_ID='acme' \
+  -v ~/.ssh:/home/build/.ssh:ro \
+  -v $(pwd):/usr/local/zimbra-foss-builder:ro \
+  -v $(pwd)/BUILDS:/home/build/installer-build/BUILDS:rw \
+  zimbra-smart-ubuntu-20.04-builder:latest
+```
+
 ### Result
 
 *Note: The commands below need to be run as the `zbuilder` user.*
