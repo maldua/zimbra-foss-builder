@@ -128,6 +128,8 @@ docker build \
 
 ### Smart build
 
+This smart build will be branded as 'manual' by default.
+
 In this example you ask for 10.0.7 version to be built. The smart build will autofill for you:
 
   * zm-build branch: 10.0.6
