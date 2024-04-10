@@ -27,6 +27,8 @@ Roadmap:
 
 In order to ease the Zimbra build this build method uses Docker under the hood. You will find instructions on how to setup your build user to use Docker. This only needs to be done once. These Docker instructions are meant for Ubuntu 20.04 but any other generic Docker setup instructions for your OS should be ok.
 
+Be aware of RHEL 8 based distributions. Search for a [docker-ce howto](https://computingforgeeks.com/install-docker-and-docker-compose-on-rhel-8-centos-8/). Trying to install docker package directly installs *podman* and *buildah* which **[do not work exactly as docker-ce](https://github.com/maldua/zimbra-foss-builder/issues/2#issuecomment-2043119036)** although they seem to be advertised as such.
+
 ### Choose a build user
 
 These builds are done not thanks to the `root` user but thanks to a regular user from your distro which will be part of the `docker` group.
