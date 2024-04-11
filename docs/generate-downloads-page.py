@@ -59,7 +59,7 @@ def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, bui
 
 def getCategoryFromBody (body):
   categoryRegex = re.compile('^category: (.*)$')
-  allowedCategories = [ "stable", "beta", "experimental" ]
+  allowedCategories = [ "stable", "recent", "experimental" ]
 
   defaultCategory = "other"
   category = defaultCategory
@@ -95,7 +95,7 @@ def getReleasesMatrix():
   # - versionTag: 9.0.0.p39
   # - distroLongName: Ubuntu 20.04 based on release title
   # - tgzDownloadUrl: https://...tgz based on assets which start with 'zcs-' and end in 'tgz'
-  # - category: 'stable, beta, experimental, other' based on draft, pre-release values (use a helper function)
+  # - category: 'stable, recent, experimental, other' based on draft, pre-release values (use a helper function)
 
   response = requests.get(repoReleasesApiUrl, headers={"Accept":"application/vnd.github+json", "Authorization":f"Bearer {GITHUB_TOKEN}", "X-GitHub-Api-Version":"2022-11-28"})
   responseJson = response.json()
@@ -254,7 +254,7 @@ releasesMatrix = expandByRhel8(releasesMatrix)
 
 # Get our four main matrices
 stableReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="stable")
-betaReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="beta")
+recentReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="recent")
 experimentalReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="experimental")
 otherReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="other")
 
@@ -262,8 +262,8 @@ otherReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="other")
 stableVersionTags = getVersionTags (stableReleasesMatrix)
 stableVersionTags = orderedAndUniqueVersionTags (stableVersionTags)
 
-betaVersionTags = getVersionTags (betaReleasesMatrix)
-betaVersionTags = orderedAndUniqueVersionTags (betaVersionTags)
+recentVersionTags = getVersionTags (recentReleasesMatrix)
+recentVersionTags = orderedAndUniqueVersionTags (recentVersionTags)
 
 experimentalVersionTags = getVersionTags (experimentalReleasesMatrix)
 experimentalVersionTags = orderedAndUniqueVersionTags (experimentalVersionTags)
@@ -286,9 +286,9 @@ append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
 outputSection(downloads_md=downloads_md, versionTags=stableVersionTags, releasesMatrix=stableReleasesMatrix, shortName='Stable')
 
 outputNewLine(downloads_md)
-append_files(templatesDir + "/" + "beta-releases-top.md", downloads_md)
+append_files(templatesDir + "/" + "recent-releases-top.md", downloads_md)
 append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
-outputSection(downloads_md=downloads_md, versionTags=betaVersionTags, releasesMatrix=betaReleasesMatrix, shortName='Beta')
+outputSection(downloads_md=downloads_md, versionTags=recentVersionTags, releasesMatrix=recentReleasesMatrix, shortName='Beta')
 
 outputNewLine(downloads_md)
 append_files(templatesDir + "/" + "experimental-releases-top.md", downloads_md)
