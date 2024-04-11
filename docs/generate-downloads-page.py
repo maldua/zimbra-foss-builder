@@ -44,7 +44,7 @@ def get_download_table_top (versionTag, shortName):
   return (
     f"### {versionTag} ({shortName})\n"
     '\n'
-    '| | Platform | Download 64-BIT | Build Date | Size | More details | Comment |\n'
+    '| | Platform | Download 64-BIT | Build Date | Size | +Info | Comment |\n'
     '| --- | --- | --- | --- | --- | --- | --- |'
   )
 
@@ -54,7 +54,7 @@ def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, bui
   sha256DownloadUrl = tgzDownloadUrl + ".sha256"
   humanSize = sizeof_fmt(size)
   # TODO: Use the release url directly instead of crafting it ourselves.
-  download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) [(MD5)]({md5DownloadUrl}) [(SHA 256)]({sha256DownloadUrl}) | {buildDate} | {humanSize} | [Build/Release details]({moreInformationUrl}) | {comment} |"
+  download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) - [MD5]({md5DownloadUrl}) - [SHA256]({sha256DownloadUrl}) | {buildDate} | {humanSize} | [+Info]({moreInformationUrl}) | {comment} |"
   return (download_row)
 
 def getCategoryFromBody (body):
