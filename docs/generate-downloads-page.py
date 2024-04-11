@@ -288,7 +288,7 @@ outputSection(downloads_md=downloads_md, versionTags=stableVersionTags, releases
 outputNewLine(downloads_md)
 append_files(templatesDir + "/" + "recent-releases-top.md", downloads_md)
 append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
-outputSection(downloads_md=downloads_md, versionTags=recentVersionTags, releasesMatrix=recentReleasesMatrix, shortName='Beta')
+outputSection(downloads_md=downloads_md, versionTags=recentVersionTags, releasesMatrix=recentReleasesMatrix, shortName='Recent')
 
 outputNewLine(downloads_md)
 append_files(templatesDir + "/" + "experimental-releases-top.md", downloads_md)
