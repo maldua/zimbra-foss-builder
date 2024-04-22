@@ -55,19 +55,51 @@ function get_build_release_candidate() {
 
 }
 
+function get_build_no() {
+
+  _ZM_BUILD_RELEASE_NO_WITH_PATCH="$1"
+  _ZM_BUILDER_ID_ARG="$2"
+  _ZM_BUILDER_ID=$((_ZM_BUILDER_ID_ARG))
+
+  _PATCH_LEVEL_STR=""
+
+  if [[ "${_ZM_BUILD_RELEASE_NO_WITH_PATCH}" =~ ^.*.[pP].*$ ]] ; then
+    _PATCH_LEVEL_STR="${_ZM_BUILD_RELEASE_NO_WITH_PATCH##*.[pP]}"
+  fi
+
+  if [ "x" == "x${_PATCH_LEVEL_STR}" ] ; then
+    _PATCH_LEVEL_STR="0"
+  fi
+
+  if ! [[ "${_PATCH_LEVEL_STR}" =~ ^[0-9]+$ ]] ; then
+    echo "FATAL. At this point the patch level (${_PATCH_LEVEL_STR}) must be a number."
+    exit 1
+  fi
+
+  _PATCH_LEVEL=$((_PATCH_LEVEL_STR))
+
+  _BUILD_NO_TMP1=$((_ZM_BUILDER_ID * 10000))   # E.g. 4200000
+  _BUILD_NO=$((_BUILD_NO_TMP1 + _PATCH_LEVEL)) # E.g. 4200039
+
+  echo ${_BUILD_NO}
+
+}
+
 BUILD_RELEASE_CANDIDATE="$(get_build_release_candidate ${ZM_BUILD_RELEASE_NO_WITH_PATCH})"
 
 ZM_BUILD_RELEASE_NO_TMP1="${ZM_BUILD_RELEASE_NO_WITH_PATCH%.[pP]*}"
 ZM_BUILD_RELEASE_NO="${ZM_BUILD_RELEASE_NO_TMP1%.[bB][eE][tT][aA]}"
+
+BUILD_NO="$(get_build_no ${ZM_BUILD_RELEASE_NO_WITH_PATCH} ${ZM_BUILDER_ID})"
 
 cd installer-build
 
 cat << EOF > BUILDS/zimbra-builder-commands.txt
 git clone --depth 1 --branch ${ZM_BUILD_BRANCH} git@github.com:Zimbra/zm-build.git
 cd zm-build
-ENV_CACHE_CLEAR_FLAG=true ./build.pl --ant-options -DskipTests=true --git-default-tag=${ZM_BUILD_GIT_DEFAULT_TAG} --build-release-no=${ZM_BUILD_RELEASE_NO} --build-type=FOSS --build-release=LIBERTY --build-release-candidate=${BUILD_RELEASE_CANDIDATE} --build-thirdparty-server=files.zimbra.com --no-interactive
+ENV_CACHE_CLEAR_FLAG=true ./build.pl --ant-options -DskipTests=true --git-default-tag=${ZM_BUILD_GIT_DEFAULT_TAG} --build-release-no=${ZM_BUILD_RELEASE_NO} --build-type=FOSS --build-release=LIBERTY --build-release-candidate=${BUILD_RELEASE_CANDIDATE} --build-no ${BUILD_NO} --build-thirdparty-server=files.zimbra.com --no-interactive
 EOF
 
 git clone --depth 1 --branch ${ZM_BUILD_BRANCH} git@github.com:Zimbra/zm-build.git
 cd zm-build
-ENV_CACHE_CLEAR_FLAG=true ./build.pl --ant-options -DskipTests=true --git-default-tag=${ZM_BUILD_GIT_DEFAULT_TAG} --build-release-no=${ZM_BUILD_RELEASE_NO} --build-type=FOSS --build-release=LIBERTY --build-release-candidate=${BUILD_RELEASE_CANDIDATE} --build-thirdparty-server=files.zimbra.com --no-interactive
+ENV_CACHE_CLEAR_FLAG=true ./build.pl --ant-options -DskipTests=true --git-default-tag=${ZM_BUILD_GIT_DEFAULT_TAG} --build-release-no=${ZM_BUILD_RELEASE_NO} --build-type=FOSS --build-release=LIBERTY --build-release-candidate=${BUILD_RELEASE_CANDIDATE} --build-no ${BUILD_NO} --build-thirdparty-server=files.zimbra.com --no-interactive
