@@ -128,7 +128,7 @@ docker build \
 
 ### Smart build
 
-This smart build will be branded as 'manual' by default.
+This smart build will be branded as '430' by default.
 
 In this example you ask for 10.0.7 version to be built. The smart build will autofill for you:
 
@@ -152,7 +152,9 @@ docker run \
 ### Smart build (Alternative with acme brand)
 
 This is an example on how you can brand your smart builds with, e.g. 'acme'.
-**Be warned**: Do not use dots(.), plus signs (+), spaces or anything fancy in your brand name.
+This must be converted into a number between 100 and 999 like 431 or 432.
+E.g. acme always means 431.
+You can check what the different builder ids are at a FUTURE-ZIMBRA-FORUMS-THREAD.
 
 In this example you ask for 10.0.7 version to be built. The smart build will autofill for you:
 
@@ -167,7 +169,7 @@ docker run \
   --env ZIMBRA_BUILDER_UID=$(id -u) \
   --env ZIMBRA_BUILDER_GID=$(id -g) \
   --env ZM_BUILD_RELEASE_NO='10.0.7' \
-  --env ZM_BUILDER_ID='acme' \
+  --env ZM_BUILDER_ID='431' \
   -v ~/.ssh:/home/build/.ssh:ro \
   -v $(pwd):/usr/local/zimbra-foss-builder:ro \
   -v $(pwd)/BUILDS:/home/build/installer-build/BUILDS:rw \
