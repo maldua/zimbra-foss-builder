@@ -11,7 +11,7 @@ function getGitDefaultTag {
 }
 
 ZM_BUILD_RELEASE_NO="$1" # E.g. 10.0.7
-ZM_BUILDER_ID="$2" # E.g. 'maldua'
+ZM_BUILDER_ID="$2" # E.g. '430'
 
 if [ "x" == "x${ZM_BUILD_RELEASE_NO}" ] ; then
   echo "ZM_BUILD_RELEASE_NO is not defined."
