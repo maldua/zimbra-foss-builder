@@ -74,9 +74,16 @@ files from your temporary Linux machine.
 ## Rename your organisation in yml files
 
 Find the workflow yml files such as:
-- `.github/workflows/build-docker.yml`
-- `.github/workflows/build-release.yml`
+- `.github/workflows/build-docker-ubuntu-18.04.yml`
+- `.github/workflows/build-release-rhel-7.yml`
 and then make sure to replace the maldua Github organisation with your own Github organisation.
+
+## Rename your builder id in yml files
+
+Find the workflow yml files such as:
+- `.github/workflows/build-docker-ubuntu-18.04.yml`
+- `.github/workflows/build-release-rhel-7.yml`
+and then make sure to replace the maldua builder id (420) to something else between 100 and 999 that it's not used by other community Zimbra builders. Do not use 430 either because it's the default value when no builder id has been specified.
 
 ## First steps
 
@@ -84,10 +91,10 @@ and then make sure to replace the maldua Github organisation with your own Githu
 
 Before trying to build Zimbra you need to be build the different dockers that are used as a base for building it.
 
-Given the current [build-docker.yml](.github/workflows/build-docker.yml) file contents you might want to start to build right away with something like:
+Given the current [build-docker-ubuntu-18.04.yml(.github/workflows/build-docker-ubuntu-18.04.yml) file contents you might want to start to build right away with something like:
 ```
-git tag -a 'docker-builds-dev/build-docker-1' -m 'docker-builds-dev/build-docker-1'
-git push origin 'docker-builds-dev/build-docker-1'
+git tag -a 'docker-builds-ubuntu-18.04/build-docker-1' -m 'docker-builds-ubuntu-18.04/build-docker-1'
+git push origin 'docker-builds-ubuntu-18.04/build-docker-1'
 ```
 .
 
