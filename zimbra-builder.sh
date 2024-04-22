@@ -3,7 +3,7 @@
 ZM_BUILD_RELEASE_NO_WITH_PATCH="$1" # E.g. 10.0.7p0
 ZM_BUILD_BRANCH="$2" # E.g. 10.0.6
 ZM_BUILD_GIT_DEFAULT_TAG="$3" # E.g. '10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0'
-ZM_BUILDER_ID="$4" # E.g. 'maldua'
+ZM_BUILDER_ID_ARG="$4" # E.g. '430'
 
 if [ "x" == "x${ZM_BUILD_RELEASE_NO_WITH_PATCH}" ] ; then
   echo "ZM_BUILD_RELEASE_NO_WITH_PATCH is not defined."
@@ -20,9 +20,26 @@ if [ "x" == "x${ZM_BUILD_GIT_DEFAULT_TAG}" ] ; then
   exit 1
 fi
 
-# Force default manual value
-if [ "x" == "x${ZM_BUILDER_ID}" ] ; then
-  ZM_BUILDER_ID="manual"
+# Force default manual value (430)
+if [ "x" == "x${ZM_BUILDER_ID_ARG}" ] ; then
+  ZM_BUILDER_ID_ARG="430"
+fi
+
+if ! [[ "${ZM_BUILDER_ID_ARG}" =~ ^[0-9]+$ ]] ; then
+  echo "ZM_BUILDER_ID must be a number."
+  exit 1
+fi
+
+ZM_BUILDER_ID=$((ZM_BUILDER_ID_ARG))
+
+if ! [[ ${ZM_BUILDER_ID} -ge 100 ]] ; then
+  echo "ZM_BUILDER_ID must be greater than or equal to 100."
+  exit 1
+fi
+
+if ! [[ ${ZM_BUILDER_ID} -le 999 ]] ; then
+  echo "ZM_BUILDER_ID must be less than or equal to 999."
+  exit 1
 fi
 
 function get_build_release_candidate() {
