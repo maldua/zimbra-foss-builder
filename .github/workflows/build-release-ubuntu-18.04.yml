@@ -10,7 +10,7 @@ env:
   DISTRO_FULLNAME: Ubuntu 18.04
   DISTRO_BUILD_DIR_PREFIX: UBUNTU18_64
   DISTRO_TAG_PREFIX: ubuntu-18.04
-  ZIMBRA_BUILDER_ID: maldua
+  ZIMBRA_BUILDER_ID: 420
 
 jobs:
   zimbra-release:
