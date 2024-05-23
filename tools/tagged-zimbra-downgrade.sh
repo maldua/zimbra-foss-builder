@@ -723,7 +723,7 @@ getLdapDif /tmp/downgrade-ldap-entries-to-delete.txt > /tmp/downgrade-ldap-entri
 read -p "This will restart Zimbra. Are you sure?" -r restart_choice
 if [[ $restart_choice =~ ^[Yy]$ ]] ; then
   echo "Processing..."
-  # applyDowngrade /tmp/downgrade-ldap-entries-to-delete.ldif
+  applyDowngrade /tmp/downgrade-ldap-entries-to-delete.ldif
   echo "...Done."
 else
   echo "Aborted by the user."
