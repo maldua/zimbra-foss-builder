@@ -694,8 +694,6 @@ function applyDowngrade {
   zmcontrol stop
   ldap start
 
-  source ~/bin/zmshutil
-  zmsetvars
   ldapmodify -x -H $ldap_master_url -D "uid=zimbra,cn=admins,cn=zimbra" -w $zimbra_ldap_password -f ${_LDAP_ENTRIES_TO_DELETE_LDIF_FILE}
 
   ldap stop
@@ -710,6 +708,9 @@ if [ "x$(id -u -n)" != "xzimbra" ]; then
 fi
 
 ###
+
+source ~/bin/zmshutil
+zmsetvars
 
 print_10.0.7_config > /tmp/downgrade-data-10.0.7.txt
 getConfigValues > /tmp/downgrade-data-current.txt
