@@ -40,9 +40,6 @@ fi
 
 ###
 
-source ~/bin/zmshutil
-zmsetvars
-
 read -p "This will restart Zimbra. Are you sure?" -r restart_choice
 if [[ $restart_choice =~ ^[Yy]$ ]] ; then
   echo "Processing..."
