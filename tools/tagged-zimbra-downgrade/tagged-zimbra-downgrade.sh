@@ -22,8 +22,8 @@ function fixBorkedLdap {
   /opt/zimbra/libexec/zmslapcat -c ${LDAP_DOWNGRADE_FIX_DIR}
   /opt/zimbra/libexec/zmslapcat -a ${LDAP_DOWNGRADE_FIX_DIR}
 
-  # Stop ldap and remove old ldap database
-  ldap stop
+  # Stop zimbra and remove old ldap database
+  zmcontrol stop
 
   mv /opt/zimbra/data/ldap/mdb /opt/zimbra/data/ldap/mdb.old_LDAP_DOWNGRADE_FIX
   mkdir -p /opt/zimbra/data/ldap/mdb/db
@@ -46,7 +46,6 @@ if [[ $restart_choice =~ ^[Yy]$ ]] ; then
   fixBorkedLdap
   echo "...Done."
   echo "Now starting Zimbra..."
-  ldap stop
   zmcontrol start
 else
   echo "Aborted by the user."
