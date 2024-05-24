@@ -721,7 +721,6 @@ function fixBorkedLdap {
   mkdir -p /opt/zimbra/data/ldap/mdb/db
 
   # Import sanitized ldap dump
-
   /opt/zimbra/libexec/zmslapadd ${LDAP_DOWNGRADE_FIX_DIR}/ldap.bak
 }
 
