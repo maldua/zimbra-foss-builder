@@ -93,7 +93,7 @@ You might want to check the Github Repo Actions tab to see if every build went o
 
 ## Optional category change
 
-The builds are set to be **beta** releases. If those were not beta releases we might want to edit them in the Github Repo Releases page to change them into another category.
+The builds are set to be **recent** releases by default. If those were not recent releases we might want to edit them in the Github Repo Releases page to change them into another category.
 
 Once everything is built you are ready to update the downloads page.
 
