@@ -120,7 +120,7 @@ def getReleasesMatrix():
 
       tagsItem = {}
       tagsItem["tag"] = tag
-      tagsItem["buildDate"] = nJson["created_at"]
+      tagsItem["buildDate"] = nJson["published_at"]
       tagsItem["prefixTag"] = prefixTag
       tagsItem["versionTag"] = versionTag
       tagsItem["distroLongName"] = distroLongName
