@@ -56,6 +56,7 @@ jobs:
               /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${{ steps.split-tag.outputs.version }} ${{ env.ZIMBRA_BUILDER_ID }}
               chown -R ${{ steps.runner.outputs.uid }}:${{ steps.runner.outputs.gid }} /home/build/installer-build/BUILDS/*
 
+      - run: cat ${{ github.workspace }}/BUILDS/zimbra-builder-commands.txt
       - run: ls -la ${{ github.workspace }}/BUILDS/
       - name: Get tgz release filename
         id: tgz-release
