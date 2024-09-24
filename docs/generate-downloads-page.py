@@ -192,6 +192,28 @@ def expandByRhel8(matrix):
     newMatrix.append(nRow)
   return (newMatrix)
 
+def expandByRhel9(matrix):
+  rhel9Regex = re.compile('^.*-rhel-9$')
+  newMatrix = []
+  for nRow in matrix:
+    if re.match(rhel9Regex, nRow['prefixTag']):
+      rhelRow = nRow.copy()
+      rhelRow['distroLongName'] = "Red Hat Enterprise Linux 9"
+      newMatrix.append(rhelRow)
+
+      oracleRow = nRow.copy()
+      oracleRow['prefixTag'] = nRow['prefixTag'].replace("rhel","oracle")
+      oracleRow['distroLongName'] = "Oracle Linux 9"
+      newMatrix.append(oracleRow)
+
+      rockyRow = nRow.copy()
+      rockyRow['prefixTag'] = nRow['prefixTag'].replace("rhel","rocky")
+      rockyRow['distroLongName'] = "Rocky Linux 9"
+      newMatrix.append(rockyRow)
+
+    newMatrix.append(nRow)
+  return (newMatrix)
+
 # Tag functions
 def getVersionTags(matrix):
   versionTags = []
@@ -251,6 +273,7 @@ releasesMatrix = getReleasesMatrix()
 
 releasesMatrix = expandByRhel7(releasesMatrix)
 releasesMatrix = expandByRhel8(releasesMatrix)
+releasesMatrix = expandByRhel9(releasesMatrix)
 
 # Get our four main matrices
 stableReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="stable")
