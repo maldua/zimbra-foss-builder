@@ -322,6 +322,12 @@ def outputNewLine(downloads_md):
   with open(downloads_md, 'a') as outfile:
     outfile.write('\n')
 
+def outputNewHLine(downloads_md):
+  with open(downloads_md, 'a') as outfile:
+    outfile.write('\n')
+    outfile.write('---')
+    outfile.write('\n')
+
 # Get the main releasesMatrix with all of the releases information
 releasesMatrix = getReleasesMatrix()
 
@@ -400,11 +406,11 @@ def writeSimpleDownloadsPage(downloads_md):
   append_files(templatesDir + "/" + "simple-title.md", downloads_md)
   append_files(templatesDir + "/" + "simple-top.md", downloads_md)
   outputSectionSimple(downloads_md=downloads_md, versionTags=simple1VersionTags, releasesMatrix=simpleReleasesMatrix, shortName='10.1.x Stable')
-  outputNewLine(downloads_md)
+  outputNewHLine(downloads_md)
   outputSectionSimple(downloads_md=downloads_md, versionTags=simple2VersionTags, releasesMatrix=simpleReleasesMatrix, shortName='10.0.x Stable')
-  outputNewLine(downloads_md)
+  outputNewHLine(downloads_md)
   outputSectionSimple(downloads_md=downloads_md, versionTags=simple3VersionTags, releasesMatrix=simpleReleasesMatrix, shortName='9.0.0.pXX Stable')
-  outputNewLine(downloads_md)
+  outputNewHLine(downloads_md)
   append_files(templatesDir + "/" + "simple-top.md", downloads_md)
 
 writeAdvancedDownloadsPage(downloads_md)
