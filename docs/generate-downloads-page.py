@@ -267,6 +267,16 @@ def orderedAndUniqueVersionTags (versionTags):
   versionTagsOrdered=(sortVersionProcess.stdout).rstrip().split('\n')
   return (versionTagsOrdered)
 
+def getFirstTagStartingWith (versionTags, prefix):
+  tagStartingWithRegex = re.compile('^' + prefix + '.*$')
+  newVersionTags = []
+  for nVersionTag in versionTags:
+    if re.match(tagStartingWithRegex, nVersionTag):
+      newVersionTags.append(nVersionTag)
+      break
+
+  return (newVersionTags)
+
 def filterByVersionTag(matrix, versionTag):
   newMatrix = []
   for nRow in matrix:
@@ -334,6 +344,10 @@ stableVersionTags = orderedAndUniqueVersionTags (stableVersionTags)
 simpleVersionTags = getVersionTags (simpleReleasesMatrix)
 simpleVersionTags = orderedAndUniqueVersionTags (simpleVersionTags)
 
+simple1VersionTags = getFirstTagStartingWith (simpleVersionTags, prefix='10.1.')
+simple2VersionTags = getFirstTagStartingWith (simpleVersionTags, prefix='10.0.')
+simple3VersionTags = getFirstTagStartingWith (simpleVersionTags, prefix='9.0.0.p.')
+
 recentVersionTags = getVersionTags (recentReleasesMatrix)
 recentVersionTags = orderedAndUniqueVersionTags (recentVersionTags)
 
@@ -385,7 +399,11 @@ def writeSimpleDownloadsPage(downloads_md):
 
   append_files(templatesDir + "/" + "simple-title.md", downloads_md)
   append_files(templatesDir + "/" + "simple-top.md", downloads_md)
-  outputSectionSimple(downloads_md=downloads_md, versionTags=simpleVersionTags, releasesMatrix=simpleReleasesMatrix, shortName='Stable')
+  outputSectionSimple(downloads_md=downloads_md, versionTags=simple1VersionTags, releasesMatrix=simpleReleasesMatrix, shortName='10.1.x Stable')
+  outputNewLine(downloads_md)
+  outputSectionSimple(downloads_md=downloads_md, versionTags=simple2VersionTags, releasesMatrix=simpleReleasesMatrix, shortName='10.0.x Stable')
+  outputNewLine(downloads_md)
+  outputSectionSimple(downloads_md=downloads_md, versionTags=simple3VersionTags, releasesMatrix=simpleReleasesMatrix, shortName='9.0.0.pXX Stable')
   outputNewLine(downloads_md)
   append_files(templatesDir + "/" + "simple-top.md", downloads_md)
 
