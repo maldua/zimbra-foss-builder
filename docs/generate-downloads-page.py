@@ -72,7 +72,7 @@ def get_download_row_simple (prefixTag, versionTag, distroLongName, tgzDownloadU
   sha256DownloadUrl = tgzDownloadUrl + ".sha256"
   humanSize = sizeof_fmt(size)
   # TODO: Use the release url directly instead of crafting it ourselves.
-  download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) - [MD5]({md5DownloadUrl}) - [SHA256]({sha256DownloadUrl}) | [+Info]({moreInformationUrl}) |"
+  download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) ([MD5]({md5DownloadUrl})) ([SHA256]({sha256DownloadUrl})) | [+Info]({moreInformationUrl}) |"
   return (download_row)
 
 def getCategoryFromBody (body):
