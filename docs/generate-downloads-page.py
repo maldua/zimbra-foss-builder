@@ -40,6 +40,17 @@ def getIconField(prefixTag):
 
   return (iconField)
 
+def get_download_table_title_collapsible (versionTag, shortName):
+  return (
+    f"{versionTag} ({shortName})"
+  )
+
+def get_download_table_top_collapsible ():
+  return (
+    '| | Platform | Download 64-BIT | Build Date | Size | +Info | Comment |\n'
+    '| --- | --- | --- | --- | --- | --- | --- |'
+  )
+
 def get_download_table_top (versionTag, shortName):
   return (
     f"### {versionTag} ({shortName})\n"
@@ -263,6 +274,26 @@ def outputSection(downloads_md, versionTags, releasesMatrix, shortName):
       download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'], size=nRelease['size'] , moreInformationUrl=nRelease['html_url'], comment=nRelease['comment'])
       with open(downloads_md, 'a') as outfile:
         outfile.write(download_row + '\n')
+
+def outputSectionCollapsible(downloads_md, versionTags, releasesMatrix, shortName):
+  for nTagVersion in versionTags:
+    filteredMatrix = filterByVersionTag(releasesMatrix, nTagVersion)
+    orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
+
+    download_table_top = get_download_table_top_collapsible ()
+    download_table_title = get_download_table_title_collapsible (versionTag=nTagVersion, shortName=shortName)
+    with open(downloads_md, 'a') as outfile:
+      outfile.write('\n' + '<details>' + '\n')
+      outfile.write('\n' + '<summary>' + download_table_title + '</summary>' + '\n')
+      outfile.write('\n' + download_table_top + '\n')
+
+    for nRelease in orderedFilteredMatrix:
+      download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'], size=nRelease['size'] , moreInformationUrl=nRelease['html_url'], comment=nRelease['comment'])
+      with open(downloads_md, 'a') as outfile:
+        outfile.write(download_row + '\n')
+
+    with open(downloads_md, 'a') as outfile:
+      outfile.write('\n' + '</details>' + '\n')
 
 def outputNewLine(downloads_md):
   with open(downloads_md, 'a') as outfile:
