@@ -45,7 +45,7 @@ def get_download_table_top_simple (versionTag, shortName):
   return (
     f"### {versionTag} ({shortName})\n"
     '\n'
-    '| | Platform | Download 64-BIT | +Info |\n'
+    '| | PLATFORM | DOWNLOAD 64-BIT | +INFO |\n'
     '| --- | --- | --- | --- |'
   )
 
