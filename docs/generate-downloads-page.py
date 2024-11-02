@@ -285,20 +285,14 @@ def outputSectionSimple(downloads_md, versionTags, releasesMatrix, shortName):
     filteredMatrix = filterByVersionTag(releasesMatrix, nTagVersion)
     orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
 
-    download_table_top = get_download_table_top_simple ()
-    download_table_title = get_download_table_title_simple (versionTag=nTagVersion, shortName=shortName)
+    download_table_top = get_download_table_top (versionTag=nTagVersion, shortName=shortName)
     with open(downloads_md, 'a') as outfile:
-      outfile.write('\n' + '<details>' + '\n')
-      outfile.write('\n' + '<summary>' + download_table_title + '</summary>' + '\n')
       outfile.write('\n' + download_table_top + '\n')
 
     for nRelease in orderedFilteredMatrix:
       download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'], size=nRelease['size'] , moreInformationUrl=nRelease['html_url'], comment=nRelease['comment'])
       with open(downloads_md, 'a') as outfile:
         outfile.write(download_row + '\n')
-
-    with open(downloads_md, 'a') as outfile:
-      outfile.write('\n' + '</details>' + '\n')
 
 def outputNewLine(downloads_md):
   with open(downloads_md, 'a') as outfile:
@@ -375,7 +369,7 @@ def writeSimpleDownloadsPage(downloads_md):
   outputNewLine(downloads_md)
   append_files(templatesDir + "/" + "stable-releases-top.md", downloads_md)
   append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
-  outputSection(downloads_md=downloads_md, versionTags=stableVersionTags, releasesMatrix=stableReleasesMatrix, shortName='Stable')
+  outputSectionSimple(downloads_md=downloads_md, versionTags=stableVersionTags, releasesMatrix=stableReleasesMatrix, shortName='Stable')
 
 writeAdvancedDownloadsPage(downloads_md)
 writeSimpleDownloadsPage(simple_downloads_md)
