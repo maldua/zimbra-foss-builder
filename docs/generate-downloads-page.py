@@ -370,12 +370,11 @@ def writeSimpleDownloadsPage(downloads_md):
 
   # Write the different sections as needed
 
-  append_files(templatesDir + "/" + "downloads-top.md", downloads_md)
-
-  outputNewLine(downloads_md)
-  append_files(templatesDir + "/" + "stable-releases-top.md", downloads_md)
-  append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
+  append_files(templatesDir + "/" + "simple-title.md", downloads_md)
+  append_files(templatesDir + "/" + "simple-top.md", downloads_md)
   outputSectionSimple(downloads_md=downloads_md, versionTags=stableVersionTags, releasesMatrix=stableReleasesMatrix, shortName='Stable')
+  outputNewLine(downloads_md)
+  append_files(templatesDir + "/" + "simple-top.md", downloads_md)
 
 writeAdvancedDownloadsPage(downloads_md)
 writeSimpleDownloadsPage(simple_downloads_md)
