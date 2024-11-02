@@ -167,6 +167,14 @@ def filterByCategory(matrix, category):
       newMatrix.append(nRow)
   return (newMatrix)
 
+def filterNoRhel(matrix):
+  rhelRegex = re.compile('^.*RHEL.*$')
+  newMatrix = []
+  for nRow in matrix:
+    if not (re.match(rhelRegex, nRow['distroLongName'])):
+      newMatrix.append(nRow)
+  return (newMatrix)
+
 def expandByRhel7(matrix):
   rhel7Regex = re.compile('^.*-rhel-7$')
   newMatrix = []
@@ -316,10 +324,15 @@ stableReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="stable"
 recentReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="recent")
 experimentalReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="experimental")
 otherReleasesMatrix = filterByCategory(matrix=releasesMatrix, category="other")
+simpleReleasesMatrix = filterNoRhel(matrix=stableReleasesMatrix)
 
 # Get ordered (and unique) tags
 stableVersionTags = getVersionTags (stableReleasesMatrix)
 stableVersionTags = orderedAndUniqueVersionTags (stableVersionTags)
+
+# Get ordered (and unique) tags
+simpleVersionTags = getVersionTags (simpleReleasesMatrix)
+simpleVersionTags = orderedAndUniqueVersionTags (simpleVersionTags)
 
 recentVersionTags = getVersionTags (recentReleasesMatrix)
 recentVersionTags = orderedAndUniqueVersionTags (recentVersionTags)
@@ -372,7 +385,7 @@ def writeSimpleDownloadsPage(downloads_md):
 
   append_files(templatesDir + "/" + "simple-title.md", downloads_md)
   append_files(templatesDir + "/" + "simple-top.md", downloads_md)
-  outputSectionSimple(downloads_md=downloads_md, versionTags=stableVersionTags, releasesMatrix=stableReleasesMatrix, shortName='Stable')
+  outputSectionSimple(downloads_md=downloads_md, versionTags=simpleVersionTags, releasesMatrix=simpleReleasesMatrix, shortName='Stable')
   outputNewLine(downloads_md)
   append_files(templatesDir + "/" + "simple-top.md", downloads_md)
 
