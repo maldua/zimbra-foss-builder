@@ -1,97 +1,78 @@
-# Maldua's Zimbra Foss Builds Downloads Page
----
+# Zimbra Foss Downloads Page (from Maldua)
 
-**Disclaimer: This is just a proof of concept.**
----
+- These **Zimbra Foss Downloads** are equivalent to the old **Zimbra OSE Downloads**.
+- **These are not official Zimbra/Synacor builds.**
+- **These builds are distributed in the hope that they will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.**
+- These releases should be equivalent (regarding fixes and patches) to the [Synacor Zimbra Network Edition releases](https://wiki.zimbra.com/wiki/Zimbra_Releases) which have exactly the same versions as the ones found here. E.g. Maldua's Zimbra FOSS 10.1.2 should have the same security fixes and patch level as Zimbra Network Edition 10.1.2 . Network Edition only features are not included.
+- **MALDUA'S Zimbra FOSS Builds** brought to you by [BTACTIC, open source & cloud solutions](https://www.btactic.com).
 
-## Downloads Index
-
-- [Stable releases](#stable-releases)
-- [Beta releases](#beta-releases)
-- [Experimental releases](#experimental-releases)
-- [Other releases](#other-releases)
-
-## Stable releases
-
-These are releases that were made public in [Maldua's Zimbra FOSS Builds - Share your feedback - Zimbra Forums thread](https://forums.zimbra.org/viewtopic.php?t=72655) and after 15 days of being public there has not been any major negative feedback.
+These **stable releases** below are the **latest** releases that were made public in [Maldua's Zimbra FOSS Builds - Share your feedback - Zimbra Forums thread](https://forums.zimbra.org/viewtopic.php?t=72655) and after 15 days of being public there has not been any major negative feedback.
 
 ---
 
-**Disclaimer: These are not official Zimbra/Synacor builds.**
+You can find recent/testing, experimental/beta in addition to older releases at [Advanced Downloads](advanced-downloads.md).
 
 ---
 
-**Disclaimer: These builds are distributed in the hope that they will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.**
+### 10.1.2 (10.1.x Stable)
+
+| | PLATFORM | DOWNLOAD 64-BIT | +INFO |
+| --- | --- | --- | --- |
+|![Centos icon](images/centos.png) | CentOS 7 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.1.2/zcs-10.1.2_GA_4200000.RHEL7_64.20240924075539.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.1.2/zcs-10.1.2_GA_4200000.RHEL7_64.20240924075539.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.1.2/zcs-10.1.2_GA_4200000.RHEL7_64.20240924075539.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-7/10.1.2) |
+|![Centos icon](images/centos.png) | CentOS 8 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.1.2/zcs-10.1.2_GA_4200000.RHEL8_64.20240924075523.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.1.2/zcs-10.1.2_GA_4200000.RHEL8_64.20240924075523.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.1.2/zcs-10.1.2_GA_4200000.RHEL8_64.20240924075523.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-8/10.1.2) |
+|![Oracle icon](images/oracle.png) | Oracle Linux 7 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.1.2/zcs-10.1.2_GA_4200000.RHEL7_64.20240924075539.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.1.2/zcs-10.1.2_GA_4200000.RHEL7_64.20240924075539.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.1.2/zcs-10.1.2_GA_4200000.RHEL7_64.20240924075539.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-7/10.1.2) |
+|![Oracle icon](images/oracle.png) | Oracle Linux 8 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.1.2/zcs-10.1.2_GA_4200000.RHEL8_64.20240924075523.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.1.2/zcs-10.1.2_GA_4200000.RHEL8_64.20240924075523.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.1.2/zcs-10.1.2_GA_4200000.RHEL8_64.20240924075523.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-8/10.1.2) |
+|![RedHat icon](images/redhat.png) | Red Hat Enterprise Linux 7 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.1.2/zcs-10.1.2_GA_4200000.RHEL7_64.20240924075539.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.1.2/zcs-10.1.2_GA_4200000.RHEL7_64.20240924075539.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.1.2/zcs-10.1.2_GA_4200000.RHEL7_64.20240924075539.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-7/10.1.2) |
+|![RedHat icon](images/redhat.png) | Red Hat Enterprise Linux 8 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.1.2/zcs-10.1.2_GA_4200000.RHEL8_64.20240924075523.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.1.2/zcs-10.1.2_GA_4200000.RHEL8_64.20240924075523.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.1.2/zcs-10.1.2_GA_4200000.RHEL8_64.20240924075523.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-8/10.1.2) |
+|![Rocky icon](images/rocky.png) | Rocky Linux 8 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.1.2/zcs-10.1.2_GA_4200000.RHEL8_64.20240924075523.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.1.2/zcs-10.1.2_GA_4200000.RHEL8_64.20240924075523.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.1.2/zcs-10.1.2_GA_4200000.RHEL8_64.20240924075523.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-8/10.1.2) |
+|![Ubuntu icon](images/ubuntu.png) | Ubuntu 18.04 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-18.04/10.1.2/zcs-10.1.2_GA_4200000.UBUNTU18_64.20240924075539.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-18.04/10.1.2/zcs-10.1.2_GA_4200000.UBUNTU18_64.20240924075539.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-18.04/10.1.2/zcs-10.1.2_GA_4200000.UBUNTU18_64.20240924075539.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-ubuntu-18.04/10.1.2) |
+|![Ubuntu icon](images/ubuntu.png) | Ubuntu 20.04 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04/10.1.2/zcs-10.1.2_GA_4200000.UBUNTU20_64.20240924075512.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04/10.1.2/zcs-10.1.2_GA_4200000.UBUNTU20_64.20240924075512.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04/10.1.2/zcs-10.1.2_GA_4200000.UBUNTU20_64.20240924075512.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-ubuntu-20.04/10.1.2) |
+|![Ubuntu icon](images/ubuntu.png) | Ubuntu 22.04 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-22.04/10.1.2/zcs-10.1.2_GA_4200000.UBUNTU22_64.20240924075512.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-22.04/10.1.2/zcs-10.1.2_GA_4200000.UBUNTU22_64.20240924075512.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-22.04/10.1.2/zcs-10.1.2_GA_4200000.UBUNTU22_64.20240924075512.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-ubuntu-22.04/10.1.2) |
 
 ---
 
-### 10.0.7 (Stable)
+### 10.0.9 (10.0.x Stable)
 
-| | Platform | Download 64-BIT | Build Date | More details |
-| | --- | --- | --- | --- |
-|![RedHat icon](images/redhat.png) | RHEL 5 | 64bit x86 (MD5) (SHA 256) | 2024-02-01 | Build/Release details |
-|![RedHat icon](images/redhat.png) | RHEL 6 | 64bit x86 (MD5) (SHA 256) | 2024-02-01 | Build/Release details |
-|![RedHat icon](images/redhat.png) | RHEL 7 | 64bit x86 (MD5) (SHA 256) | 2024-02-01 | Build/Release details |
-|![Ubuntu icon](images/ubuntu.png) | Ubuntu 18.04 | 64bit x86 (MD5) (SHA 256) | 2024-02-01 | Build/Release details |
-|![Ubuntu icon](images/ubuntu.png) | Ubuntu 20.04 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04%2F10.0.7/zcs-10.0.7_GA-10.0.7-maldua_1000.UBUNTU20_64.20240322145629.tgz) [(MD5)](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04%2F10.0.7/zcs-10.0.7_GA-10.0.7-maldua_1000.UBUNTU20_64.20240322145629.tgz.md5) [(SHA 256)](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04%2F10.0.7/zcs-10.0.7_GA-10.0.7-maldua_1000.UBUNTU20_64.20240322145629.tgz.sha256) | 2024-02-01 | [Build/Release details](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-ubuntu-20.04%2F10.0.7) |
-|![Ubuntu icon](images/ubuntu.png) | Ubuntu 22.04 | 64bit x86 (MD5) (SHA 256) | 2024-02-01 | Build/Release details |
-
-### 9.0.0.p39 (Stable)
-
-- RHEL 5 - 64bit x86 (MD5) (SHA 256) (Build/Release details)
-- RHEL 6 - 64bit x86 (MD5) (SHA 256) (Build/Release details)
-- RHEL 7 - 64bit x86 (MD5) (SHA 256) (Build/Release details)
-- Ubuntu 18.04 - 64bit x86 (MD5) (SHA 256) (Build/Release details)
-- Ubuntu 20.04 - 64bit x86 (MD5) (SHA 256) (Build/Release details)
-- Ubuntu 22.04 - 64bit x86 (MD5) (SHA 256) (Build/Release details)
-
-### 9.0.0 (Stable)
-### 8.8.15.p46 (Stable)
+| | PLATFORM | DOWNLOAD 64-BIT | +INFO |
+| --- | --- | --- | --- |
+|![Centos icon](images/centos.png) | CentOS 7 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.0.9/zcs-10.0.9_GA_4200000.RHEL7_64.20240823180041.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.0.9/zcs-10.0.9_GA_4200000.RHEL7_64.20240823180041.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.0.9/zcs-10.0.9_GA_4200000.RHEL7_64.20240823180041.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-7/10.0.9) |
+|![Centos icon](images/centos.png) | CentOS 8 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.0.9/zcs-10.0.9_GA_4200000.RHEL8_64.20240823175947.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.0.9/zcs-10.0.9_GA_4200000.RHEL8_64.20240823175947.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.0.9/zcs-10.0.9_GA_4200000.RHEL8_64.20240823175947.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-8/10.0.9) |
+|![Oracle icon](images/oracle.png) | Oracle Linux 7 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.0.9/zcs-10.0.9_GA_4200000.RHEL7_64.20240823180041.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.0.9/zcs-10.0.9_GA_4200000.RHEL7_64.20240823180041.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.0.9/zcs-10.0.9_GA_4200000.RHEL7_64.20240823180041.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-7/10.0.9) |
+|![Oracle icon](images/oracle.png) | Oracle Linux 8 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.0.9/zcs-10.0.9_GA_4200000.RHEL8_64.20240823175947.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.0.9/zcs-10.0.9_GA_4200000.RHEL8_64.20240823175947.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.0.9/zcs-10.0.9_GA_4200000.RHEL8_64.20240823175947.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-8/10.0.9) |
+|![RedHat icon](images/redhat.png) | Red Hat Enterprise Linux 7 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.0.9/zcs-10.0.9_GA_4200000.RHEL7_64.20240823180041.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.0.9/zcs-10.0.9_GA_4200000.RHEL7_64.20240823180041.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/10.0.9/zcs-10.0.9_GA_4200000.RHEL7_64.20240823180041.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-7/10.0.9) |
+|![RedHat icon](images/redhat.png) | Red Hat Enterprise Linux 8 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.0.9/zcs-10.0.9_GA_4200000.RHEL8_64.20240823175947.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.0.9/zcs-10.0.9_GA_4200000.RHEL8_64.20240823175947.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.0.9/zcs-10.0.9_GA_4200000.RHEL8_64.20240823175947.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-8/10.0.9) |
+|![Rocky icon](images/rocky.png) | Rocky Linux 8 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.0.9/zcs-10.0.9_GA_4200000.RHEL8_64.20240823175947.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.0.9/zcs-10.0.9_GA_4200000.RHEL8_64.20240823175947.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/10.0.9/zcs-10.0.9_GA_4200000.RHEL8_64.20240823175947.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-8/10.0.9) |
+|![Ubuntu icon](images/ubuntu.png) | Ubuntu 18.04 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-18.04/10.0.9/zcs-10.0.9_GA_4200000.UBUNTU18_64.20240823175950.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-18.04/10.0.9/zcs-10.0.9_GA_4200000.UBUNTU18_64.20240823175950.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-18.04/10.0.9/zcs-10.0.9_GA_4200000.UBUNTU18_64.20240823175950.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-ubuntu-18.04/10.0.9) |
+|![Ubuntu icon](images/ubuntu.png) | Ubuntu 20.04 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04/10.0.9/zcs-10.0.9_GA_4200000.UBUNTU20_64.20240823175957.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04/10.0.9/zcs-10.0.9_GA_4200000.UBUNTU20_64.20240823175957.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04/10.0.9/zcs-10.0.9_GA_4200000.UBUNTU20_64.20240823175957.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-ubuntu-20.04/10.0.9) |
 
 ---
 
-## Beta releases
+### 9.0.0.p40 (9.0.0.pXX Stable)
 
-These are releases that were made public in [Maldua's Zimbra FOSS Builds - Share your feedback - Zimbra Forums thread](https://forums.zimbra.org/viewtopic.php?t=72655) **less than 15 days ago**. Feedback is welcome either in the [forum thread](https://forums.zimbra.org/viewtopic.php?t=72655) or in the [issues page](https://github.com/maldua/zimbra-foss-builder/issues).
-
----
-
-**Disclaimer: These are not official Zimbra/Synacor builds.**
-
----
-
-**Disclaimer: These builds are distributed in the hope that they will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.**
-
----
-
----
-
-## Experimental releases
-
-These are releases that maldua-foss-builder developers do not want to make public but that sometimes might be useful to have some feedback from them.
+| | PLATFORM | DOWNLOAD 64-BIT | +INFO |
+| --- | --- | --- | --- |
+|![Centos icon](images/centos.png) | CentOS 7 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL7_64.20240422174914.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL7_64.20240422174914.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL7_64.20240422174914.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-7/9.0.0.p40) |
+|![Centos icon](images/centos.png) | CentOS 8 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL8_64.20240422174835.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL8_64.20240422174835.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL8_64.20240422174835.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-8/9.0.0.p40) |
+|![Oracle icon](images/oracle.png) | Oracle Linux 7 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL7_64.20240422174914.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL7_64.20240422174914.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL7_64.20240422174914.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-7/9.0.0.p40) |
+|![Oracle icon](images/oracle.png) | Oracle Linux 8 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL8_64.20240422174835.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL8_64.20240422174835.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL8_64.20240422174835.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-8/9.0.0.p40) |
+|![RedHat icon](images/redhat.png) | Red Hat Enterprise Linux 7 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL7_64.20240422174914.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL7_64.20240422174914.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-7/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL7_64.20240422174914.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-7/9.0.0.p40) |
+|![RedHat icon](images/redhat.png) | Red Hat Enterprise Linux 8 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL8_64.20240422174835.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL8_64.20240422174835.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL8_64.20240422174835.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-8/9.0.0.p40) |
+|![Rocky icon](images/rocky.png) | Rocky Linux 8 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL8_64.20240422174835.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL8_64.20240422174835.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-rhel-8/9.0.0.p40/zcs-9.0.0_GA_4200040.RHEL8_64.20240422174835.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-rhel-8/9.0.0.p40) |
+|![Ubuntu icon](images/ubuntu.png) | Ubuntu 18.04 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-18.04/9.0.0.p40/zcs-9.0.0_GA_4200040.UBUNTU18_64.20240422174854.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-18.04/9.0.0.p40/zcs-9.0.0_GA_4200040.UBUNTU18_64.20240422174854.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-18.04/9.0.0.p40/zcs-9.0.0_GA_4200040.UBUNTU18_64.20240422174854.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-ubuntu-18.04/9.0.0.p40) |
+|![Ubuntu icon](images/ubuntu.png) | Ubuntu 20.04 | [64bit x86](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04/9.0.0.p40/zcs-9.0.0_GA_4200040.UBUNTU20_64.20240422174848.tgz) ([MD5](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04/9.0.0.p40/zcs-9.0.0_GA_4200040.UBUNTU20_64.20240422174848.tgz.md5)) ([SHA256](https://github.com/maldua/zimbra-foss-builder/releases/download/zimbra-foss-build-ubuntu-20.04/9.0.0.p40/zcs-9.0.0_GA_4200040.UBUNTU20_64.20240422174848.tgz.sha256)) | [+Info](https://github.com/maldua/zimbra-foss-builder/releases/tag/zimbra-foss-build-ubuntu-20.04/9.0.0.p40) |
 
 ---
 
-**Disclaimer: These are not official Zimbra/Synacor builds.**
+- These **Zimbra Foss Downloads** are equivalent to the old **Zimbra OSE Downloads**.
+- **These are not official Zimbra/Synacor builds.**
+- **These builds are distributed in the hope that they will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.**
+- These releases should be equivalent (regarding fixes and patches) to the [Synacor Zimbra Network Edition releases](https://wiki.zimbra.com/wiki/Zimbra_Releases) which have exactly the same versions as the ones found here. E.g. Maldua's Zimbra FOSS 10.1.2 should have the same security fixes and patch level as Zimbra Network Edition 10.1.2 . Network Edition only features are not included.
+- **MALDUA'S Zimbra FOSS Builds** brought to you by [BTACTIC, open source & cloud solutions](https://www.btactic.com).
+
+These **stable releases** below are the **latest** releases that were made public in [Maldua's Zimbra FOSS Builds - Share your feedback - Zimbra Forums thread](https://forums.zimbra.org/viewtopic.php?t=72655) and after 15 days of being public there has not been any major negative feedback.
 
 ---
 
-**Disclaimer: These builds are distributed in the hope that they will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.**
-
----
-
----
-
-## Other releases
-
-These are releases that should not be here if everything is built according to previous download sections. If there's some builds here in the end we might end up renaming this section. So, yes, this section is expected to be empty.
-
----
-
-**Disclaimer: These are not official Zimbra/Synacor builds.**
-
----
-
-**Disclaimer: These builds are distributed in the hope that they will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.**
+You can find recent/testing, experimental/beta in addition to older releases at [Advanced Downloads](advanced-downloads.md).
 
 ---
