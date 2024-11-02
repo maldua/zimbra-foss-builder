@@ -41,12 +41,12 @@ def getIconField(prefixTag):
 
   return (iconField)
 
-def get_download_table_title_collapsible (versionTag, shortName):
+def get_download_table_title_simple (versionTag, shortName):
   return (
     f"{versionTag} ({shortName})"
   )
 
-def get_download_table_top_collapsible ():
+def get_download_table_top_simple ():
   return (
     '| | Platform | Download 64-BIT | Build Date | Size | +Info | Comment |\n'
     '| --- | --- | --- | --- | --- | --- | --- |'
@@ -280,13 +280,13 @@ def outputSection(downloads_md, versionTags, releasesMatrix, shortName):
       with open(downloads_md, 'a') as outfile:
         outfile.write(download_row + '\n')
 
-def outputSectionCollapsible(downloads_md, versionTags, releasesMatrix, shortName):
+def outputSectionSimple(downloads_md, versionTags, releasesMatrix, shortName):
   for nTagVersion in versionTags:
     filteredMatrix = filterByVersionTag(releasesMatrix, nTagVersion)
     orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
 
-    download_table_top = get_download_table_top_collapsible ()
-    download_table_title = get_download_table_title_collapsible (versionTag=nTagVersion, shortName=shortName)
+    download_table_top = get_download_table_top_simple ()
+    download_table_title = get_download_table_title_simple (versionTag=nTagVersion, shortName=shortName)
     with open(downloads_md, 'a') as outfile:
       outfile.write('\n' + '<details>' + '\n')
       outfile.write('\n' + '<summary>' + download_table_title + '</summary>' + '\n')
