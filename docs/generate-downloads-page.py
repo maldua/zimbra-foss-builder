@@ -45,8 +45,8 @@ def get_download_table_top_simple (versionTag, shortName):
   return (
     f"### {versionTag} ({shortName})\n"
     '\n'
-    '| | Platform | Download 64-BIT | Build Date | Size | +Info | Comment |\n'
-    '| --- | --- | --- | --- | --- | --- | --- |'
+    '| | Platform | Download 64-BIT | +Info |\n'
+    '| --- | --- | --- | --- |'
   )
 
 def get_download_table_top (versionTag, shortName):
@@ -64,6 +64,15 @@ def get_download_row (prefixTag, versionTag, distroLongName, tgzDownloadUrl, bui
   humanSize = sizeof_fmt(size)
   # TODO: Use the release url directly instead of crafting it ourselves.
   download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) - [MD5]({md5DownloadUrl}) - [SHA256]({sha256DownloadUrl}) | {buildDate} | {humanSize} | [+Info]({moreInformationUrl}) | {comment} |"
+  return (download_row)
+
+def get_download_row_simple (prefixTag, versionTag, distroLongName, tgzDownloadUrl, buildDate, size, moreInformationUrl, comment):
+  icon = getIconField(prefixTag)
+  md5DownloadUrl = tgzDownloadUrl + ".md5"
+  sha256DownloadUrl = tgzDownloadUrl + ".sha256"
+  humanSize = sizeof_fmt(size)
+  # TODO: Use the release url directly instead of crafting it ourselves.
+  download_row = f"|{icon} | {distroLongName} | [64bit x86]({tgzDownloadUrl}) - [MD5]({md5DownloadUrl}) - [SHA256]({sha256DownloadUrl}) | [+Info]({moreInformationUrl}) |"
   return (download_row)
 
 def getCategoryFromBody (body):
@@ -287,7 +296,7 @@ def outputSectionSimple(downloads_md, versionTags, releasesMatrix, shortName):
       outfile.write('\n' + download_table_top + '\n')
 
     for nRelease in orderedFilteredMatrix:
-      download_row = get_download_row (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'], size=nRelease['size'] , moreInformationUrl=nRelease['html_url'], comment=nRelease['comment'])
+      download_row = get_download_row_simple (prefixTag=nRelease['prefixTag'], versionTag=nRelease['versionTag'], distroLongName=nRelease['distroLongName'], tgzDownloadUrl=nRelease['tgzDownloadUrl'], buildDate=nRelease['buildDate'], size=nRelease['size'] , moreInformationUrl=nRelease['html_url'], comment=nRelease['comment'])
       with open(downloads_md, 'a') as outfile:
         outfile.write(download_row + '\n')
 
