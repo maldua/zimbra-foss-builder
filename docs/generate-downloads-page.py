@@ -109,8 +109,12 @@ def getReleasesMatrix():
   # - tgzDownloadUrl: https://...tgz based on assets which start with 'zcs-' and end in 'tgz'
   # - category: 'stable, recent, experimental, other' based on draft, pre-release values (use a helper function)
 
-  response = requests.get(repoReleasesApiUrl, headers={"Accept":"application/vnd.github+json", "Authorization":f"Bearer {GITHUB_TOKEN}", "X-GitHub-Api-Version":"2022-11-28"})
+  repoReleasesApiFirstPageUrl=repoReleasesApiUrl+'?simple=yes&per_page=100&page=1'
+  response = requests.get(repoReleasesApiFirstPageUrl, headers={"Accept":"application/vnd.github+json", "Authorization":f"Bearer {GITHUB_TOKEN}", "X-GitHub-Api-Version":"2022-11-28"})
   responseJson = response.json()
+  while 'next' in response.links.keys():
+    response=requests.get(response.links['next']['url'],headers={"Accept":"application/vnd.github+json", "Authorization":f"Bearer {GITHUB_TOKEN}", "X-GitHub-Api-Version":"2022-11-28"})
+    responseJson.extend(response.json())
 
   wantedTagRegex = re.compile('^zimbra-foss-build-.*$')
   prefixTagRegex = re.compile('(.*)/.*')
