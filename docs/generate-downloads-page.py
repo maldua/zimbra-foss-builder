@@ -41,13 +41,10 @@ def getIconField(prefixTag):
 
   return (iconField)
 
-def get_download_table_title_simple (versionTag, shortName):
+def get_download_table_top_simple (versionTag, shortName):
   return (
-    f"{versionTag} ({shortName})"
-  )
-
-def get_download_table_top_simple ():
-  return (
+    f"### {versionTag} ({shortName})\n"
+    '\n'
     '| | Platform | Download 64-BIT | Build Date | Size | +Info | Comment |\n'
     '| --- | --- | --- | --- | --- | --- | --- |'
   )
@@ -285,7 +282,7 @@ def outputSectionSimple(downloads_md, versionTags, releasesMatrix, shortName):
     filteredMatrix = filterByVersionTag(releasesMatrix, nTagVersion)
     orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
 
-    download_table_top = get_download_table_top (versionTag=nTagVersion, shortName=shortName)
+    download_table_top = get_download_table_top_simple (versionTag=nTagVersion, shortName=shortName)
     with open(downloads_md, 'a') as outfile:
       outfile.write('\n' + download_table_top + '\n')
 
