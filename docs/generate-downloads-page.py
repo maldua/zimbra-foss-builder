@@ -371,30 +371,11 @@ def writeSimpleDownloadsPage(downloads_md):
   # Write the different sections as needed
 
   append_files(templatesDir + "/" + "downloads-top.md", downloads_md)
-  append_files(templatesDir + "/" + "downloads-index.md", downloads_md)
 
   outputNewLine(downloads_md)
   append_files(templatesDir + "/" + "stable-releases-top.md", downloads_md)
   append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
   outputSection(downloads_md=downloads_md, versionTags=stableVersionTags, releasesMatrix=stableReleasesMatrix, shortName='Stable')
-
-  outputNewLine(downloads_md)
-  append_files(templatesDir + "/" + "recent-releases-top.md", downloads_md)
-  append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
-  outputSection(downloads_md=downloads_md, versionTags=recentVersionTags, releasesMatrix=recentReleasesMatrix, shortName='Recent')
-
-  outputNewLine(downloads_md)
-  append_files(templatesDir + "/" + "experimental-releases-top.md", downloads_md)
-  append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
-  outputSection(downloads_md=downloads_md, versionTags=experimentalVersionTags, releasesMatrix=experimentalReleasesMatrix, shortName='Experimental')
-
-  outputNewLine(downloads_md)
-  append_files(templatesDir + "/" + "other-releases-top.md", downloads_md)
-  append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
-  outputSection(downloads_md=downloads_md, versionTags=otherVersionTags, releasesMatrix=otherReleasesMatrix, shortName='Other')
-
-  outputNewLine(downloads_md)
-  append_files(templatesDir + "/" + "downloads-index.md", downloads_md)
 
 writeAdvancedDownloadsPage(downloads_md)
 writeSimpleDownloadsPage(simple_downloads_md)
