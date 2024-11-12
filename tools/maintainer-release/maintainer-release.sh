@@ -15,7 +15,7 @@ ZIMBRA_10_1_X_VERSIONS="10.1.3"
 ZIMBRA_10_0_X_PLATFORMS="rhel-7 rhel-8 ubuntu-18.04 ubuntu-20.04"
 ZIMBRA_10_1_X_PLATFORMS="rhel-7 rhel-8 rhel-9 ubuntu-18.04 ubuntu-20.04 ubuntu-22.04"
 
-RELEASE_BUILD_TIME="20M"
+RELEASE_BUILD_TIME="20m"
 
 for nplatform in ${ZIMBRA_10_0_X_PLATFORMS} ; do
   for nversion in ${ZIMBRA_10_0_X_VERSIONS} ; do
