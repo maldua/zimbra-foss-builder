@@ -31,11 +31,12 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US.UTF-8
 
 # USER
-RUN groupadd --gid 1000 build \
-    && useradd --uid 1000 --gid 1000 -m build \
+RUN groupadd --gid ${ZIMBRA_BUILDER_GID} build \
+    && useradd --uid ${ZIMBRA_BUILDER_UID} --gid ${ZIMBRA_BUILDER_GID} -m build \
     && echo build ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/build \
     && chmod 0440 /etc/sudoers.d/build \
-    && chown -R 1000:1000 /home/build
+    && mkdir -p /home/build/installer-build \
+    && chown -R ${ZIMBRA_BUILDER_UID}:${ZIMBRA_BUILDER_GID} /home/build
 
 USER build
 WORKDIR /home/build
