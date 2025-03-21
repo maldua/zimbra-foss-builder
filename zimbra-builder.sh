@@ -101,6 +101,9 @@ cd zm-build
 ENV_CACHE_CLEAR_FLAG=true ./build.pl --ant-options -DskipTests=true --git-default-tag=${ZM_BUILD_GIT_DEFAULT_TAG} --build-release-no=${ZM_BUILD_RELEASE_NO} --build-type=FOSS --build-release=LIBERTY --build-release-candidate=${BUILD_RELEASE_CANDIDATE} --build-no ${BUILD_NO} --build-thirdparty-server=files.zimbra.com --no-interactive
 EOF
 
+git clone --depth 1 --branch ${ZM_BUILD_BRANCH} git@github.com:Zimbra/zm-build.git
+cd zm-build
+
 if [ "pimbra-enabled" == "${ZM_BUILD_PIMBRA_ENABLED}" ] ; then
   wget 'https://github.com/maldua-pimbra/maldua-pimbra-config/raw/refs/tags/'"${ZM_BUILD_RELEASE_NO}"'/config.build'
   if [[ $? -ne 0 ]] ; then
@@ -117,6 +120,4 @@ EOF
   cat config.build >> BUILDS/zimbra-builder-commands.txt
 fi
 
-git clone --depth 1 --branch ${ZM_BUILD_BRANCH} git@github.com:Zimbra/zm-build.git
-cd zm-build
 ENV_CACHE_CLEAR_FLAG=true ./build.pl --ant-options -DskipTests=true --git-default-tag=${ZM_BUILD_GIT_DEFAULT_TAG} --build-release-no=${ZM_BUILD_RELEASE_NO} --build-type=FOSS --build-release=LIBERTY --build-release-candidate=${BUILD_RELEASE_CANDIDATE} --build-no ${BUILD_NO} --build-thirdparty-server=files.zimbra.com --no-interactive
