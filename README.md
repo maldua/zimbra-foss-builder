@@ -105,6 +105,15 @@ If you don't figure out how to do it please open an issue at: [https://github.co
 
 If you manage to add a new distribution please open a pull request at: [https://github.com/maldua/zimbra-foss-builder/pulls](https://github.com/maldua/zimbra-foss-builder/pulls).
 
+## About pimbra
+
+This build system uses [pimbra repos](https://github.com/maldua-pimbra/maldua-pimbra) under the hood.
+This actually means that the minimum versions that you want to build are: `10.1.5`, `10.0.13` and `9.0.0.p44`.
+
+If you want to build older versions please make sure to disable pimbra as it's described in the documentation.
+If you want to build recently released versions you might want to wait till pimbra repos are updated for your specific version.
+Otherwise the build might fail.
+
 ## Smart build example (Recommended)
 
 This is the recommended build method for newbies.
@@ -143,11 +152,14 @@ docker run \
   --env ZIMBRA_BUILDER_UID=$(id -u) \
   --env ZIMBRA_BUILDER_GID=$(id -g) \
   --env ZM_BUILD_RELEASE_NO='10.0.7' \
+  --env PIMBRA_ENABLED='pimbra-enabled' \
   -v ~/.ssh:/home/build/.ssh:ro \
   -v $(pwd):/usr/local/zimbra-foss-builder:ro \
   -v $(pwd)/BUILDS:/home/build/installer-build/BUILDS:rw \
   zimbra-smart-ubuntu-20.04-builder:latest
 ```
+
+**Note**: If you do not want to apply the [extra pimbra repos patches](https://github.com/maldua-pimbra/maldua-pimbra). Use `--env PIMBRA_ENABLED='pimbra-disable'` instead.
 
 ### Smart build (Alternative with acme brand)
 
@@ -169,12 +181,15 @@ docker run \
   --env ZIMBRA_BUILDER_UID=$(id -u) \
   --env ZIMBRA_BUILDER_GID=$(id -g) \
   --env ZM_BUILD_RELEASE_NO='10.0.7' \
+  --env PIMBRA_ENABLED='pimbra-enabled' \
   --env ZM_BUILDER_ID='431' \
   -v ~/.ssh:/home/build/.ssh:ro \
   -v $(pwd):/usr/local/zimbra-foss-builder:ro \
   -v $(pwd)/BUILDS:/home/build/installer-build/BUILDS:rw \
   zimbra-smart-ubuntu-20.04-builder:latest
 ```
+
+**Note**: If you do not want to apply the [extra pimbra repos patches](https://github.com/maldua-pimbra/maldua-pimbra). Use `--env PIMBRA_ENABLED='pimbra-disable'` instead.
 
 ### Result
 
@@ -229,11 +244,14 @@ docker run \
   --env ZM_BUILD_RELEASE_NO='10.0.7' \
   --env ZM_BUILD_BRANCH='10.0.6' \
   --env ZM_BUILD_GIT_DEFAULT_TAG='10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0' \
+  --env PIMBRA_ENABLED='pimbra-enabled' \
   -v ~/.ssh:/home/build/.ssh:ro \
   -v $(pwd):/usr/local/zimbra-foss-builder:ro \
   -v $(pwd)/BUILDS:/home/build/installer-build/BUILDS:rw \
   zimbra-semiauto-ubuntu-20.04-builder:latest
 ```
+
+**Note**: If you do not want to apply the [extra pimbra repos patches](https://github.com/maldua-pimbra/maldua-pimbra). Use `--env PIMBRA_ENABLED='pimbra-disable'` instead.
 
 ### Result
 
@@ -288,6 +306,11 @@ docker run \
 
 *Note: Inside of the Docker you are running these commands as the `build` user which has their uid/gid mapped to your `zbuilder` user.*
 
+- [extra pimbra repos patches](https://github.com/maldua-pimbra/maldua-pimbra) (This is optional but recommended):
+```
+wget 'https://github.com/maldua-pimbra/maldua-pimbra-config/raw/refs/tags/'"10.0.0"'/config.build'
+```
+
 ```
 cd installer-build
 git clone --depth 1 --branch 10.0.0-GA git@github.com:Zimbra/zm-build.git
@@ -321,6 +344,11 @@ BUILDS/.gitignore
 ### 10.0.6 build example
 
 *Note: Inside of the Docker you are running these commands as the `build` user which has their uid/gid mapped to your `zbuilder` user.*
+
+- [extra pimbra repos patches](https://github.com/maldua-pimbra/maldua-pimbra) (This is optional but recommended):
+```
+wget 'https://github.com/maldua-pimbra/maldua-pimbra-config/raw/refs/tags/'"10.0.6"'/config.build'
+```
 
 ```
 cd installer-build
