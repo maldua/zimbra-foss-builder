@@ -166,7 +166,7 @@ docker run \
 This is an example on how you can brand your smart builds with, e.g. 'acme'.
 This must be converted into a number between 100 and 999 like 431 or 432.
 E.g. acme always means 431.
-You can check what the different builder ids are at a FUTURE-ZIMBRA-FORUMS-THREAD.
+You can check what the different builder ids are at [Zimbra Foss Builders List - Wiki page](https://wiki.zimbra.com/wiki/ZimbraFossBuildersList).
 
 In this example you ask for 10.0.7 version to be built. The smart build will autofill for you:
 
