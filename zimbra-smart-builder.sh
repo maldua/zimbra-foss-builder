@@ -12,6 +12,7 @@ function getGitDefaultTag {
 
 ZM_BUILD_RELEASE_NO="$1" # E.g. 10.0.7
 ZM_BUILDER_ID="$2" # E.g. '430'
+ZM_BUILD_PIMBRA_ENABLED="$3" # E.g. 'pimbra-enabled'
 
 if [ "x" == "x${ZM_BUILD_RELEASE_NO}" ] ; then
   echo "ZM_BUILD_RELEASE_NO is not defined."
@@ -36,4 +37,4 @@ if [ "x" == "x${ZM_BUILD_GIT_DEFAULT_TAG}" ] ; then
   exit 1
 fi
 
-/usr/local/zimbra-foss-builder/zimbra-builder.sh ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_BRANCH} ${ZM_BUILD_GIT_DEFAULT_TAG} ${ZM_BUILDER_ID}
+/usr/local/zimbra-foss-builder/zimbra-builder.sh ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_BRANCH} ${ZM_BUILD_GIT_DEFAULT_TAG} ${ZM_BUILDER_ID} ${ZM_BUILD_PIMBRA_ENABLED}

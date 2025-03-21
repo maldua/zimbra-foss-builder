@@ -5,6 +5,7 @@ ARG ZIMBRA_BUILDER_GID
 ARG ZM_BUILD_RELEASE_NO
 ARG ZM_BUILD_BRANCH
 ARG ZM_BUILD_GIT_DEFAULT_TAG
+ARG PIMBRA_ENABLED
 
 # Some ideas were taken from: https://github.com/Zimbra/zm-base-os
 
@@ -34,4 +35,4 @@ RUN groupadd --gid ${ZIMBRA_BUILDER_GID} build \
 
 USER build
 WORKDIR /home/build
-CMD /usr/local/zimbra-foss-builder/zimbra-builder.sh ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_BRANCH} ${ZM_BUILD_GIT_DEFAULT_TAG}
+CMD /usr/local/zimbra-foss-builder/zimbra-builder.sh ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_BRANCH} ${ZM_BUILD_GIT_DEFAULT_TAG} ${PIMBRA_ENABLED}
