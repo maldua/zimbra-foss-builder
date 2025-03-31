@@ -66,7 +66,7 @@ So we have managed to find out that we can build these tags:
 - 10.0.8
 .
 
-## Push build tags
+## Option A: Push build tags (Without Pimbra)
 
 Versions to build are: 8.8.15.p47, 9.0.0.p40 and 10.0.8.
 
@@ -81,6 +81,33 @@ Let's craft a real quick script.
 for nplatform in rhel-7 rhel-8 ubuntu-18.04 ubuntu-20.04 ; do
   for nversion in 8.8.15.p47 9.0.0.p40 10.0.8 ; do
     ntag="builds-${nplatform}/${nversion}"
+    git tag -a $ntag -m $ntag
+    git push origin $ntag
+  done
+done
+sleep 20m
+```
+.
+
+You might want to check the Github Repo Actions tab to see if every build went ok.
+
+## Option B: Push build tags (With Pimbra)
+
+First of all we make sure that the [Pimbra's maldua-pimbra-config](https://github.com/maldua-pimbra/maldua-pimbra-config) repo has the proper tag which links to the proper patched repos.
+
+Versions to build are: 8.8.15.p47, 9.0.0.p40 and 10.0.8.
+
+We also know that our system right now is only be able to build RHEL 7, RHEL 8, Ubuntu 18.04 and Ubuntu 20.04 builds.
+
+So we have 3 versions that need to be built in 4 different platforms. 3 times 4 makes 12.
+
+Let's build all of these builds in Github thanks to Github actions in one go. It usually takes 13 minutes. So we will wait for 20 minutes before going on.
+Let's craft a real quick script.
+
+```
+for nplatform in rhel-7 rhel-8 ubuntu-18.04 ubuntu-20.04 ; do
+  for nversion in 8.8.15.p47 9.0.0.p40 10.0.8 ; do
+    ntag="builds-with-pimbra-${nplatform}/${nversion}"
     git tag -a $ntag -m $ntag
     git push origin $ntag
   done
