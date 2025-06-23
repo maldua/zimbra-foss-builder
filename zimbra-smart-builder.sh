@@ -3,9 +3,10 @@
 function getGitDefaultTag {
   _VERSION="$1"
   _FILE="$2"
+  _ZM_BUILD_PIMBRA_ENABLED="$3"
   git clone https://github.com/maldua/zimbra-tag-helper
   cd zimbra-tag-helper
-  ./zm-build-tags-arguments.sh ${_VERSION} > ../${_FILE}
+  ./zm-build-tags-arguments.sh ${_VERSION} ${_ZM_BUILD_PIMBRA_ENABLED} > ../${_FILE}
   cd ..
 
 }
@@ -20,7 +21,7 @@ if [ "x" == "x${ZM_BUILD_RELEASE_NO}" ] ; then
 fi
 
 ZM_BUILD_GIT_DEFAULT_TAG_FILE="git-default-tag.txt"
-getGitDefaultTag ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_GIT_DEFAULT_TAG_FILE}
+getGitDefaultTag ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_GIT_DEFAULT_TAG_FILE} ${ZM_BUILD_PIMBRA_ENABLED}
 ZM_BUILD_GIT_DEFAULT_TAG="$(cat ${ZM_BUILD_GIT_DEFAULT_TAG_FILE})"
 
 ZM_BUILD_BRANCH_FILE="zm-build-branch.txt"
