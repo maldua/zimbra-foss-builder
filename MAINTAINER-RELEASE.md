@@ -94,6 +94,7 @@ You might want to check the Github Repo Actions tab to see if every build went o
 ## Option B: Push build tags (With Pimbra)
 
 First of all we make sure that the [Pimbra's maldua-pimbra-config](https://github.com/maldua-pimbra/maldua-pimbra-config) repo has the proper tag which links to the proper patched repos.
+Please notice that **if the tag is non-existant** in Github Zimbra repos (E.g.: 10.1.7p1) then it needs to be **added** in the modified repos from Pimbra organisation not only as 10.1.7p1-maldua but also as **10.1.7p1**, both of those tags pointing to the same tag.
 
 Versions to build are: 8.8.15.p47, 9.0.0.p40 and 10.0.8.
 
