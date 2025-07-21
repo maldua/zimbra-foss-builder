@@ -38,6 +38,7 @@ RUN groupadd --gid 1000 build \
     && useradd --uid 1000 --gid 1000 -m build \
     && echo build ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/build \
     && chmod 0440 /etc/sudoers.d/build \
+    && mkdir -p /home/build/installer-build \
     && chown -R 1000:1000 /home/build
 
 USER build
