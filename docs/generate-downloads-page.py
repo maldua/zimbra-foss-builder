@@ -8,6 +8,14 @@ from subprocess import run, PIPE
 
 # Please run from docs folder
 
+CALENDAR_ICON = "\U0001F4C5"
+PACKAGE_ICON  = "\U0001F4E6"
+LINK_ICON     = "\U0001F517"
+MEMO_ICON     = "\U0001F4DD"
+COMPUTER_ICON = "\U0001F5A5"
+RULER_ICON = "\U0001F4CF"
+IMAGE_ICON = "\U0001F5BC"
+
 simple_downloads_md='downloads.md'
 downloads_md='advanced-downloads.md'
 templatesDir='templates'
@@ -45,7 +53,7 @@ def get_download_table_top_simple (versionTag, shortName):
   return (
     f"### {versionTag} ({shortName})\n"
     '\n'
-    '| | PLATFORM | DOWNLOAD 64-BIT | +INFO |\n'
+    f'| {IMAGE_ICON} | {COMPUTER_ICON} PLATFORM | {PACKAGE_ICON} DOWNLOAD 64-BIT | {MEMO_ICON} +INFO |\n'
     '| --- | --- | --- | --- |'
   )
 
@@ -53,7 +61,7 @@ def get_download_table_top (versionTag, shortName):
   return (
     f"### {versionTag} ({shortName})\n"
     '\n'
-    '| | Platform | Download 64-BIT | Build Date | Size | +Info | Comment |\n'
+    f"| {IMAGE_ICON} | {COMPUTER_ICON} Platform | {PACKAGE_ICON} Download 64-BIT | {CALENDAR_ICON} Build Date | {RULER_ICON} Size | {LINK_ICON} +Info | {MEMO_ICON} Comment |\n"
     '| --- | --- | --- | --- | --- | --- | --- |'
   )
 
