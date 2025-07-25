@@ -1,5 +1,5 @@
 
-- These **Zimbra Foss Downloads** are equivalent to the old **Zimbra OSE Downloads**.
+- These **Zimbra Foss Downloads** are equivalent to the old **Zimbra OSE Downloads** (also known as Zimbra Community Edition).
 - **These are not official Zimbra/Synacor builds.**
 - **These builds are distributed in the hope that they will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.**
 - These releases should be equivalent (regarding fixes and patches) to the [Synacor Zimbra Network Edition releases](https://wiki.zimbra.com/wiki/Zimbra_Releases) which have exactly the same versions as the ones found here. E.g. Maldua's Zimbra FOSS 10.1.2 should have the same security fixes and patch level as Zimbra Network Edition 10.1.2 . Network Edition only features are not included. - **Important:** These builds **might** also include [Pimbra patches](https://github.com/maldua-pimbra/maldua-pimbra) since `10.1.5`, `10.0.13`, `9.0.0.p44` versions in order to enhance security. You can check `+Info` link on a given download to see if Pimbra patches have been used as part of the config.build contents.
