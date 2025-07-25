@@ -15,6 +15,11 @@ MEMO_ICON     = "\U0001F4DD"
 COMPUTER_ICON = "\U0001F5A5"
 RULER_ICON = "\U0001F4CF"
 IMAGE_ICON = "\U0001F5BC"
+STABLE_ICON = "\U0001F7E2"
+RECENT_ICON = "\U0001F9EA"
+EXPERIMENTAL_ICON = "\U0001F9EC"
+OTHER_ICON = "\U0001F5C2\ufe0f"
+EMPTY_ICON = "\u2205"
 
 simple_downloads_md='downloads.md'
 downloads_md='advanced-downloads.md'
@@ -301,7 +306,13 @@ def append_files(file1_path, file2_path):
 def outputSection(downloads_md, versionTags, releasesMatrix, shortName):
   if not releasesMatrix:
     with open(downloads_md, 'a') as outfile:
-      outfile.write(f'\n**Notice:** No releases found for **{shortName}** category.\n')
+      outfile.write(f'''
+## {EMPTY_ICON} {EMPTY_ICON} {EMPTY_ICON} {EMPTY_ICON} {EMPTY_ICON} {EMPTY_ICON}
+
+**Notice:** No releases found for **{shortName}** category.
+
+## {EMPTY_ICON} {EMPTY_ICON} {EMPTY_ICON} {EMPTY_ICON} {EMPTY_ICON} {EMPTY_ICON}
+        ''')
     return
   for nTagVersion in versionTags:
     filteredMatrix = filterByVersionTag(releasesMatrix, nTagVersion)
@@ -388,25 +399,25 @@ def writeAdvancedDownloadsPage(downloads_md):
   append_files(templatesDir + "/" + "stable-releases-top.md", downloads_md)
   append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
   append_files(templatesDir + "/" + "downloads-subscribe.md", downloads_md)
-  outputSection(downloads_md=downloads_md, versionTags=stableVersionTags, releasesMatrix=stableReleasesMatrix, shortName='Stable')
+  outputSection(downloads_md=downloads_md, versionTags=stableVersionTags, releasesMatrix=stableReleasesMatrix, shortName=f"{STABLE_ICON} Stable {STABLE_ICON}")
 
   outputNewLine(downloads_md)
   append_files(templatesDir + "/" + "recent-releases-top.md", downloads_md)
   append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
   append_files(templatesDir + "/" + "downloads-subscribe.md", downloads_md)
-  outputSection(downloads_md=downloads_md, versionTags=recentVersionTags, releasesMatrix=recentReleasesMatrix, shortName='Recent')
+  outputSection(downloads_md=downloads_md, versionTags=recentVersionTags, releasesMatrix=recentReleasesMatrix, shortName=f"{RECENT_ICON} Recent {RECENT_ICON}")
 
   outputNewLine(downloads_md)
   append_files(templatesDir + "/" + "experimental-releases-top.md", downloads_md)
   append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
   append_files(templatesDir + "/" + "downloads-subscribe.md", downloads_md)
-  outputSection(downloads_md=downloads_md, versionTags=experimentalVersionTags, releasesMatrix=experimentalReleasesMatrix, shortName='Experimental')
+  outputSection(downloads_md=downloads_md, versionTags=experimentalVersionTags, releasesMatrix=experimentalReleasesMatrix, shortName=f"{EXPERIMENTAL_ICON} Experimental {EXPERIMENTAL_ICON}")
 
   outputNewLine(downloads_md)
   append_files(templatesDir + "/" + "other-releases-top.md", downloads_md)
   append_files(templatesDir + "/" + "section-top-disclaimers.md", downloads_md)
   append_files(templatesDir + "/" + "downloads-subscribe.md", downloads_md)
-  outputSection(downloads_md=downloads_md, versionTags=otherVersionTags, releasesMatrix=otherReleasesMatrix, shortName='Other')
+  outputSection(downloads_md=downloads_md, versionTags=otherVersionTags, releasesMatrix=otherReleasesMatrix, shortName=f"{OTHER_ICON} Recent {OTHER_ICON}")
 
   outputNewLine(downloads_md)
   append_files(templatesDir + "/" + "downloads-index.md", downloads_md)
@@ -420,9 +431,9 @@ def writeSimpleDownloadsPage(downloads_md):
 
   append_files(templatesDir + "/" + "simple-title.md", downloads_md)
   append_files(templatesDir + "/" + "simple-top.md", downloads_md)
-  outputSectionSimple(downloads_md=downloads_md, versionTags=simple1VersionTags, releasesMatrix=simpleReleasesMatrix, shortName='10.1.x Stable')
+  outputSectionSimple(downloads_md=downloads_md, versionTags=simple1VersionTags, releasesMatrix=simpleReleasesMatrix, shortName=f"10.1.x {STABLE_ICON} Stable {STABLE_ICON}")
   outputNewHLine(downloads_md)
-  outputSectionSimple(downloads_md=downloads_md, versionTags=simple2VersionTags, releasesMatrix=simpleReleasesMatrix, shortName='10.0.x Stable')
+  outputSectionSimple(downloads_md=downloads_md, versionTags=simple2VersionTags, releasesMatrix=simpleReleasesMatrix, shortName=f"10.0.x {STABLE_ICON} Stable {STABLE_ICON}")
   outputNewHLine(downloads_md)
   append_files(templatesDir + "/" + "simple-top.md", downloads_md)
 
