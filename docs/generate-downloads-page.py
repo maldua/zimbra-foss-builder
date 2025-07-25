@@ -291,6 +291,10 @@ def append_files(file1_path, file2_path):
             shutil.copyfileobj(file1, file2)
 
 def outputSection(downloads_md, versionTags, releasesMatrix, shortName):
+  if not releasesMatrix:
+    with open(downloads_md, 'a') as outfile:
+      outfile.write(f'\n**Notice:** No releases found for **{shortName}** category.\n')
+    return
   for nTagVersion in versionTags:
     filteredMatrix = filterByVersionTag(releasesMatrix, nTagVersion)
     orderedFilteredMatrix = sorted(filteredMatrix, key=lambda d: d['distroLongName'])
