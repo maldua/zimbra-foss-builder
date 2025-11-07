@@ -93,15 +93,20 @@ ZM_BUILD_RELEASE_NO="${ZM_BUILD_RELEASE_NO_TMP1%.[bB][eE][tT][aA]}"
 
 BUILD_NO="$(get_build_no ${ZM_BUILD_RELEASE_NO_WITH_PATCH} ${ZM_BUILDER_ID})"
 
+ZM_BUILD_REPO_URL="git@github.com:Zimbra/zm-build.git"
+if [ "pimbra-enabled" == "${ZM_BUILD_PIMBRA_ENABLED}" ] ; then
+  ZM_BUILD_REPO_URL="git@github.com:maldua-pimbra/zm-build.git"
+fi
+
 cd installer-build
 
 cat << EOF > BUILDS/zimbra-builder-commands.txt
-git clone --depth 1 --branch ${ZM_BUILD_BRANCH} git@github.com:Zimbra/zm-build.git
+git clone --depth 1 --branch ${ZM_BUILD_BRANCH} ${ZM_BUILD_REPO_URL}
 cd zm-build
 ENV_CACHE_CLEAR_FLAG=true ./build.pl --ant-options -DskipTests=true --git-default-tag=${ZM_BUILD_GIT_DEFAULT_TAG} --build-release-no=${ZM_BUILD_RELEASE_NO} --build-type=FOSS --build-release=LIBERTY --build-release-candidate=${BUILD_RELEASE_CANDIDATE} --build-no ${BUILD_NO} --build-thirdparty-server=files.zimbra.com --no-interactive
 EOF
 
-git clone --depth 1 --branch ${ZM_BUILD_BRANCH} git@github.com:Zimbra/zm-build.git
+git clone --depth 1 --branch ${ZM_BUILD_BRANCH} ${ZM_BUILD_REPO_URL}
 cd zm-build
 
 if [ "pimbra-enabled" == "${ZM_BUILD_PIMBRA_ENABLED}" ] ; then
