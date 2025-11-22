@@ -6,7 +6,7 @@ on:
       - builds-rhel-7/*
 
 env:
-  DOCKER_IMAGE_FQDN_TAG: ghcr.io/maldua/zimbra-foss-builder:docker-rhel-7-v0.0.1
+  DOCKER_IMAGE_FQDN_TAG: ghcr.io/maldua/zimbra-foss:docker-rhel-7-v0.0.1
   DISTRO_FULLNAME: RHEL 7
   DISTRO_BUILD_DIR_PREFIX: RHEL7_64
   DISTRO_TAG_PREFIX: rhel-7

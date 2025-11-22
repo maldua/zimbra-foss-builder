@@ -6,7 +6,7 @@ on:
       - builds-with-pimbra-rhel-8/*
 
 env:
-  DOCKER_IMAGE_FQDN_TAG: ghcr.io/maldua/zimbra-foss-builder:docker-rhel-8-v0.0.1
+  DOCKER_IMAGE_FQDN_TAG: ghcr.io/maldua/zimbra-foss:docker-rhel-8-v0.0.1
   DISTRO_FULLNAME: RHEL 8
   DISTRO_BUILD_DIR_PREFIX: RHEL8_64
   DISTRO_TAG_PREFIX: rhel-8

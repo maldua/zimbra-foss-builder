@@ -6,7 +6,7 @@ on:
       - docker-builds-ubuntu-20.04/*
 
 env:
-  IMAGE_FQDN: ghcr.io/maldua/zimbra-foss-builder
+  IMAGE_FQDN: ghcr.io/maldua/zimbra-foss
   DISTRO_VERSION: 20.04
 
 jobs:

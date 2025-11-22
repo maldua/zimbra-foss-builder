@@ -6,7 +6,7 @@ on:
       - docker-builds-rhel-8/*
 
 env:
-  IMAGE_FQDN: ghcr.io/maldua/zimbra-foss-builder
+  IMAGE_FQDN: ghcr.io/maldua/zimbra-foss
   DISTRO_VERSION: 8
 
 jobs:

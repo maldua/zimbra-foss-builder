@@ -6,7 +6,7 @@ on:
       - builds-ubuntu-22.04/*
 
 env:
-  DOCKER_IMAGE_FQDN_TAG: ghcr.io/maldua/zimbra-foss-builder:docker-ubuntu-22.04-v0.0.1
+  DOCKER_IMAGE_FQDN_TAG: ghcr.io/maldua/zimbra-foss:docker-ubuntu-22.04-v0.0.1
   DISTRO_FULLNAME: Ubuntu 22.04
   DISTRO_BUILD_DIR_PREFIX: UBUNTU22_64
   DISTRO_TAG_PREFIX: ubuntu-22.04
