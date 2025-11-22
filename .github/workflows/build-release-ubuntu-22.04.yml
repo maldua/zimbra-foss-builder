@@ -59,6 +59,7 @@ strategy:
 
     runs-on: ubuntu-latest
     environment: git_clone
+
     steps:
       - name: Prepare workspace directories
         run: |
@@ -102,7 +103,7 @@ strategy:
             registry: ghcr.io
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
-            image: ${{ env.DOCKER_IMAGE_FQDN_TAG }}
+            image: ${{ matrix.distro.docker_tag }}
             options: >
               -v ${{ github.workspace }}/zimbra-foss-builder:/usr/local/zimbra-foss-builder:ro
               -v ${{ github.workspace }}/zimbra-foss-builder/BUILDS:/home/build/installer-build/BUILDS:rw
@@ -116,7 +117,7 @@ strategy:
               cd /home/build
               /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh \
                  ${{ steps.split-tag.outputs.version }} \
-                 ${{ env.ZIMBRA_BUILDER_ID }} \
+                 ${{ matrix.distro.builder_id }} \
                  pimbra-disabled
               chown -R ${{ steps.runner.outputs.uid }}:${{ steps.runner.outputs.gid }} /home/build/installer-build/BUILDS/*
 
@@ -126,7 +127,7 @@ strategy:
       - name: Get tgz release filename
         id: tgz-release
         run: |
-          RELEASE_DIR=$(find ${{ github.workspace }}/zimbra-foss-builder/BUILDS -name '${{ env.DISTRO_BUILD_DIR_PREFIX }}*' -type d)
+          RELEASE_DIR=$(find ${{ github.workspace }}/zimbra-foss-builder/BUILDS -name '${{ matrix.distro.build_dir_prefix }}*' -type d)
           RELEASE_TGZ=$(find "${RELEASE_DIR}" -name "zcs-*.tgz" -type f)
           RELEASE_SHORT_TGZ=$(basename ${RELEASE_TGZ})
           echo "directory=${RELEASE_DIR}" >> $GITHUB_OUTPUT
@@ -150,8 +151,8 @@ strategy:
           repo_token: ${{ github.token }}
           prerelease: false
           generate_notes: false
-          automatic_release_tag: zimbra-foss-build-${{ env.DISTRO_TAG_PREFIX }}/${{ steps.split-tag.outputs.version }}
-          title: Zimbra ${{ steps.split-tag.outputs.version }} FOSS Builds ( ${{ env.DISTRO_FULLNAME }} )
+          automatic_release_tag: zimbra-foss-build-${{ matrix.distro.tag_prefix }}/${{ steps.split-tag.outputs.version }}
+          title: Zimbra ${{ steps.split-tag.outputs.version }} FOSS Builds ( ${{ matrix.distro.fullname }} )
           body: |
             category: recent
             **Want to download?** Please use: [Maldua’s Zimbra Foss Builds Downloads Page](https://maldua.github.io/zimbra-foss/downloads.html) instead. It's much easier to read and understand.
