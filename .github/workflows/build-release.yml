@@ -15,6 +15,7 @@ env:
 
 jobs:
   zimbra-release:
+    name: Build Zimbra for ${{ matrix.distro.fullname }}
 strategy:
   matrix:
     distro:
