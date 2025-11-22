@@ -27,5 +27,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: zimbra-foss-builder Docker image
         run: |
-          docker build --tag ${{ env.IMAGE_FQDN }}:docker-ubuntu-${{ env.DISTRO_VERSION }}-${{ steps.split-tag.outputs.version }} . -f Dockerfile-github-ubuntu-20.04
+          docker build --tag ${{ env.IMAGE_FQDN }}:docker-ubuntu-${{ env.DISTRO_VERSION }}-${{ steps.split-tag.outputs.version }} . -f Dockerfiles/github/ubuntu-20.04/Dockerfile
           docker push ${{ env.IMAGE_FQDN }}:docker-ubuntu-${{ env.DISTRO_VERSION }}-${{ steps.split-tag.outputs.version }}

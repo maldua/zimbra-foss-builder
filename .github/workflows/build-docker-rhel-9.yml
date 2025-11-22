@@ -27,5 +27,5 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: zimbra-foss-builder Docker image
         run: |
-          docker build --tag ${{ env.IMAGE_FQDN }}:docker-rhel-${{ env.DISTRO_VERSION }}-${{ steps.split-tag.outputs.version }} . -f Dockerfile-github-rhel-9
+          docker build --tag ${{ env.IMAGE_FQDN }}:docker-rhel-${{ env.DISTRO_VERSION }}-${{ steps.split-tag.outputs.version }} . -f Dockerfiles/github/rhel-9/Dockerfile
           docker push ${{ env.IMAGE_FQDN }}:docker-rhel-${{ env.DISTRO_VERSION }}-${{ steps.split-tag.outputs.version }}
