@@ -12,6 +12,7 @@ on:
 
 env:
   ZIMBRA_BUILDER_ID: 420
+  ZIMBRA_FOSS_BUILDER_VERSION: v0.0.4
 
 jobs:
   zimbra-release:
@@ -77,6 +78,7 @@ strategy:
         with:
           repository: maldua/zimbra-foss-builder
           path: zimbra-foss-builder
+          ref: ${{ env.ZIMBRA_FOSS_BUILDER_VERSION }}
           ssh-key: ${{ secrets.read_only_ssh_key }}
 
       - name: Split branch name
