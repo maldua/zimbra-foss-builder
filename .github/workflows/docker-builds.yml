@@ -1,0 +1,68 @@
+name: docker
+
+on:
+  push:
+    tags:
+      - docker-builds-ubuntu-18.04/*
+      - docker-builds-ubuntu-20.04/*
+      - docker-builds-ubuntu-22.04/*
+      - docker-builds-rhel-7/*
+      - docker-builds-rhel-8/*
+      - docker-builds-rhel-9/*
+
+env:
+  IMAGE_FQDN: ghcr.io/maldua/zimbra-foss
+
+jobs:
+  publish-zimbra-foss-builder-image:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        distro:
+          - name: ubuntu-18.04
+            version: 18.04
+            tag_prefix: docker-builds-ubuntu-18.04/
+            dockerfile: Dockerfiles/github/ubuntu-18.04/Dockerfile
+          - name: ubuntu-20.04
+            version: 20.04
+            tag_prefix: docker-builds-ubuntu-20.04/
+            dockerfile: Dockerfiles/github/ubuntu-20.04/Dockerfile
+          - name: ubuntu-22.04
+            version: 22.04
+            tag_prefix: docker-builds-ubuntu-22.04/
+            dockerfile: Dockerfiles/github/ubuntu-22.04/Dockerfile
+          - name: rhel-7
+            version: 7
+            tag_prefix: docker-builds-rhel-7/
+            dockerfile: Dockerfiles/github/rhel-7/Dockerfile
+          - name: rhel-8
+            version: 8
+            tag_prefix: docker-builds-rhel-8/
+            dockerfile: Dockerfiles/github/rhel-8/Dockerfile
+          - name: rhel-9
+            version: 9
+            tag_prefix: docker-builds-rhel-9/
+            dockerfile: Dockerfiles/github/rhel-9/Dockerfile
+
+    name: Build and push Docker for ${{ matrix.distro.name }}
+    if: startsWith(github.ref, format('refs/tags/{0}', matrix.distro.tag_prefix))
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Split branch name
+        env:
+          BRANCH: ${{ github.ref_name }}
+        id: split-tag
+        run: echo "version=${BRANCH##*/}" >> $GITHUB_OUTPUT
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: zimbra-foss-builder Docker image
+        run: |
+          docker build --tag ${{ env.IMAGE_FQDN }}:${{ matrix.distro.name }}-${{ steps.split-tag.outputs.version }} . -f ${{ matrix.distro.dockerfile }}
+          docker push ${{ env.IMAGE_FQDN }}:${{ matrix.distro.name }}-${{ steps.split-tag.outputs.version }}
