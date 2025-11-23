@@ -19,45 +19,16 @@ jobs:
     name: Build Zimbra for ${{ matrix.distro.fullname }}
     strategy:
       matrix:
-        distro:
-          - name: ubuntu-18.04
-            docker_tag: ghcr.io/maldua/zimbra-foss:docker-ubuntu-18.04-v0.0.1
-            build_dir_prefix: UBUNTU18_64
-            tag_prefix: builds-ubuntu-18.04
-            fullname: Ubuntu 18.04
-
-          - name: ubuntu-20.04
-            docker_tag: ghcr.io/maldua/zimbra-foss:docker-ubuntu-20.04-v0.0.1
-            build_dir_prefix: UBUNTU20_64
-            tag_prefix: builds-ubuntu-20.04
-            fullname: Ubuntu 20.04
-
-          - name: ubuntu-22.04
-            docker_tag: ghcr.io/maldua/zimbra-foss:docker-ubuntu-22.04-v0.0.1
-            build_dir_prefix: UBUNTU22_64
-            tag_prefix: builds-ubuntu-22.04
-            fullname: Ubuntu 22.04
-
-          - name: rhel-7
-            docker_tag: ghcr.io/maldua/zimbra-foss:docker-rhel-7-v0.0.1
-            build_dir_prefix: RHEL7_64
-            tag_prefix: builds-rhel-7
-            fullname: RHEL 7
-
-          - name: rhel-8
-            docker_tag: ghcr.io/maldua/zimbra-foss:docker-rhel-8-v0.0.1
-            build_dir_prefix: RHEL8_64
-            tag_prefix: builds-rhel-8
-            fullname: RHEL 8
-
-          - name: rhel-9
-            docker_tag: ghcr.io/maldua/zimbra-foss:docker-rhel-9-v0.0.1
-            build_dir_prefix: RHEL9_64
-            tag_prefix: builds-rhel-9
-            fullname: RHEL 9
-
-        # Only run the matrix entry that matches the pushed tag
-        if: startsWith(github.ref, format('refs/tags/{0}', matrix.distro.tag_prefix))
+        distro: ${{ fromJSON('[
+          {"name":"Ubuntu 18.04","docker_tag":"ghcr.io/maldua/zimbra-foss:docker-ubuntu-18.04-v0.0.1","build_dir_prefix":"UBUNTU18_64","tag_prefix":"builds-ubuntu-18.04","fullname":"Ubuntu 18.04"},
+          {"name":"Ubuntu 20.04","docker_tag":"ghcr.io/maldua/zimbra-foss:docker-ubuntu-20.04-v0.0.1","build_dir_prefix":"UBUNTU20_64","tag_prefix":"builds-ubuntu-20.04","fullname":"Ubuntu 20.04"},
+          {"name":"Ubuntu 22.04","docker_tag":"ghcr.io/maldua/zimbra-foss:docker-ubuntu-22.04-v0.0.1","build_dir_prefix":"UBUNTU22_64","tag_prefix":"builds-ubuntu-22.04","fullname":"Ubuntu 22.04"},
+          {"name":"RHEL 7","docker_tag":"ghcr.io/maldua/zimbra-foss:docker-rhel-7-v0.0.1","build_dir_prefix":"RHEL7_64","tag_prefix":"builds-rhel-7","fullname":"RHEL 7"},
+          {"name":"RHEL 8","docker_tag":"ghcr.io/maldua/zimbra-foss:docker-rhel-8-v0.0.1","build_dir_prefix":"RHEL8_64","tag_prefix":"builds-rhel-8","fullname":"RHEL 8"},
+          {"name":"RHEL 9","docker_tag":"ghcr.io/maldua/zimbra-foss:docker-rhel-9-v0.0.1","build_dir_prefix":"RHEL9_64","tag_prefix":"builds-rhel-9","fullname":"RHEL 9"}
+        ]')
+        | fromJson
+        | map(select(startsWith(github.ref, format('refs/tags/{0}', .tag_prefix)))) }}
 
         runs-on: ubuntu-latest
         environment: git_clone
