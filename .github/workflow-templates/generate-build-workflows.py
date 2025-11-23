@@ -18,6 +18,7 @@ TEMPLATE_TAG_PREFIX = {
 def generate_workflow(template_content: str, distro: dict, output_dir: str, tag_prefix_template: str) -> str:
     """
     Generate a per-distro workflow YAML for a given distro using the template.
+    Replaces {{MATRIX_SECTION}} with empty string for single-distro workflows.
     """
     name_short = distro["name"].lower().replace(" ", "-")
     workflow_content = template_content
@@ -29,8 +30,9 @@ def generate_workflow(template_content: str, distro: dict, output_dir: str, tag_
     workflow_content = workflow_content.replace("{{BUILD_DIR_PREFIX}}", distro.get("build_dir_prefix", ""))
     workflow_content = workflow_content.replace("{{TAG_PREFIX}}", tag_prefix_template.replace("{{NAME_SHORT}}", name_short))
     workflow_content = workflow_content.replace("{{FULLNAME}}", distro["fullname"])
+    workflow_content = workflow_content.replace("{{MATRIX_SECTION}}", "")  # single-distro
 
-    # Output filename matches tag prefix for clarity
+    # Output filename matches tag prefix
     output_file = os.path.join(output_dir, f"{tag_prefix_template.replace('{{NAME_SHORT}}', name_short)}.yml")
     with open(output_file, "w") as f:
         f.write(workflow_content)
@@ -43,11 +45,24 @@ def generate_matrix_workflow(template_content: str, output_file: str, distros: l
     """
     workflow_content = template_content
 
-    # Insert the JSON array of distros for the matrix
-    distros_json = json.dumps(distros, indent=2)
-    workflow_content = workflow_content.replace("{{DISTROS_JSON}}", distros_json)
+    # Prepare the YAML matrix block
+    matrix_items = []
+    for d in distros:
+        matrix_items.append({
+            "name": d["name"].lower().replace(" ", "-"),
+            "docker_tag": d.get("docker_tag", ""),
+            "build_dir_prefix": d.get("build_dir_prefix", ""),
+            "fullname": d["fullname"]
+        })
+    matrix_yaml = "strategy:\n      matrix:\n        distro: " + json.dumps(matrix_items, indent=10).replace(" ", "  ")
+
+    # Replace placeholders
+    workflow_content = workflow_content.replace("{{MATRIX_SECTION}}", matrix_yaml)
     workflow_content = workflow_content.replace("{{TAG_PREFIX}}", tag_prefix)
     workflow_content = workflow_content.replace("{{NAME_SHORT}}", "all")
+    workflow_content = workflow_content.replace("{{DOCKER_TAG}}", "")  # Docker tag per matrix entry
+    workflow_content = workflow_content.replace("{{BUILD_DIR_PREFIX}}", "")  # per matrix entry
+    workflow_content = workflow_content.replace("{{FULLNAME}}", "all")
 
     output_path = os.path.join(OUTPUT_DIR, output_file)
     with open(output_path, "w") as f:
@@ -68,20 +83,15 @@ def main():
 
         for distro in distros:
             # For docker-builds, only generate per-distro; no matrix
-            if "docker" in template_file:
-                output_file = generate_workflow(template_content, distro, OUTPUT_DIR, tag_prefix_template)
-                print(f"Generated workflow: {output_file}")
-            else:
-                # per-distro workflows
-                output_file = generate_workflow(template_content, distro, OUTPUT_DIR, tag_prefix_template)
-                print(f"Generated workflow: {output_file}")
+            output_file = generate_workflow(template_content, distro, OUTPUT_DIR, tag_prefix_template)
+            print(f"Generated workflow: {output_file}")
 
         # Generate matrix workflow only for builds.yml and builds-with-zimbra.yml
         if template_file in ["builds.yml", "builds-with-zimbra.yml"]:
             matrix_tag_prefix = "builds" if template_file == "builds.yml" else "builds-with-zimbra"
-            matrix_output_file = template_file  # same filename for matrix workflow
-            output_file = generate_matrix_workflow(template_content, matrix_output_file, distros, matrix_tag_prefix)
-            print(f"Generated matrix workflow: {output_file}")
+            output_file = template_file  # matrix workflow overwrites template filename
+            output_file_path = generate_matrix_workflow(template_content, output_file, distros, matrix_tag_prefix)
+            print(f"Generated matrix workflow: {output_file_path}")
 
 if __name__ == "__main__":
     main()
