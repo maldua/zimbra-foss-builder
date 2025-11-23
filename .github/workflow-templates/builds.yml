@@ -14,9 +14,7 @@ jobs:
     name: Build Zimbra for ${{ matrix.distro.fullname }}
     runs-on: ubuntu-latest
     environment: git_clone
-    strategy:
-      matrix:
-        distro: {{DISTROS_JSON}}
+    {{MATRIX_SECTION}}
 
     steps:
 
