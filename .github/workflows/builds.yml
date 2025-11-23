@@ -63,6 +63,12 @@ jobs:
             fullname: RHEL 9
 
     steps:
+      - name: Guard: skip unmatched tags
+        run: |
+          if [[ "${GITHUB_REF#refs/tags/}" != "${{ matrix.distro.tag_prefix }}/"* ]]; then
+            echo "Skipping ${{ matrix.distro.tag_prefix }} matrix entry — tag does not match."
+            exit 78
+          fi
       - name: Prepare workspace directories
         run: |
           mkdir -p ${{ github.workspace }}/zimbra-foss
