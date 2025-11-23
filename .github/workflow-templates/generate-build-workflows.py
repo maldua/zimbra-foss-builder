@@ -45,16 +45,15 @@ def generate_matrix_workflow(template_content: str, output_file: str, distros: l
     """
     workflow_content = template_content
 
-    # Prepare the YAML matrix block
-    matrix_items = []
+    # Build YAML matrix block manually
+    matrix_lines = ["strategy:", "  matrix:", "    distro:"]
     for d in distros:
-        matrix_items.append({
-            "name": d["name"].lower().replace(" ", "-"),
-            "docker_tag": d.get("docker_tag", ""),
-            "build_dir_prefix": d.get("build_dir_prefix", ""),
-            "fullname": d["fullname"]
-        })
-    matrix_yaml = "strategy:\n      matrix:\n        distro: " + json.dumps(matrix_items, indent=10).replace(" ", "  ")
+        matrix_lines.append(f"      - name: {d['name'].lower().replace(' ', '-')}")
+        matrix_lines.append(f"        docker_tag: {d.get('docker_tag', '')}")
+        matrix_lines.append(f"        build_dir_prefix: {d.get('build_dir_prefix', '')}")
+        matrix_lines.append(f"        fullname: {d['fullname']}")
+
+    matrix_yaml = "\n".join(matrix_lines)
 
     # Replace placeholders
     workflow_content = workflow_content.replace("{{MATRIX_SECTION}}", matrix_yaml)
