@@ -17,6 +17,8 @@ env:
 jobs:
   zimbra-release:
     name: Build Zimbra for ${{ matrix.distro.fullname }}
+    # Only run the matrix entry that matches the pushed tag
+    if: startsWith(github.ref, format('refs/tags/{0}', matrix.distro.tag_prefix))
     strategy:
       matrix:
         distro:
@@ -55,9 +57,6 @@ jobs:
             build_dir_prefix: RHEL9_64
             tag_prefix: builds-rhel-9
             fullname: RHEL 9
-
-        # Only run the matrix entry that matches the pushed tag
-        if: startsWith(github.ref, format('refs/tags/{0}', matrix.distro.tag_prefix))
 
         runs-on: ubuntu-latest
         environment: git_clone
