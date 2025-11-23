@@ -11,7 +11,7 @@ env:
 
 jobs:
   zimbra-release:
-    name: Build Zimbra (with Pimbra) for ${{ matrix.distro.fullname }}
+    name: Build Zimbra (with Pimbra) for {{FULLNAME}}
     runs-on: ubuntu-latest
     environment: git_clone
     {{MATRIX_SECTION}}
