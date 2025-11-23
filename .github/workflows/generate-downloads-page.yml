@@ -30,7 +30,7 @@ jobs:
 
       - name: Update downloads page
         run: |
-          cd ${{ github.workspace }}/docs
+          cd ${{ github.workspace }}/download-pages
           GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} ./generate-downloads-page.py
 
       - name: Push updates to publish-downloads-dev
