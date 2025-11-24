@@ -45,11 +45,18 @@ Visit [Zimbra Foss Downloads Page (from Maldua)](https://maldua.github.io/zimbra
 
 ### Admin Console Features (Sysadmin)
 
-**TODO-SCREENSHOT-HERE**
-
 - **User Management**: Add, remove, and manage user accounts, distribution lists, and aliases.
+
+![Users](images/sysadmin/user1.png)
+
 - **Domain Management**: Configure and maintain multiple domains.
+
+![Domains](images/sysadmin/domain1.png)
+
 - **Server & Services Monitoring**: Real-time monitoring of mailbox servers, MTA, and other Zimbra services.
+
+![Monitoring](images/sysadmin/monitoring1.png)
+
 - **Security Management**: Configure spam and virus protection, TLS/SSL, and authentication policies.
 - **System Configuration**: Global settings for mail routing, quotas, and network policies.
 - **Logging & Auditing**: Access logs, audit trails, and system health reports.
