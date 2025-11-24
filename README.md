@@ -71,10 +71,21 @@ Visit [Zimbra Foss Downloads Page (from Maldua)](https://maldua.github.io/zimbra
 - How to upgrade from Zimbra FOSS 9.0.0.pX to Zimbra FOSS 10.1.x  (TODO)
 - How to upgrade from Zimbra FOSS 10.0.x   to Zimbra FOSS 10.1.x  (TODO)
 
-## Developer links
+---
+
+## Build system
 
 - Maldua's Zimbra FOSS is built thanks to [zimbra-foss-builder](https://github.com/maldua/zimbra-foss-builder).
-- Maldua's Zimbra FOSS download pages are also generated thanks to zimbra-foss-builder
+
+---
+
+## Additional documentation
+
+If you want to take over this project these are the documentation files that you should be reading:
+
+- [Build Zimbra tgz installers thanks to Github Actions](BUILD-GITHUB-ACTION.md)
+- [Generate downloads page from Releases data thanks to Github Actions](DOWNLOADS-GITHUB-ACTION.md)
+- [Release instructions for the project maintainer](MAINTAINER-RELEASE.md)
 
 ---
 
