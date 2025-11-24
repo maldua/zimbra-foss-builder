@@ -108,9 +108,9 @@ Go back to the repo and commit all of the modified files which would be find in 
 
 ## First steps
 
-### Build Docker
+### Build Docker images
 
-Before trying to build Zimbra you need to be build the different dockers that are used as a base for building it.
+Before trying to build Zimbra you need to be build the different docker images that are used as a base for building it.
 
 Given the current [docker-builds-ubuntu-18.04.yml](.github/workflows/docker-builds-ubuntu-18.04.yml) file contents you might want to start to build right away with something like:
 ```
@@ -121,20 +121,61 @@ git push origin 'docker-builds-ubuntu-18.04/v0.0.1'
 
 Now you will find a running action inside your Github repository Actions tab that, in the end will generate a docker image for you.
 
-### Build Zimbra
+### Double-check Docker version
+
+Ensure that the right `docker_tag` version is set on the workflows.
+
+That's done by checking `docker_tag` in the `.github/workflow-templates/distros.json` file. If you build `v0.0.1` version with maldua organization you would end up using: `ghcr.io/maldua/zimbra-foss:docker-ubuntu-18.04-v0.0.1` as the `docker_tag` value.
+
+If you are using a different version/tag please edit `distros.json` file and then run:
+
+```
+cd .github/workflow-templates
+python3 generate-build-workflows.py
+```
+
+and commit the resultant files which a commit similar to: `Changed Docker version to vX.X.X`.
+
+### Build Zimbra (Specific distro)
 
 Once you have built the Docker in the previous step you are ready to build a Zimbra version.
 
-Given the current [build-release.yml](.github/workflows/build-release.yml) file contents you might want to start to build right away with something like:
+Given the current [builds-ubuntu-18.04.yml](.github/workflows/builds-ubuntu-18.04.yml) file contents you might want to start to build right away with something like:
 ```
-git tag -a 'builds-dev/10.0.7' -m 'builds-dev/10.0.7'
-git push origin 'builds-dev/10.0.7'
+git tag -a 'builds-ubuntu-18.04/10.0.7' -m 'builds-ubuntu-18.04/10.0.7'
+git push origin 'builds-ubuntu-18.04/10.0.7'
 ```
 .
 
 The Zimbra version to be built is infered from the tag... so in this case it would be 10.0.7.
 
-Now you will find a running action inside your Github repository Actions tab that, in the end will generate a Zimbra tgz file in your Repository releases section.
+Now you will find a running action inside your Github repository Actions tab that, in the end will generate several Zimbra tgz file in yours Repository releases section.
+
+### Build Zimbra (All)
+
+Once you have made sure to build all the Docker images for all of the distros you can use an action that let's you build usual released distros at once.
+
+#### Build regular Zimbra (All)
+
+This is Zimbra without Pimbra patches.
+
+As per the current [builds.yml](.github/workflows/builds.yml) file contents you can build right away with something like:
+```
+git tag -a 'builds/10.0.7' -m 'builds/10.0.7'
+git push origin 'builds/10.0.7'
+```
+.
+
+#### Build Zimbra with Pimbra (All)
+
+This is Zimbra with Pimbra patches.
+
+As per the current [builds-with-zimbra.yml](.github/workflows/builds-with-zimbra.yml) file contents you can build right away with something like:
+```
+git tag -a 'builds-with-zimbra/10.0.7' -m 'builds-with-zimbra/10.0.7'
+git push origin 'builds-with-zimbra/10.0.7'
+```
+.
 
 ## Similar projects
 
