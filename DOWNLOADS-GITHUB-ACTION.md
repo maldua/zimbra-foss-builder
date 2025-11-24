@@ -28,25 +28,27 @@ You are supposed to test and setup [BUILD-GITHUB-ACTION](BUILD-GITHUB-ACTION.md)
       - Source: Deploy from a branch
       - Branch:
         - `publish-downloads-dev` (Branch)
-        - `/docs` (Directory)
+        - `/download-pages` (Directory)
         - Save
 
 ## Rename your organisation in yml files
 
 Find the workflow yml files such as:
+
 - `.github/workflows/generate-downloads-page.yml`
+
 and then make sure to replace the maldua Github organisation with your own Github organisation.
 
 ## Rename your organisation in generate-downloads-page.py
 
-Edit `docs/generate-downloads-page.py` and then make sure to replace the maldua Github organisation with your own Github organisation.
+Edit `download-pages/generate-downloads-page.py` and then make sure to replace the maldua Github organisation with your own Github organisation.
 
 ## First steps
 
 ### Build Docker and Zimbra
 
 It makes no sense to make a downloads page without any releases to read from.
-So you are supossed to build at least a Docker and Zimbra according to: [BUILD-GITHUB-ACTION](BUILD-GITHUB-ACTION.md) which you should have already done.
+So you are supossed to build at least a Docker image and Zimbra release according to: [BUILD-GITHUB-ACTION](BUILD-GITHUB-ACTION.md) which you should have already done.
 
 ### Build downloads page
 
