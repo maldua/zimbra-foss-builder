@@ -131,7 +131,7 @@ docker build \
   --build-arg ZIMBRA_BUILDER_UID=$(id -u) \
   --build-arg ZIMBRA_BUILDER_GID=$(id -g) \
   --tag zimbra-smart-ubuntu-20.04-builder . \
-  -f Dockerfile-smart-ubuntu-20.04
+  -f Dockerfiles/smart/ubuntu-20.04/Dockerfile
 ```
 
 ### Smart build
@@ -224,7 +224,7 @@ docker build \
   --build-arg ZIMBRA_BUILDER_UID=$(id -u) \
   --build-arg ZIMBRA_BUILDER_GID=$(id -g) \
   --tag zimbra-semiauto-ubuntu-20.04-builder . \
-  -f Dockerfile-semiauto-ubuntu-20.04
+  -f Dockerfiles/semiauto/ubuntu-20.04/Dockerfile
 ```
 
 ### Semi automatic build
@@ -284,7 +284,7 @@ docker build \
   --build-arg ZIMBRA_BUILDER_UID=$(id -u) \
   --build-arg ZIMBRA_BUILDER_GID=$(id -g) \
   --tag zimbra-manual-ubuntu-20.04-builder . \
-  -f Dockerfile-manual-ubuntu-20.04
+  -f Dockerfiles/manual/ubuntu-20.04/Dockerfile
 ```
 
 ### Enter onto the zimbra builder
