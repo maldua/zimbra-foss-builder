@@ -73,17 +73,38 @@ files from your temporary Linux machine.
 
 ## Rename your organisation in yml files
 
-Find the workflow yml files such as:
-- `.github/workflows/build-docker-ubuntu-18.04.yml`
-- `.github/workflows/build-release-rhel-7.yml`
+Find the template workflow yml files such as:
+
+- `.github/workflow-templates/builds-with-zimbra.yml`
+- `.github/workflow-templates/builds.yml`
+- `.github/workflow-templates/docker-builds.yml`
+
 and then make sure to replace the maldua Github organisation with your own Github organisation.
+
+## Rename your organisation in json files
+
+Edit `.github/workflow-templates/distros.json` then make sure to replace the maldua Github organisation with your own Github organisation.
 
 ## Rename your builder id in yml files
 
-Find the workflow yml files such as:
-- `.github/workflows/build-docker-ubuntu-18.04.yml`
-- `.github/workflows/build-release-rhel-7.yml`
+Find the template workflow yml files such as:
+
+- `.github/workflow-templates/builds-with-zimbra.yml`
+- `.github/workflow-templates/builds.yml`
+- `.github/workflow-templates/docker-builds.yml`
+
 and then make sure to replace the maldua builder id (420) to something else between 100 and 999 that it's not used by other community Zimbra builders. Do not use 430 either because it's the default value when no builder id has been specified.
+
+## Regenerate yml files
+
+```
+cd .github/workflow-templates
+python3 generate-build-workflows.py
+```
+
+## Commit generated files
+
+Go back to the repo and commit all of the modified files which would be find in both `.github/workflow-templates` and `.github/workflows` directories with a message like `Changed: Org to NewOrg. Builder id to NNN.`.
 
 ## First steps
 
