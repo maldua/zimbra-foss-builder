@@ -6,7 +6,7 @@
 
 ## Download
 
-Check our [Zimbra FOSS Downloads / Zimbra OSE Downloads page](https://maldua.github.io/zimbra-foss-builder/downloads.html) if you are just interested for the generated binaries (tgz installers for Zimbra) from this project.
+Check our [Maldua's Zimbra FOSS](https://github.com/maldua/zimbra-foss) if you are just interested for the generated binaries (tgz installers for Zimbra) from this project.
 
 ## Introduction
 
@@ -32,7 +32,7 @@ Be aware of RHEL 8 based distributions. Search for a [docker-ce howto](https://c
 These builds are done not thanks to the `root` user but thanks to a regular user from your distro which will be part of the `docker` group.
 This documentation will be using: `zbuilder` for such an user.
 
-*Note for advanced users only: If you really need to use root user in order to use Docker reading github Dockerfiles can give you a hint on how to rewrite the current smart Dockerfiles.*
+*Note for advanced users only: If you really need to use root user in order to use Docker reading github Dockerfiles (from zimbra-foss project) can give you a hint on how to rewrite the current smart Dockerfiles.*
 
 ### Docker setup
 
@@ -364,14 +364,6 @@ ENV_CACHE_CLEAR_FLAG=true ./build.pl \
   --build-thirdparty-server=files.zimbra.com \
   --no-interactive
 ```
-
-## Additional documentation
-
-If you want to take over this project these are the documentation files that you should be reading:
-
-- [Build Zimbra tgz installers thanks to Github Actions](BUILD-GITHUB-ACTION.md)
-- [Generate downloads page from Releases data thanks to Github Actions](DOWNLOADS-GITHUB-ACTION.md)
-- [Release instructions for the project maintainer](MAINTAINER-RELEASE.md)
 
 ## Similar projects
 
