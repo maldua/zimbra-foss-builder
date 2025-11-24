@@ -24,11 +24,18 @@ Visit [Zimbra Foss Downloads Page (from Maldua)](https://maldua.github.io/zimbra
 
 ### End-User Features
 
-**TODO-SCREENSHOT-HERE**
-
 - **Email & Messaging**: IMAP/POP3 support, conversation view, advanced search, spam and virus filtering.
+
+![Email](images/end-user/email1.png)
+
 - **Calendar & Scheduling**: Shared calendars, meeting invitations, resource scheduling, reminders.
+
+![Calendar](images/end-user/calendar1.png)
+
 - **Contacts & Address Book**: Personal and shared contacts, distribution lists.
+
+![Contacts](images/end-user/contacts1.png)
+
 - **Tasks & To-Dos**: Task creation, prioritization, due dates, and reminders.
 - **File Storage & Collaboration**: Briefcase for file uploads and sharing.
 - **Mobile & Web Access**: Web UI, mobile sync via CalDAV, CardDAV, and ActiveSync.
