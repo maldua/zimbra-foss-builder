@@ -3,7 +3,7 @@ name: docker
 on:
   push:
     tags:
-      - {{TAG_PREFIX}}*
+      - {{TAG_PREFIX}}/*
 
 env:
   IMAGE_FQDN: ghcr.io/maldua/zimbra-foss
