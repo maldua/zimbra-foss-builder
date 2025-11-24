@@ -112,10 +112,10 @@ Go back to the repo and commit all of the modified files which would be find in 
 
 Before trying to build Zimbra you need to be build the different dockers that are used as a base for building it.
 
-Given the current [build-docker-ubuntu-18.04.yml(.github/workflows/build-docker-ubuntu-18.04.yml) file contents you might want to start to build right away with something like:
+Given the current [docker-builds-ubuntu-18.04.yml](.github/workflows/docker-builds-ubuntu-18.04.yml) file contents you might want to start to build right away with something like:
 ```
-git tag -a 'docker-builds-ubuntu-18.04/build-docker-1' -m 'docker-builds-ubuntu-18.04/build-docker-1'
-git push origin 'docker-builds-ubuntu-18.04/build-docker-1'
+git tag -a 'docker-builds-ubuntu-18.04/v0.0.1' -m 'docker-builds-ubuntu-18.04/v0.0.1'
+git push origin 'docker-builds-ubuntu-18.04/v0.0.1'
 ```
 .
 
