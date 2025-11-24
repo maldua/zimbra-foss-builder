@@ -39,7 +39,7 @@ Visit [Zimbra Foss Downloads Page (from Maldua)](https://maldua.github.io/zimbra
 
 - **Tasks & To-Dos**: Task creation, prioritization, due dates, and reminders.
 - **File Storage & Collaboration**: Briefcase for file uploads and sharing.
-- **Mobile & Web Access**: Web UI, mobile sync via CalDAV, CardDAV, and ActiveSync.
+- **Mobile & Web Access**: Web UI, mobile sync via CalDAV, CardDAV, and Imap.
 - **Zimlets & Extensions**: Customizable extensions for email integration with other services.
 - **Search & Archiving**: Full-text search, message tagging, and folder organization.
 
