@@ -3,7 +3,7 @@ name: docker
 on:
   push:
     tags:
-      - docker-builds-rhel-7*
+      - docker-builds-rhel-7/*
 
 env:
   IMAGE_FQDN: ghcr.io/maldua/zimbra-foss

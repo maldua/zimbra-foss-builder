@@ -3,7 +3,7 @@ name: docker
 on:
   push:
     tags:
-      - docker-builds-ubuntu-22.04*
+      - docker-builds-ubuntu-22.04/*
 
 env:
   IMAGE_FQDN: ghcr.io/maldua/zimbra-foss
