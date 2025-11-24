@@ -9,6 +9,17 @@ Maldua's Zimbra FOSS is a community-driven, open-source build of the Zimbra Coll
 
 ---
 
+## Releases / Downloads
+
+| Version | Platform | Notes |
+|---|---|---|
+| 10.1.10.p3 | Ubuntu 22.04 | Stable, may include Pimbra patches |
+| 10.0.16.p3 | RHEL 8 | Stable, may include Pimbra patches |
+
+Visit [Zimbra Foss Downloads Page (from Maldua)](https://maldua.github.io/zimbra-foss/downloads.html) for the full **updated** list.
+
+---
+
 ## Features
 
 ### End-User Features
@@ -35,17 +46,6 @@ Maldua's Zimbra FOSS is a community-driven, open-source build of the Zimbra Coll
 - **System Configuration**: Global settings for mail routing, quotas, and network policies.
 - **Logging & Auditing**: Access logs, audit trails, and system health reports.
 - **CLI & Scripting Support**: Manage users, servers, and configurations via `zmprov` and CLI commands.
-
----
-
-## Releases / Downloads
-
-| Version | Platform | Notes |
-|---|---|---|
-| 10.1.10.p3 | Ubuntu 22.04 | Stable, may include Pimbra patches |
-| 10.0.16.p3 | RHEL 8 | Stable, may include Pimbra patches |
-
-Visit [Zimbra Foss Downloads Page (from Maldua)](https://maldua.github.io/zimbra-foss/downloads.html) for the full **updated** list.
 
 ---
 
