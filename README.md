@@ -1,7 +1,8 @@
 # Maldua's Zimbra FOSS
 
 ## Overview
-**TODO-SCREENSHOT-HERE**
+
+![Maldua's Zimbra FOSS Splash](images/zimbra-maldua-foss-splash.png)
 
 **MALDUA'S Zimbra FOSS** brought to you by [BTACTIC, open source & cloud solutions](https://www.btactic.com).
 
