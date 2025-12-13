@@ -6,7 +6,8 @@
 
 ## Download
 
-Check our [Maldua's Zimbra FOSS](https://github.com/maldua/zimbra-foss) if you are just interested for the generated binaries (tgz installers for Zimbra) from this project.
+- Check: [Zimbra FOSS Downloads (from Maldua)](https://maldua.github.io/zimbra-foss/downloads/) page if you are just interested for the generated binaries (tgz installers for Zimbra) from this project.
+- You can also check the [Zimbra FOSS (from Maldua)](https://maldua.github.io/zimbra-foss/) page and its [zimbra-foss](https://github.com/maldua/zimbra-foss) Github page.
 
 ## Introduction
 
