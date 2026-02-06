@@ -152,14 +152,14 @@ docker run \
   --env ZIMBRA_BUILDER_UID=$(id -u) \
   --env ZIMBRA_BUILDER_GID=$(id -g) \
   --env ZM_BUILD_RELEASE_NO='10.0.7' \
-  --env PIMBRA_ENABLED='pimbra-disabled' \
+  --env PIMBRA_ENABLED='false' \
   -v ~/.ssh:/home/build/.ssh:ro \
   -v $(pwd):/usr/local/zimbra-foss-builder:ro \
   -v $(pwd)/BUILDS:/home/build/installer-build/BUILDS:rw \
   zimbra-smart-ubuntu-20.04-builder:latest
 ```
 
-**Note**: If you want to apply the [extra pimbra repos patches](https://github.com/maldua-pimbra/maldua-pimbra). Use `--env PIMBRA_ENABLED='pimbra-enabled'` instead.
+**Note**: If you want to apply the [extra pimbra repos patches](https://github.com/maldua-pimbra/maldua-pimbra). Use `--env PIMBRA_ENABLED='true'` instead.
 
 ### Smart build (Alternative with acme brand)
 
@@ -181,7 +181,7 @@ docker run \
   --env ZIMBRA_BUILDER_UID=$(id -u) \
   --env ZIMBRA_BUILDER_GID=$(id -g) \
   --env ZM_BUILD_RELEASE_NO='10.0.7' \
-  --env PIMBRA_ENABLED='pimbra-disabled' \
+  --env PIMBRA_ENABLED='false' \
   --env ZM_BUILDER_ID='431' \
   -v ~/.ssh:/home/build/.ssh:ro \
   -v $(pwd):/usr/local/zimbra-foss-builder:ro \
@@ -189,7 +189,7 @@ docker run \
   zimbra-smart-ubuntu-20.04-builder:latest
 ```
 
-**Note**: If you want to apply the [extra pimbra repos patches](https://github.com/maldua-pimbra/maldua-pimbra). Use `--env PIMBRA_ENABLED='pimbra-enabled'` instead.
+**Note**: If you want to apply the [extra pimbra repos patches](https://github.com/maldua-pimbra/maldua-pimbra). Use `--env PIMBRA_ENABLED='true'` instead.
 
 ### Result
 
@@ -244,14 +244,14 @@ docker run \
   --env ZM_BUILD_RELEASE_NO='10.0.7' \
   --env ZM_BUILD_BRANCH='10.0.6' \
   --env ZM_BUILD_GIT_DEFAULT_TAG='10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0' \
-  --env PIMBRA_ENABLED='pimbra-disabled' \
+  --env PIMBRA_ENABLED='false' \
   -v ~/.ssh:/home/build/.ssh:ro \
   -v $(pwd):/usr/local/zimbra-foss-builder:ro \
   -v $(pwd)/BUILDS:/home/build/installer-build/BUILDS:rw \
   zimbra-semiauto-ubuntu-20.04-builder:latest
 ```
 
-**Note**: If you want to apply the [extra pimbra repos patches](https://github.com/maldua-pimbra/maldua-pimbra). Use `--env PIMBRA_ENABLED='pimbra-enabled'` instead.
+**Note**: If you want to apply the [extra pimbra repos patches](https://github.com/maldua-pimbra/maldua-pimbra). Use `--env PIMBRA_ENABLED='true'` instead.
 
 ### Result
 
