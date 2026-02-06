@@ -43,4 +43,7 @@ RUN groupadd --gid 1000 build \
 
 USER build
 WORKDIR /home/build
-CMD /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh ${ZM_BUILD_RELEASE_NO} ${ZM_BUILDER_ID} ${PIMBRA_ENABLED}
+CMD /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh \
+      --release-no "${ZM_BUILD_RELEASE_NO}" \
+      ${ZM_BUILDER_ID:+--builder-id "${ZM_BUILDER_ID}"} \
+      "$( [ "${PIMBRA_ENABLED}" = "true" ] && echo '--pimbra-enabled' )"
