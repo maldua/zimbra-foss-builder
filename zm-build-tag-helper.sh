@@ -1,8 +1,51 @@
 #!/bin/bash
 
-ZM_BUILD_GIT_DEFAULT_TAG="$1" # E.g. '10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0'
-ZM_BUILD_BRANCH_FILE="$2" # E.g. 'zm-build-branch.txt'
+usage() {
+  cat << EOF
+Usage:
+  $0 --git-default-tag <tags> --zm-build-branch-file <file>
 
+Options:
+  --git-default-tag        Comma-separated list of git tags to search (required)
+  --zm-build-branch-file   Output file to write the found branch/tag (required)
+  -h, --help               Show this help message
+
+Example:
+  $0 --git-default-tag '10.0.2,10.0.1,10.0.0-GA,10.0.0' --zm-build-branch-file zm-build-branch.txt
+EOF
+}
+
+# Parse arguments
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --git-default-tag)
+      ZM_BUILD_GIT_DEFAULT_TAG="$2"
+      shift 2
+      ;;
+    --zm-build-branch-file)
+      ZM_BUILD_BRANCH_FILE="$2"
+      shift 2
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      echo "Unknown option: $1"
+      usage
+      exit 1
+      ;;
+  esac
+done
+
+# Check required arguments
+if [[ -z "$ZM_BUILD_GIT_DEFAULT_TAG" || -z "$ZM_BUILD_BRANCH_FILE" ]]; then
+  echo "Error: Both --git-default-tag and --zm-build-branch-file are required."
+  usage
+  exit 1
+fi
+
+# Clone repo
 git clone https://github.com/Zimbra/zm-build zm-build-find-branch
 cd zm-build-find-branch
 

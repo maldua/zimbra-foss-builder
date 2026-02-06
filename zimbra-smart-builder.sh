@@ -1,22 +1,92 @@
 #!/bin/bash
 
+MALDUA_ZIMBRA_TAG_HELPER_TAG="v0.0.3"
+
+function usage {
+  cat << EOF
+Usage: $0 --release-no <release> [--builder-id <id>] [--pimbra-enabled] [--help|-h]
+
+Options:
+  --release-no       Zimbra release number (required)
+  --builder-id       Optional builder ID
+  --pimbra-enabled   Enable Pimbra build (boolean flag)
+  -h, --help         Show this help message
+
+Examples:
+  $0 --release-no 10.1.9
+  $0 --release-no 10.1.9 --builder-id 430
+  $0 --release-no 10.1.15.p1 --pimbra-enabled
+  $0 --release-no 10.1.15.p1 --builder-id 430 --pimbra-enabled
+EOF
+}
+
 function getGitDefaultTag {
   _VERSION="$1"
   _FILE="$2"
   _ZM_BUILD_PIMBRA_ENABLED="$3"
+
+  # Convert boolean to expected string argument
+  if [ "${_ZM_BUILD_PIMBRA_ENABLED}" = true ]; then
+    _PIMBRA_ARG="pimbra-enabled"
+  else
+    _PIMBRA_ARG="pimbra-disabled"
+  fi
+
   git clone https://github.com/maldua/zimbra-tag-helper
   cd zimbra-tag-helper
-  ./zm-build-tags-arguments.sh ${_VERSION} ${_ZM_BUILD_PIMBRA_ENABLED} > ../${_FILE}
+  git checkout ${MALDUA_ZIMBRA_TAG_HELPER_TAG}
+  ./zm-build-tags-arguments.sh ${_VERSION} ${_PIMBRA_ARG} > ../${_FILE}
   cd ..
-
 }
 
-ZM_BUILD_RELEASE_NO="$1" # E.g. 10.0.7
-ZM_BUILDER_ID="$2" # E.g. '430'
-ZM_BUILD_PIMBRA_ENABLED="$3" # E.g. 'pimbra-enabled'
+# Defaults
+ZM_BUILD_RELEASE_NO=""
+ZM_BUILDER_ID=""
+ZM_BUILD_PIMBRA_ENABLED=false
+
+# Parse arguments
+TEMP=$(getopt -o h --long release-no:,builder-id:,pimbra-enabled,help -n "$0" -- "$@")
+if [ $? != 0 ]; then
+  echo "Invalid arguments."
+  usage
+  exit 1
+fi
+
+eval set -- "$TEMP"
+
+while true; do
+  case "$1" in
+    --release-no)
+      ZM_BUILD_RELEASE_NO="$2"
+      shift 2
+      ;;
+    --builder-id)
+      ZM_BUILDER_ID="$2"
+      shift 2
+      ;;
+    --pimbra-enabled)
+      ZM_BUILD_PIMBRA_ENABLED=true
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --)
+      shift
+      break
+      ;;
+    *)
+      echo "Invalid argument: $1"
+      usage
+      exit 1
+      ;;
+  esac
+done
 
 if [ "x" == "x${ZM_BUILD_RELEASE_NO}" ] ; then
   echo "ZM_BUILD_RELEASE_NO is not defined."
+  usage
   exit 1
 fi
 
@@ -25,17 +95,34 @@ getGitDefaultTag ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_GIT_DEFAULT_TAG_FILE} ${ZM_BU
 ZM_BUILD_GIT_DEFAULT_TAG="$(cat ${ZM_BUILD_GIT_DEFAULT_TAG_FILE})"
 
 ZM_BUILD_BRANCH_FILE="zm-build-branch.txt"
-/usr/local/zimbra-foss-builder/zm-build-tag-helper.sh ${ZM_BUILD_GIT_DEFAULT_TAG} ${ZM_BUILD_BRANCH_FILE}
+/usr/local/zimbra-foss-builder/zm-build-tag-helper.sh --git-default-tag "${ZM_BUILD_GIT_DEFAULT_TAG}" --zm-build-branch-file "${ZM_BUILD_BRANCH_FILE}"
 ZM_BUILD_BRANCH="$(cat ${ZM_BUILD_BRANCH_FILE})"
 
 if [ "x" == "x${ZM_BUILD_BRANCH}" ] ; then
   echo "ZM_BUILD_BRANCH is not defined."
+  usage
   exit 1
 fi
 
 if [ "x" == "x${ZM_BUILD_GIT_DEFAULT_TAG}" ] ; then
   echo "ZM_BUILD_GIT_DEFAULT_TAG is not defined."
+  usage
   exit 1
 fi
 
-/usr/local/zimbra-foss-builder/zimbra-builder.sh ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_BRANCH} ${ZM_BUILD_GIT_DEFAULT_TAG} ${ZM_BUILDER_ID} ${ZM_BUILD_PIMBRA_ENABLED}
+ZIMBRA_BUILDER_CMD=(
+  /usr/local/zimbra-foss-builder/zimbra-builder.sh
+  --release-no "${ZM_BUILD_RELEASE_NO}"
+  --build-branch "${ZM_BUILD_BRANCH}"
+  --git-default-tag "${ZM_BUILD_GIT_DEFAULT_TAG}"
+)
+
+if [ -n "${ZM_BUILDER_ID}" ]; then
+  ZIMBRA_BUILDER_CMD+=(--builder-id "${ZM_BUILDER_ID}")
+fi
+
+if [ "${ZM_BUILD_PIMBRA_ENABLED}" = true ]; then
+  ZIMBRA_BUILDER_CMD+=(--pimbra-enabled)
+fi
+
+"${ZIMBRA_BUILDER_CMD[@]}"

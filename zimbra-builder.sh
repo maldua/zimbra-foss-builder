@@ -1,45 +1,106 @@
 #!/bin/bash
 
-ZM_BUILD_RELEASE_NO_WITH_PATCH="$1" # E.g. 10.0.7p0
-ZM_BUILD_BRANCH="$2" # E.g. 10.0.6
-ZM_BUILD_GIT_DEFAULT_TAG="$3" # E.g. '10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0'
-ZM_BUILDER_ID_ARG="$4" # E.g. '430'
-ZM_BUILD_PIMBRA_ENABLED="$5" # E.g. 'pimbra-enabled'
+# Default values
+ZM_BUILDER_ID_ARG="430"
+ZM_BUILD_PIMBRA_ENABLED=false
 
-if [ "x" == "x${ZM_BUILD_RELEASE_NO_WITH_PATCH}" ] ; then
+SCRIPT_NAME="$(basename "$0")"
+
+usage() {
+  cat << EOF
+Usage:
+  ${SCRIPT_NAME} \\
+    --release-no <release> \\
+    --build-branch <branch> \\
+    --git-default-tag <tag> \\
+    [--builder-id <id>] \\
+    [--pimbra-enabled] \\
+    [-h|--help]
+
+Required options:
+  --release-no           Zimbra release number (e.g. 10.0.7.p39, 10.1.0.beta1)
+  --build-branch         Git branch to build from
+  --git-default-tag      Default Git tag for the build
+
+Optional options:
+  --builder-id           Numeric builder ID (100–999). Default: ${ZM_BUILDER_ID_ARG}
+  --pimbra-enabled       Enable Pimbra build (uses maldua-pimbra repo)
+  -h, --help              Show this help and exit
+
+Examples:
+  ${SCRIPT_NAME} --release-no 10.1.9 --build-branch 10.1.8 --git-default-tag 10.1.9,10.1.8,10.1.7,10.1.6,10.1.5,10.1.4,10.1.3,10.1.2,10.1.1,10.1.0
+  ${SCRIPT_NAME} --release-no 10.1.13 --build-branch 10.1.13 --git-default-tag 10.1.13,10.1.12,10.1.10,10.1.9,10.1.8,10.1.7,10.1.6,10.1.5,10.1.4,10.1.3,10.1.2,10.1.1,10.1.0 --builder-id 450
+  ${SCRIPT_NAME} --release-no 10.1.15.p1 --build-branch 10.1.14 --git-default-tag 10.1.15.p1,10.1.15,10.1.14,10.1.13,10.1.12,10.1.10,10.1.9,10.1.8,10.1.7,10.1.6,10.1.5,10.1.4,10.1.3,10.1.2,10.1.1,10.1.0 --pimbra-enabled
+EOF
+}
+
+# Parse arguments using getopt (long options)
+TEMP=$(getopt -o 'h' \
+    --long release-no:,build-branch:,git-default-tag:,builder-id:,pimbra-enabled,help \
+    -n "${SCRIPT_NAME}" -- "$@")
+
+if [ $? != 0 ] ; then
+  echo "Error parsing arguments."
+  usage
+  exit 1
+fi
+
+eval set -- "$TEMP"
+
+while true; do
+  case "$1" in
+    --release-no)
+      ZM_BUILD_RELEASE_NO_WITH_PATCH="$2"; shift 2 ;;
+    --build-branch)
+      ZM_BUILD_BRANCH="$2"; shift 2 ;;
+    --git-default-tag)
+      ZM_BUILD_GIT_DEFAULT_TAG="$2"; shift 2 ;;
+    --builder-id)
+      ZM_BUILDER_ID_ARG="$2"; shift 2 ;;
+    --pimbra-enabled)
+      ZM_BUILD_PIMBRA_ENABLED=true; shift ;;
+    -h|--help)
+      usage
+      exit 0 ;;
+    --)
+      shift; break ;;
+    *)
+      echo "Unknown option: $1"
+      usage
+      exit 1 ;;
+  esac
+done
+
+# Validate required arguments
+if [ -z "$ZM_BUILD_RELEASE_NO_WITH_PATCH" ] ; then
   echo "ZM_BUILD_RELEASE_NO_WITH_PATCH is not defined."
+  usage
   exit 1
 fi
 
-if [ "x" == "x${ZM_BUILD_BRANCH}" ] ; then
+if [ -z "$ZM_BUILD_BRANCH" ] ; then
   echo "ZM_BUILD_BRANCH is not defined."
+  usage
   exit 1
 fi
 
-if [ "x" == "x${ZM_BUILD_GIT_DEFAULT_TAG}" ] ; then
+if [ -z "$ZM_BUILD_GIT_DEFAULT_TAG" ] ; then
   echo "ZM_BUILD_GIT_DEFAULT_TAG is not defined."
+  usage
   exit 1
 fi
 
-# Force default manual value (430)
-if [ "x" == "x${ZM_BUILDER_ID_ARG}" ] ; then
-  ZM_BUILDER_ID_ARG="430"
-fi
-
-if ! [[ "${ZM_BUILDER_ID_ARG}" =~ ^[0-9]+$ ]] ; then
+# Validate builder ID
+if ! [[ "$ZM_BUILDER_ID_ARG" =~ ^[0-9]+$ ]] ; then
   echo "ZM_BUILDER_ID must be a number."
+  usage
   exit 1
 fi
 
 ZM_BUILDER_ID=$((ZM_BUILDER_ID_ARG))
-
-if ! [[ ${ZM_BUILDER_ID} -ge 100 ]] ; then
-  echo "ZM_BUILDER_ID must be greater than or equal to 100."
-  exit 1
-fi
-
-if ! [[ ${ZM_BUILDER_ID} -le 999 ]] ; then
-  echo "ZM_BUILDER_ID must be less than or equal to 999."
+if (( ZM_BUILDER_ID < 100 || ZM_BUILDER_ID > 999 )); then
+  echo "ZM_BUILDER_ID must be between 100 and 999."
+  usage
   exit 1
 fi
 
@@ -79,8 +140,8 @@ function get_build_no() {
 
   _PATCH_LEVEL=$((_PATCH_LEVEL_STR))
 
-  _BUILD_NO_TMP1=$((_ZM_BUILDER_ID * 10000))   # E.g. 4200000
-  _BUILD_NO=$((_BUILD_NO_TMP1 + _PATCH_LEVEL)) # E.g. 4200039
+  _BUILD_NO_TMP1=$((_ZM_BUILDER_ID * 10000))
+  _BUILD_NO=$((_BUILD_NO_TMP1 + _PATCH_LEVEL))
 
   echo ${_BUILD_NO}
 
@@ -94,7 +155,7 @@ ZM_BUILD_RELEASE_NO="${ZM_BUILD_RELEASE_NO_TMP1%.[bB][eE][tT][aA]}"
 BUILD_NO="$(get_build_no ${ZM_BUILD_RELEASE_NO_WITH_PATCH} ${ZM_BUILDER_ID})"
 
 ZM_BUILD_REPO_URL="git@github.com:Zimbra/zm-build.git"
-if [ "pimbra-enabled" == "${ZM_BUILD_PIMBRA_ENABLED}" ] ; then
+if [ "${ZM_BUILD_PIMBRA_ENABLED}" = true ] ; then
   ZM_BUILD_REPO_URL="git@github.com:maldua-pimbra/zm-build.git"
 fi
 
@@ -109,7 +170,7 @@ EOF
 git clone --depth 1 --branch ${ZM_BUILD_BRANCH} ${ZM_BUILD_REPO_URL}
 cd zm-build
 
-if [ "pimbra-enabled" == "${ZM_BUILD_PIMBRA_ENABLED}" ] ; then
+if [ "${ZM_BUILD_PIMBRA_ENABLED}" = true ] ; then
   wget 'https://github.com/maldua-pimbra/maldua-pimbra-config/raw/refs/tags/'"${ZM_BUILD_RELEASE_NO_WITH_PATCH}"'/config.build'
   if [[ $? -ne 0 ]] ; then
     echo "ERROR: Pimbra config file cannot be downloaded for ${ZM_BUILD_RELEASE_NO_WITH_PATCH} version !"
@@ -118,7 +179,7 @@ if [ "pimbra-enabled" == "${ZM_BUILD_PIMBRA_ENABLED}" ] ; then
   fi
 fi
 
-if [ "pimbra-enabled" == "${ZM_BUILD_PIMBRA_ENABLED}" ] ; then
+if [ "${ZM_BUILD_PIMBRA_ENABLED}" = true ] ; then
   cat << EOF >> ../BUILDS/zimbra-builder-commands.txt
 # config.build contents:
 EOF
