@@ -42,6 +42,7 @@ RUN \
     && useradd --uid ${ZIMBRA_BUILDER_UID} --gid ${ZIMBRA_BUILDER_GID} -m build \
     && echo build ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/build \
     && chmod 0440 /etc/sudoers.d/build \
+    && mkdir -p /home/build/installer-build \
     && chown -R ${ZIMBRA_BUILDER_UID}:${ZIMBRA_BUILDER_GID} /home/build
 
 USER build
