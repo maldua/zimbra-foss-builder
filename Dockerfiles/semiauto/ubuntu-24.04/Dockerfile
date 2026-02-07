@@ -36,13 +36,13 @@ ENV LANGUAGE=en_US.UTF-8
 
 # USER
 RUN \
-    if id -u 1000 >/dev/null 2>&1; then userdel -r $(id -un 1000); fi && \
-    if id -g 1000 >/dev/null 2>&1; then groupdel $(id -gn 1000); fi && \
-    groupadd --gid 1000 build \
-    && useradd --uid 1000 --gid 1000 -m build \
+    if id -u ${ZIMBRA_BUILDER_UID} >/dev/null 2>&1; then userdel -r $(id -un ${ZIMBRA_BUILDER_UID}); fi && \
+    if id -g ${ZIMBRA_BUILDER_GID} >/dev/null 2>&1; then groupdel $(id -gn ${ZIMBRA_BUILDER_GID}); fi && \
+    groupadd --gid ${ZIMBRA_BUILDER_GID} build \
+    && useradd --uid ${ZIMBRA_BUILDER_UID} --gid ${ZIMBRA_BUILDER_GID} -m build \
     && echo build ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/build \
     && chmod 0440 /etc/sudoers.d/build \
-    && chown -R 1000:1000 /home/build
+    && chown -R ${ZIMBRA_BUILDER_UID}:${ZIMBRA_BUILDER_GID} /home/build
 
 USER build
 WORKDIR /home/build
