@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MALDUA_ZIMBRA_TAG_HELPER_TAG="v0.0.3"
+MALDUA_ZIMBRA_TAG_HELPER_TAG="v0.0.4"
 
 function usage {
   cat << EOF
@@ -23,13 +23,11 @@ EOF
 function getGitDefaultTag {
   _VERSION="$1"
   _FILE="$2"
-  _ZM_BUILD_PIMBRA_ENABLED="$3"
+  _PIMBRA_ENABLED="$3"
 
-  # Convert boolean to expected string argument
-  if [ "${_ZM_BUILD_PIMBRA_ENABLED}" = true ]; then
-    _PIMBRA_ARG="pimbra-enabled"
-  else
-    _PIMBRA_ARG="pimbra-disabled"
+  _PIMBRA_ARG=""
+  if ${_PIMBRA_ENABLED}; then
+    _PIMBRA_ARG="--pimbra-enabled"
   fi
 
   git clone https://github.com/maldua/zimbra-tag-helper
@@ -42,7 +40,7 @@ function getGitDefaultTag {
 # Defaults
 ZM_BUILD_RELEASE_NO=""
 ZM_BUILDER_ID=""
-ZM_BUILD_PIMBRA_ENABLED=false
+PIMBRA_ENABLED=false
 
 # Parse arguments
 TEMP=$(getopt -o h --long release-no:,builder-id:,pimbra-enabled,help -n "$0" -- "$@")
@@ -65,7 +63,7 @@ while true; do
       shift 2
       ;;
     --pimbra-enabled)
-      ZM_BUILD_PIMBRA_ENABLED=true
+      PIMBRA_ENABLED=true
       shift
       ;;
     -h|--help)
@@ -91,7 +89,7 @@ if [ "x" == "x${ZM_BUILD_RELEASE_NO}" ] ; then
 fi
 
 ZM_BUILD_GIT_DEFAULT_TAG_FILE="git-default-tag.txt"
-getGitDefaultTag ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_GIT_DEFAULT_TAG_FILE} ${ZM_BUILD_PIMBRA_ENABLED}
+getGitDefaultTag ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_GIT_DEFAULT_TAG_FILE} ${PIMBRA_ENABLED}
 ZM_BUILD_GIT_DEFAULT_TAG="$(cat ${ZM_BUILD_GIT_DEFAULT_TAG_FILE})"
 
 ZM_BUILD_BRANCH_FILE="zm-build-branch.txt"
@@ -121,7 +119,7 @@ if [ -n "${ZM_BUILDER_ID}" ]; then
   ZIMBRA_BUILDER_CMD+=(--builder-id "${ZM_BUILDER_ID}")
 fi
 
-if [ "${ZM_BUILD_PIMBRA_ENABLED}" = true ]; then
+if [ "${PIMBRA_ENABLED}" = true ]; then
   ZIMBRA_BUILDER_CMD+=(--pimbra-enabled)
 fi
 
