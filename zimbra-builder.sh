@@ -1,8 +1,11 @@
 #!/bin/bash
 
-# Default values
-ZM_BUILDER_ID_ARG="430"
-ZM_BUILD_PIMBRA_ENABLED=false
+# Default values (can be overridden by environment)
+ZM_BUILD_RELEASE_NO_WITH_PATCH="${RELEASE_NO:-}"
+ZM_BUILD_BRANCH="${BUILD_BRANCH:-}"
+ZM_BUILD_GIT_DEFAULT_TAG="${GIT_DEFAULT_TAG:-}"
+ZM_BUILDER_ID_ARG="${BUILDER_ID:-430}"
+ZM_BUILD_PIMBRA_ENABLED="${PIMBRA_ENABLED:-false}"
 
 SCRIPT_NAME="$(basename "$0")"
 
@@ -16,6 +19,13 @@ Usage:
     [--builder-id <id>] \\
     [--pimbra-enabled] \\
     [-h|--help]
+
+Environment variables (can be overridden by switches):
+  RELEASE_NO            Zimbra release number (e.g. 10.0.7.p39, 10.1.0.beta1)
+  BUILD_BRANCH          Git branch to build from
+  GIT_DEFAULT_TAG       Default Git tag for the build
+  BUILDER_ID            Numeric builder ID (100–999). Default: 430
+  PIMBRA_ENABLED        Enable Pimbra build (true/false)
 
 Required options:
   --release-no           Zimbra release number (e.g. 10.0.7.p39, 10.1.0.beta1)
@@ -73,33 +83,33 @@ done
 
 # Validate required arguments
 if [ -z "$ZM_BUILD_RELEASE_NO_WITH_PATCH" ] ; then
-  echo "ZM_BUILD_RELEASE_NO_WITH_PATCH is not defined."
+  echo "--release-no|RELEASE_NO is not defined"
   usage
   exit 1
 fi
 
 if [ -z "$ZM_BUILD_BRANCH" ] ; then
-  echo "ZM_BUILD_BRANCH is not defined."
+  echo "--build-branch|BUILD_BRANCH is not defined"
   usage
   exit 1
 fi
 
 if [ -z "$ZM_BUILD_GIT_DEFAULT_TAG" ] ; then
-  echo "ZM_BUILD_GIT_DEFAULT_TAG is not defined."
+  echo "--git-default-tag|GIT_DEFAULT_TAG is not defined"
   usage
   exit 1
 fi
 
 # Validate builder ID
 if ! [[ "$ZM_BUILDER_ID_ARG" =~ ^[0-9]+$ ]] ; then
-  echo "ZM_BUILDER_ID must be a number."
+  echo "--builder-id|BUILDER_ID must be a number"
   usage
   exit 1
 fi
 
 ZM_BUILDER_ID=$((ZM_BUILDER_ID_ARG))
 if (( ZM_BUILDER_ID < 100 || ZM_BUILDER_ID > 999 )); then
-  echo "ZM_BUILDER_ID must be between 100 and 999."
+  echo "--builder-id|BUILDER_ID must be between 100 and 999"
   usage
   exit 1
 fi
