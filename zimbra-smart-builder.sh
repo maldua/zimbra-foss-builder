@@ -105,15 +105,13 @@ ZM_BUILD_BRANCH_FILE="zm-build-branch.txt"
 ZM_BUILD_BRANCH="$(cat ${ZM_BUILD_BRANCH_FILE})"
 
 if [ -z "${ZM_BUILD_BRANCH}" ]; then
-  echo "ZM_BUILD_BRANCH is not defined."
-  usage
-  exit 1
+  echo "ZM_BUILD_BRANCH should be defined by now."
+  exit 2
 fi
 
 if [ -z "${ZM_BUILD_GIT_DEFAULT_TAG}" ]; then
-  echo "ZM_BUILD_GIT_DEFAULT_TAG is not defined."
-  usage
-  exit 1
+  echo "ZM_BUILD_GIT_DEFAULT_TAG should be defined by now."
+  exit 2
 fi
 
 ZIMBRA_BUILDER_CMD=(
