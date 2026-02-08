@@ -12,6 +12,14 @@ Options:
   --pimbra-enabled   Enable Pimbra build (boolean flag)
   -h, --help         Show this help message
 
+Environment variables:
+  RELEASE_NO         Default value for --release-no
+  BUILDER_ID         Default value for --builder-id
+  PIMBRA_ENABLED     Default value for --pimbra-enabled (true/false)
+
+Notes:
+  Command-line switches override environment variables.
+
 Examples:
   $0 --release-no 10.1.9
   $0 --release-no 10.1.9 --builder-id 430
@@ -37,10 +45,10 @@ function getGitDefaultTag {
   cd ..
 }
 
-# Defaults
-ZM_BUILD_RELEASE_NO=""
-ZM_BUILDER_ID=""
-PIMBRA_ENABLED=false
+# Defaults (from environment)
+ZM_BUILD_RELEASE_NO="${RELEASE_NO:-}"
+ZM_BUILDER_ID="${BUILDER_ID:-}"
+PIMBRA_ENABLED="${PIMBRA_ENABLED:-false}"
 
 # Parse arguments
 TEMP=$(getopt -o h --long release-no:,builder-id:,pimbra-enabled,help -n "$0" -- "$@")
@@ -96,13 +104,13 @@ ZM_BUILD_BRANCH_FILE="zm-build-branch.txt"
 /usr/local/zimbra-foss-builder/zm-build-tag-helper.sh --git-default-tag "${ZM_BUILD_GIT_DEFAULT_TAG}" --zm-build-branch-file "${ZM_BUILD_BRANCH_FILE}"
 ZM_BUILD_BRANCH="$(cat ${ZM_BUILD_BRANCH_FILE})"
 
-if [ "x" == "x${ZM_BUILD_BRANCH}" ] ; then
+if [ -z "${ZM_BUILD_BRANCH}" ]; then
   echo "ZM_BUILD_BRANCH is not defined."
   usage
   exit 1
 fi
 
-if [ "x" == "x${ZM_BUILD_GIT_DEFAULT_TAG}" ] ; then
+if [ -z "${ZM_BUILD_GIT_DEFAULT_TAG}" ]; then
   echo "ZM_BUILD_GIT_DEFAULT_TAG is not defined."
   usage
   exit 1
