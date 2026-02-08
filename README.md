@@ -151,7 +151,7 @@ docker run \
   -it \
   --env ZIMBRA_BUILDER_UID=$(id -u) \
   --env ZIMBRA_BUILDER_GID=$(id -g) \
-  --env ZM_BUILD_RELEASE_NO='10.0.7' \
+  --env RELEASE_NO='10.0.7' \
   --env PIMBRA_ENABLED='false' \
   -v ~/.ssh:/home/build/.ssh:ro \
   -v $(pwd):/usr/local/zimbra-foss-builder:ro \
@@ -180,9 +180,9 @@ docker run \
   -it \
   --env ZIMBRA_BUILDER_UID=$(id -u) \
   --env ZIMBRA_BUILDER_GID=$(id -g) \
-  --env ZM_BUILD_RELEASE_NO='10.0.7' \
+  --env RELEASE_NO='10.0.7' \
   --env PIMBRA_ENABLED='false' \
-  --env ZM_BUILDER_ID='431' \
+  --env BUILDER_ID='431' \
   -v ~/.ssh:/home/build/.ssh:ro \
   -v $(pwd):/usr/local/zimbra-foss-builder:ro \
   -v $(pwd)/BUILDS:/home/build/installer-build/BUILDS:rw \
@@ -241,9 +241,9 @@ docker run \
   -it \
   --env ZIMBRA_BUILDER_UID=$(id -u) \
   --env ZIMBRA_BUILDER_GID=$(id -g) \
-  --env ZM_BUILD_RELEASE_NO='10.0.7' \
-  --env ZM_BUILD_BRANCH='10.0.6' \
-  --env ZM_BUILD_GIT_DEFAULT_TAG='10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0' \
+  --env RELEASE_NO='10.0.7' \
+  --env BUILD_BRANCH='10.0.6' \
+  --env GIT_DEFAULT_TAG='10.0.7,10.0.6,10.0.5,10.0.4,10.0.3,10.0.2,10.0.1,10.0.0-GA,10.0.0' \
   --env PIMBRA_ENABLED='false' \
   -v ~/.ssh:/home/build/.ssh:ro \
   -v $(pwd):/usr/local/zimbra-foss-builder:ro \
