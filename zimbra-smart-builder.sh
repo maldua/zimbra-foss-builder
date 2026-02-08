@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MALDUA_ZIMBRA_TAG_HELPER_TAG="v0.0.4"
+MALDUA_ZIMBRA_TAG_HELPER_TAG="v0.0.5"
 
 function usage {
   cat << EOF
