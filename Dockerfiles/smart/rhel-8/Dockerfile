@@ -2,8 +2,8 @@ FROM centos:8
 
 ARG ZIMBRA_BUILDER_UID
 ARG ZIMBRA_BUILDER_GID
-ARG ZM_BUILD_RELEASE_NO
-ARG ZM_BUILDER_ID
+ARG RELEASE_NO
+ARG BUILDER_ID
 ARG PIMBRA_ENABLED
 
 # Some ideas were taken from: https://github.com/Zimbra/zm-base-os
@@ -41,7 +41,4 @@ RUN groupadd --gid ${ZIMBRA_BUILDER_GID} build \
 
 USER build
 WORKDIR /home/build
-CMD /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh \
-      --release-no "${ZM_BUILD_RELEASE_NO}" \
-      ${ZM_BUILDER_ID:+--builder-id "${ZM_BUILDER_ID}"} \
-      "$( [ "${PIMBRA_ENABLED}" = "true" ] && echo '--pimbra-enabled' )"
+CMD ["/usr/local/zimbra-foss-builder/zimbra-smart-builder.sh"]
