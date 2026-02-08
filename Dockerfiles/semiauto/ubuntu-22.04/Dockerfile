@@ -2,9 +2,9 @@ FROM ubuntu:22.04
 
 ARG ZIMBRA_BUILDER_UID
 ARG ZIMBRA_BUILDER_GID
-ARG ZM_BUILD_RELEASE_NO
-ARG ZM_BUILD_BRANCH
-ARG ZM_BUILD_GIT_DEFAULT_TAG
+ARG RELEASE_NO
+ARG BUILD_BRANCH
+ARG GIT_DEFAULT_TAG
 ARG PIMBRA_ENABLED
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -44,9 +44,4 @@ RUN groupadd --gid ${ZIMBRA_BUILDER_GID} build \
 
 USER build
 WORKDIR /home/build
-CMD ["/usr/local/zimbra-foss-builder/zimbra-builder.sh", \
-     "--release-no", "${ZM_BUILD_RELEASE_NO}", \
-     "--build-branch", "${ZM_BUILD_BRANCH}", \
-     "--git-default-tag", "${ZM_BUILD_GIT_DEFAULT_TAG}", \
-     "$( [ \"${PIMBRA_ENABLED}\" = \"true\" ] && echo '--pimbra-enabled' )" \
-]
+CMD ["/usr/local/zimbra-foss-builder/zimbra-builder.sh"]
