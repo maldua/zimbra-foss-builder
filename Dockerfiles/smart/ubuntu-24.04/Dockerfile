@@ -6,6 +6,10 @@ ARG ZM_BUILD_RELEASE_NO
 ARG ZM_BUILDER_ID
 ARG PIMBRA_ENABLED
 
+ENV RELEASE_NO=${ZM_BUILD_RELEASE_NO}
+ENV BUILDER_ID=${ZM_BUILDER_ID}
+ENV PIMBRA_ENABLED=${PIMBRA_ENABLED}
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Some ideas were taken from: https://github.com/Zimbra/zm-base-os
@@ -46,7 +50,4 @@ RUN \
 
 USER build
 WORKDIR /home/build
-CMD /usr/local/zimbra-foss-builder/zimbra-smart-builder.sh \
-      --release-no "${ZM_BUILD_RELEASE_NO}" \
-      ${ZM_BUILDER_ID:+--builder-id "${ZM_BUILDER_ID}"} \
-      "$( [ "${PIMBRA_ENABLED}" = "true" ] && echo '--pimbra-enabled' )"
+CMD ["/usr/local/zimbra-foss-builder/zimbra-smart-builder.sh"]
