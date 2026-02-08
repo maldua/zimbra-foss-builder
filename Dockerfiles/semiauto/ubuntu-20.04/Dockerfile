@@ -7,6 +7,11 @@ ARG ZM_BUILD_BRANCH
 ARG ZM_BUILD_GIT_DEFAULT_TAG
 ARG PIMBRA_ENABLED
 
+ENV RELEASE_NO=${ZM_BUILD_RELEASE_NO}
+ENV BUILD_BRANCH=${ZM_BUILD_BRANCH}
+ENV GIT_DEFAULT_TAG=${ZM_BUILD_GIT_DEFAULT_TAG}
+ENV PIMBRA_ENABLED=${PIMBRA_ENABLED}
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Some ideas were taken from: https://github.com/Zimbra/zm-base-os
@@ -45,9 +50,4 @@ RUN groupadd --gid ${ZIMBRA_BUILDER_GID} build \
 
 USER build
 WORKDIR /home/build
-CMD ["/usr/local/zimbra-foss-builder/zimbra-builder.sh", \
-     "--release-no", "${ZM_BUILD_RELEASE_NO}", \
-     "--build-branch", "${ZM_BUILD_BRANCH}", \
-     "--git-default-tag", "${ZM_BUILD_GIT_DEFAULT_TAG}", \
-     "$( [ \"${PIMBRA_ENABLED}\" = \"true\" ] && echo '--pimbra-enabled' )" \
-]
+CMD ["/usr/local/zimbra-foss-builder/zimbra-builder.sh"]
