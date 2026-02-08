@@ -41,7 +41,7 @@ function getGitDefaultTag {
   git clone https://github.com/maldua/zimbra-tag-helper
   cd zimbra-tag-helper
   git checkout ${MALDUA_ZIMBRA_TAG_HELPER_TAG}
-  ./zm-build-tags-arguments.sh ${_VERSION} ${_PIMBRA_ARG} > ../${_FILE}
+  ./zm-build-tags-arguments.sh --tag ${_VERSION} ${_PIMBRA_ARG} > ../${_FILE}
   cd ..
 }
 
