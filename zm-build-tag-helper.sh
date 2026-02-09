@@ -3,17 +3,21 @@
 usage() {
   cat << EOF
 Usage:
-  $0 --git-default-tag <tags> --zm-build-branch-file <file>
+  $0 --git-default-tag <tags> --zm-build-branch-file <file> [--verbose]
 
 Options:
   --git-default-tag        Comma-separated list of git tags to search (required)
   --zm-build-branch-file   Output file to write the found branch/tag (required)
+  --verbose                Show more information
   -h, --help               Show this help message
 
-Example:
+Examples:
   $0 --git-default-tag '10.0.2,10.0.1,10.0.0-GA,10.0.0' --zm-build-branch-file zm-build-branch.txt
+  $0 --verbose --git-default-tag '10.0.2,10.0.1,10.0.0-GA,10.0.0' --zm-build-branch-file zm-build-branch.txt
 EOF
 }
+
+GIT_QUIET="--quiet"
 
 # Parse arguments
 while [[ $# -gt 0 ]]; do
@@ -25,6 +29,10 @@ while [[ $# -gt 0 ]]; do
     --zm-build-branch-file)
       ZM_BUILD_BRANCH_FILE="$2"
       shift 2
+      ;;
+    --verbose)
+      GIT_QUIET=""
+      shift
       ;;
     -h|--help)
       usage
@@ -46,14 +54,15 @@ if [[ -z "$ZM_BUILD_GIT_DEFAULT_TAG" || -z "$ZM_BUILD_BRANCH_FILE" ]]; then
 fi
 
 # Clone repo
-git clone https://github.com/Zimbra/zm-build zm-build-find-branch
+git clone ${GIT_QUIET} https://github.com/Zimbra/zm-build zm-build-find-branch
 cd zm-build-find-branch
 
 found_version=""
 OLD_IFS="$IFS"
 IFS=","
 for ntag in ${ZM_BUILD_GIT_DEFAULT_TAG} ; do
-    if [ $(git tag -l "$ntag") ]; then
+    if [ "$(git tag -l "$ntag")" ]; then
+        git checkout ${GIT_QUIET} "$ntag"
         found_version="$ntag"
         break
     fi
