@@ -144,6 +144,8 @@ function get_build_no() {
 
   if [[ "${_ZM_BUILD_RELEASE_NO_WITH_PATCH}" =~ ^.*.[pP].*$ ]] ; then
     _PATCH_LEVEL_STR="${_ZM_BUILD_RELEASE_NO_WITH_PATCH##*.[pP]}"
+    # Strip anything after the numeric patch level (e.g. "2.beta" -> "2")
+    _PATCH_LEVEL_STR="${_PATCH_LEVEL_STR%%[^0-9]*}"
   fi
 
   if [ "x" == "x${_PATCH_LEVEL_STR}" ] ; then
