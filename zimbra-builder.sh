@@ -6,6 +6,7 @@ ZM_BUILD_BRANCH="${BUILD_BRANCH:-}"
 ZM_BUILD_GIT_DEFAULT_TAG="${GIT_DEFAULT_TAG:-}"
 ZM_BUILDER_ID_ARG="${BUILDER_ID:-430}"
 ZM_BUILD_PIMBRA_ENABLED="${PIMBRA_ENABLED:-false}"
+VERBOSE="${VERBOSE:-false}"
 
 SCRIPT_NAME="$(basename "$0")"
 
@@ -18,6 +19,7 @@ Usage:
     --git-default-tag <tag> \\
     [--builder-id <id>] \\
     [--pimbra-enabled] \\
+    [--verbose] \\
     [-h|--help]
 
 Environment variables (can be overridden by switches):
@@ -26,6 +28,7 @@ Environment variables (can be overridden by switches):
   GIT_DEFAULT_TAG       Default Git tag for the build
   BUILDER_ID            Numeric builder ID (100–999). Default: 430
   PIMBRA_ENABLED        Enable Pimbra build (true/false)
+  VERBOSE               Enable verbose output (true/false)
 
 Required options:
   --release-no           Zimbra release number (e.g. 10.0.7.p39, 10.1.0.beta1)
@@ -35,10 +38,12 @@ Required options:
 Optional options:
   --builder-id           Numeric builder ID (100–999). Default: ${ZM_BUILDER_ID_ARG}
   --pimbra-enabled       Enable Pimbra build (uses maldua-pimbra repo)
+  --verbose              Enable verbose output
   -h, --help              Show this help and exit
 
 Examples:
   ${SCRIPT_NAME} --release-no 10.1.9 --build-branch 10.1.8 --git-default-tag 10.1.9,10.1.8,10.1.7,10.1.6,10.1.5,10.1.4,10.1.3,10.1.2,10.1.1,10.1.0
+  ${SCRIPT_NAME} --verbose --release-no 10.1.9 --build-branch 10.1.8 --git-default-tag 10.1.9,10.1.8,10.1.7,10.1.6,10.1.5,10.1.4,10.1.3,10.1.2,10.1.1,10.1.0
   ${SCRIPT_NAME} --release-no 10.1.13 --build-branch 10.1.13 --git-default-tag 10.1.13,10.1.12,10.1.10,10.1.9,10.1.8,10.1.7,10.1.6,10.1.5,10.1.4,10.1.3,10.1.2,10.1.1,10.1.0 --builder-id 450
   ${SCRIPT_NAME} --release-no 10.1.15.p1 --build-branch 10.1.14 --git-default-tag 10.1.15.p1,10.1.15,10.1.14,10.1.13,10.1.12,10.1.10,10.1.9,10.1.8,10.1.7,10.1.6,10.1.5,10.1.4,10.1.3,10.1.2,10.1.1,10.1.0 --pimbra-enabled
 EOF
@@ -46,7 +51,7 @@ EOF
 
 # Parse arguments using getopt (long options)
 TEMP=$(getopt -o 'h' \
-    --long release-no:,build-branch:,git-default-tag:,builder-id:,pimbra-enabled,help \
+    --long release-no:,build-branch:,git-default-tag:,builder-id:,pimbra-enabled,verbose,help \
     -n "${SCRIPT_NAME}" -- "$@")
 
 if [ $? != 0 ] ; then
@@ -69,6 +74,8 @@ while true; do
       ZM_BUILDER_ID_ARG="$2"; shift 2 ;;
     --pimbra-enabled)
       ZM_BUILD_PIMBRA_ENABLED=true; shift ;;
+    --verbose)
+      VERBOSE=true; shift ;;
     -h|--help)
       usage
       exit 0 ;;
@@ -157,6 +164,11 @@ function get_build_no() {
 
 }
 
+GIT_QUIET_FLAG="--quiet"
+if [ "${VERBOSE}" = true ] ; then
+  GIT_QUIET_FLAG=""
+fi
+
 BUILD_RELEASE_CANDIDATE="$(get_build_release_candidate ${ZM_BUILD_RELEASE_NO_WITH_PATCH})"
 
 ZM_BUILD_RELEASE_NO_TMP1="${ZM_BUILD_RELEASE_NO_WITH_PATCH%.[pP]*}"
@@ -172,12 +184,12 @@ fi
 cd installer-build
 
 cat << EOF > BUILDS/zimbra-builder-commands.txt
-git clone --depth 1 --branch ${ZM_BUILD_BRANCH} ${ZM_BUILD_REPO_URL}
+git clone ${GIT_QUIET_FLAG} --depth 1 --branch ${ZM_BUILD_BRANCH} ${ZM_BUILD_REPO_URL}
 cd zm-build
 ENV_CACHE_CLEAR_FLAG=true ./build.pl --ant-options -DskipTests=true --git-default-tag=${ZM_BUILD_GIT_DEFAULT_TAG} --build-release-no=${ZM_BUILD_RELEASE_NO} --build-type=FOSS --build-release=LIBERTY --build-release-candidate=${BUILD_RELEASE_CANDIDATE} --build-no ${BUILD_NO} --build-thirdparty-server=files.zimbra.com --no-interactive
 EOF
 
-git clone --depth 1 --branch ${ZM_BUILD_BRANCH} ${ZM_BUILD_REPO_URL}
+git clone ${GIT_QUIET_FLAG} --depth 1 --branch ${ZM_BUILD_BRANCH} ${ZM_BUILD_REPO_URL}
 cd zm-build
 
 if [ "${ZM_BUILD_PIMBRA_ENABLED}" = true ] ; then
