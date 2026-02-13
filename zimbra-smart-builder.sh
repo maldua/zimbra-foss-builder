@@ -113,7 +113,21 @@ getGitDefaultTag ${ZM_BUILD_RELEASE_NO} ${ZM_BUILD_GIT_DEFAULT_TAG_FILE} ${PIMBR
 ZM_BUILD_GIT_DEFAULT_TAG="$(cat ${ZM_BUILD_GIT_DEFAULT_TAG_FILE})"
 
 ZM_BUILD_BRANCH_FILE="zm-build-branch.txt"
-/usr/local/zimbra-foss-builder/zm-build-tag-helper.sh --git-default-tag "${ZM_BUILD_GIT_DEFAULT_TAG}" --zm-build-branch-file "${ZM_BUILD_BRANCH_FILE}"
+
+# --- Start ZM_BUILD_TAG_HELPER_CMD array (definition + execution) ---
+ZM_BUILD_TAG_HELPER_CMD=(
+  /usr/local/zimbra-foss-builder/zm-build-tag-helper.sh
+  --git-default-tag "${ZM_BUILD_GIT_DEFAULT_TAG}"
+  --zm-build-branch-file "${ZM_BUILD_BRANCH_FILE}"
+)
+
+if [ "${PIMBRA_ENABLED}" = true ]; then
+  ZM_BUILD_TAG_HELPER_CMD+=(--pimbra-enabled)
+fi
+
+"${ZM_BUILD_TAG_HELPER_CMD[@]}"
+# --- End ZM_BUILD_TAG_HELPER_CMD array ---
+
 ZM_BUILD_BRANCH="$(cat ${ZM_BUILD_BRANCH_FILE})"
 
 if [ -z "${ZM_BUILD_BRANCH}" ]; then
@@ -126,6 +140,7 @@ if [ -z "${ZM_BUILD_GIT_DEFAULT_TAG}" ]; then
   exit 2
 fi
 
+# --- Start ZIMBRA_BUILDER_CMD array (definition + execution) ---
 ZIMBRA_BUILDER_CMD=(
   /usr/local/zimbra-foss-builder/zimbra-builder.sh
   --release-no "${ZM_BUILD_RELEASE_NO}"
@@ -146,3 +161,4 @@ if [ "${VERBOSE}" = true ]; then
 fi
 
 "${ZIMBRA_BUILDER_CMD[@]}"
+# --- End ZIMBRA_BUILDER_CMD array ---
